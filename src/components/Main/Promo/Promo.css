@@ -2,8 +2,6 @@
     width: 100%;
     background-color: #073042;
     box-sizing: border-box;
-    /* padding-left: 70px; */
-    /* padding-right: 70px; */
     text-align: center;
 }
 
@@ -16,7 +14,6 @@
     padding-top: 184px;
     display: flex;
     position: relative;
-    /* align-items: center; */
 }
 
 .promo__image {

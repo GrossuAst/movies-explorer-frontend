@@ -1,0 +1,129 @@
+.about-project {
+    width: 100%;
+    height: 608px;
+    background-color: #202020;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 111px;
+}
+
+.about-project__wrapper {
+    /* height: 608px; */
+    max-width: 1140px;
+    color: #FFF;
+    margin: 0 auto 0 auto;
+}
+
+.about-project__title {
+    box-sizing: border-box;
+    padding-bottom: 23px;
+    margin: 0;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.about-project__list {
+    box-sizing: border-box;
+    padding-top: 70px;
+    padding-left: 0;
+    margin: 0 0 110px 0;
+    list-style-type: none;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.about-project__list-element {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.about-project__subtitle {
+    margin: 0;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px;
+}
+
+.about-project__description {
+    margin: 0;
+    max-width: 550px;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* ____________________________________ */
+
+.about-project__timing {
+    display: flex;
+}
+
+.about-project__backend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 228px;
+    width: 100%;
+    text-align: center;
+}
+
+.about-project__backend-chart {
+    line-height: 36px;
+    background-color: #3DDC84;
+    height: 36px;
+    max-width: 228px;
+    color: #000;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.about-project__frontend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.about-project__duration {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.about-project__frontend-chart {
+    line-height: 36px;
+    background-color: #303030;
+    height: 36px;
+    max-width: 912px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.about-project__chart-info {
+    margin: 0;
+    color: #8B8B8B;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+}
