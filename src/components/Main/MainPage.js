@@ -1,4 +1,4 @@
-import './Main.css';
+import './MainPage.css';
 import Promo from './Promo/Promo';
 import NavTab from './NavTab/NavTab';
 import AboutProject from './AboutProject/AboutProject';
@@ -6,7 +6,7 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 
-function Main() {
+function MainPage() {
   return (
     <main>
         <Promo></Promo>
@@ -19,4 +19,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default MainPage;
