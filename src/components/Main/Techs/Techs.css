@@ -4,6 +4,8 @@
     color: #FFF;
     box-sizing: border-box;
     padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .technologies__wrapper {

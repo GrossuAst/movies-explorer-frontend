@@ -2,13 +2,15 @@
     width: 100%;
     background-color: #202020;
     color: #FFF;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .portfolio__wrapper {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    /* padding-top: 110px; */
     padding-bottom: 100px;
     max-width: 1140px;
     margin: 0 auto 0 auto;
