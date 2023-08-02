@@ -3,27 +3,32 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 // import { useNavigate } from "react-router-dom";
 
 import './App.css';
-// import Header from '../Header/Header';
 import MainPage from '../Main/MainPage';
-// import Footer from '../Footer/Footer';
-
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   return (
     <>
-      {/* <Header></Header> */}
       <Routes>
+        {/* главная страница */}
         <Route path='/' element={<MainPage />} />
-        {/* для всех роутов сверстать их компоненты и указать их в element */}
+
+        {/* страница с фильмами */}
         <Route path='/movies' />
+
+        {/* страница с сохраненными фильмами */}
         <Route path='/saved-movies' />
+
+        {/* страница профиля */}
         <Route path='/profile' />
-        <Route path='/signin' />
+
+        {/* страница логина */}
+        <Route path='/signin' element={<Login/>}/>
+
+        {/* страница регистрации */}
         <Route path='/signup' element={<Register/>}/>
       </Routes>
-      
-      {/* <Footer></Footer> */}
     </>
   );
 }

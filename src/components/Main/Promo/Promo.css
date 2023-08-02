@@ -16,12 +16,26 @@
     position: relative;
 }
 
+@media screen and (max-width: 865px) {
+    .promo__wrapper {
+        height: 784px;
+        max-width: 668px;
+        padding-top: 326px;
+    }
+}
+
 .promo__image {
     position: absolute;
     z-index: 0;
     top: 242px;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 865px) {
+    .promo__image {
+        top: 384px;
+    }
 }
 
 .promo__title {

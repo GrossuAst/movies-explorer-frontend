@@ -9,6 +9,13 @@
     padding-right: 70px;
 }
 
+@media screen and (max-width: 865px) {
+    .header {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
 .header_type_form-page {
     background-color: #202020;
     height: 217px;
@@ -21,6 +28,13 @@
     width: 100%;
     margin: 0 auto 0 auto;
     justify-content: space-between;
+}
+
+@media screen and (max-width: 865px) {
+    .header__wrapper {
+        /* max-width: 768px; */
+        box-sizing: border-box;
+    }
 }
 
 .header__wrapper_type_form-page {
