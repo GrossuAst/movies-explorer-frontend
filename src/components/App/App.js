@@ -3,14 +3,16 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 // import { useNavigate } from "react-router-dom";
 
 import './App.css';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import MainPage from '../Main/MainPage';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
+
+import Register from '../Register/Register';
 
 function App() {
   return (
     <>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Routes>
         <Route path='/' element={<MainPage />} />
         {/* для всех роутов сверстать их компоненты и указать их в element */}
@@ -18,10 +20,10 @@ function App() {
         <Route path='/saved-movies' />
         <Route path='/profile' />
         <Route path='/signin' />
-        <Route path='/signup' />
+        <Route path='/signup' element={<Register/>}/>
       </Routes>
       
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 }

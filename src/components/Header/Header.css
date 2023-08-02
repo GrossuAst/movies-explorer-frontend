@@ -9,6 +9,11 @@
     padding-right: 70px;
 }
 
+.header_type_form-page {
+    background-color: #202020;
+    height: 217px;
+}
+
 .header__wrapper {
     display: flex;
     align-items: center;
@@ -18,15 +23,28 @@
     justify-content: space-between;
 }
 
+.header__wrapper_type_form-page {
+    box-sizing: border-box;
+    padding-top: 70px;
+    padding-bottom: 40px;
+    display: flex;
+    height: 217px;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 396px;
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+
 .header__buttons {
     display: flex;
+    height: 32px;
     gap: 30px;
-    align-items: center;
 }
 
 .header__signup-button {
     width: 77px;
-    height: 16px;
+    height: 32px;
     background-color: #073042;
     color: #FFF;
     font-family: Inter;
@@ -36,6 +54,7 @@
     line-height: 16px;
     padding: 0;
     border: none;
+    cursor: pointer;
 }
 
 .header__signin-button {
@@ -51,4 +70,5 @@
     line-height: 16px;
     padding: 0;
     border: none;
+    cursor: pointer;
 }

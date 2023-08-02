@@ -1,16 +1,22 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 import './Header.css';
 import Logo from '../Logo/Logo';
 import '../Logo/Logo.css'
 
-function Header() {
+function Header(props) {
+
+  const headerClasses = `header ${props.headerMixin || ''}`
+  const wrapperClasses = `header__wrapper ${props.wrapperMixin || ''}`
+
   return (
-    <header className='header'>
-      <div className='header__wrapper'>
-        <Logo className='header__logo'></Logo>
-        <div className='header__buttons'>
-          <button className='header__signup-button'>Регистрация</button>
-          <button className='header__signin-button'>Войти</button>
-        </div>
+    <header className={headerClasses}>
+      <div className={wrapperClasses}>
+        <Link to='/'>
+          <Logo className='header__logo'></Logo>
+        </Link>
+        {props.children}
       </div>
     </header>
   );
