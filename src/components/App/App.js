@@ -7,6 +7,7 @@ import MainPage from '../Main/MainPage';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path='/movies' element={<Movies/>}/>
 
         {/* страница с сохраненными фильмами */}
-        <Route path='/saved-movies' />
+        <Route path='/saved-movies' element={<SavedMovies />}/>
 
         {/* страница профиля */}
         <Route path='/profile' />

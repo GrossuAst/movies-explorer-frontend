@@ -1,5 +1,6 @@
 .movie-block {
     box-sizing: border-box;
+    min-height: 593px;
 }
 
 .movie-block__wrapper {

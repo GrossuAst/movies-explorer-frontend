@@ -75,6 +75,11 @@
     line-height: 18px;
 }
 
+.header__nav-link_active {
+    /* border-bottom: 2px solid #000000; */
+    /* color: red; */
+}
+
 .header__account-button {
     /* text-decoration: none; */
     cursor: pointer;
@@ -143,6 +148,10 @@
     cursor: pointer;
 }
 
+.header__signup-button:hover {
+    opacity: 0.8;
+}
+
 .header__signin-button {
     width: 76px;
     height: 32px;
@@ -157,4 +166,8 @@
     padding: 0;
     border: none;
     cursor: pointer;
+}
+
+.header__signin-button:hover {
+    opacity: 0.8;
 }

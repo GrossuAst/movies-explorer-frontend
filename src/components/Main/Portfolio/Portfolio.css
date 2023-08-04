@@ -75,6 +75,10 @@
     text-decoration: none;
 }
 
+.portfolio__link:hover {
+    opacity: 0.7;
+}
+
 @media screen and (max-width: 865px) {
     .portfolio__link {
         font-size: 28px;
@@ -85,4 +89,8 @@
     display: block;
     margin: 18px 5px 0 0;
     height: 18px;
+}
+
+.portfolio__link-img:hover {
+    opacity: 0.7;
 }

@@ -125,6 +125,10 @@
     line-height: normal;
 }
 
+.about-me__github:hover {
+    opacity: 0.7;
+}
+
 @media screen and (max-width: 865px) {
     .about-me__github {
         margin-top: 107px;

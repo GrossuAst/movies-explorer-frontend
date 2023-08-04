@@ -13,7 +13,7 @@ function MovieCardList() {
                 <li className='movie-block__card'>
                     <MovieCard/>
                 </li>
-                <li className='movie-block__card'>
+                {/* <li className='movie-block__card'>
                     <MovieCard/>
                 </li>
                 <li className='movie-block__card'>
@@ -42,7 +42,7 @@ function MovieCardList() {
                 </li>
                 <li className='movie-block__card'>
                     <MovieCard/>
-                </li>
+                </li> */}
             </ul>
           </div>
         </section>

@@ -8,8 +8,8 @@ function Portfolio() {
             <h2 className='portfolio__title'>Портфолио</h2>
             <ul className='portfolio__link-list'>
                 <li className='portfolio__bullet'>
-                    <a href='qwer' className='portfolio__link' target='_blank' rel="noreferrer">Статичный сайт</a>
-                    <a href='qwer' className='portfolio__link-img' target='_blank' rel="noreferrer">
+                    <a href='https://grossuast.github.io/how-to-learn/' className='portfolio__link' target='_blank' rel="noreferrer">Статичный сайт</a>
+                    <a href='https://grossuast.github.io/how-to-learn/' className='portfolio__link-img' target='_blank' rel="noreferrer">
                         <img alt='Логотип ссылки' src={linkLogo}></img>
                     </a>
                 </li>
