@@ -114,3 +114,32 @@
     font-weight: 400;
     line-height: normal;
 }
+
+/* __________кнопка "еще"__________ */
+
+.expand-button {
+    margin-top: 60px;
+    margin-bottom: 75px;
+}
+
+.expand-button__wrapper {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.expand-button__button {
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+    background: #2F2F2F;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

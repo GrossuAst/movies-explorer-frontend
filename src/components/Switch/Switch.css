@@ -1,0 +1,36 @@
+.wrap input[type='checkbox'] {
+    display: none;
+}
+
+.wrap__slider {
+    position: relative; 
+    display: block;
+    width: 36px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 1.5em;
+    transition: 350ms;
+    background: #EBEBEB;
+}
+  
+  /* переключатель выключен */
+.wrap__slider:after {
+    position: absolute; 
+    content:'';
+    width: 16px; 
+    height: 16px;
+    top: 2px; 
+    left: 2px;
+    border-radius: 50%;
+    transition: 250ms ease-in-out;
+    background: #F5F5F5;
+}
+
+input:checked + .wrap__slider {
+    background-color: #2BE080;
+}
+  
+input:checked + .wrap__slider::after {
+    background-color: #FFFFFF;
+    left: 18px;
+}

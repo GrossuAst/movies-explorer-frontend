@@ -1,0 +1,19 @@
+.main {
+    box-sizing: border-box;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+@media screen and (max-width: 865px) {
+    .main {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 927px) {
+    .main {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}

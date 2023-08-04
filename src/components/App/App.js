@@ -6,6 +6,7 @@ import './App.css';
 import MainPage from '../Main/MainPage';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Movies from '../Movies/Movies';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path='/' element={<MainPage />} />
 
         {/* страница с фильмами */}
-        <Route path='/movies' />
+        <Route path='/movies' element={<Movies/>}/>
 
         {/* страница с сохраненными фильмами */}
         <Route path='/saved-movies' />

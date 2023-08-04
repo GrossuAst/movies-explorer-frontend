@@ -1,5 +1,5 @@
 import './Promo.css';
-import PromoLogo from '../../../images/promo-logo.svg';
+import PromoLogo from '../../../images/promo-logo-min.svg';
 
 function Promo() {
   return (
