@@ -1,0 +1,80 @@
+.header__nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.header__nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header__nav-link {
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: #202020;
+    color: #FFF;
+    text-align: right;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.header__nav-link_type_logged-in {
+    background-color: #073042;
+}
+
+.header__account-button {
+    cursor: pointer;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    border: none;
+    border-radius: 40px;
+    box-sizing: border-box;
+    padding: 0 0 0 11px;
+    border-radius: 40px;
+    background: #202020;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    width: 100px;
+    height: 32px;
+}
+
+.header__account-button_type_logged-in {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 16px;
+    width: 110px;
+    height: 36px;
+    border-radius: 20px;
+    background: #073042;
+    border: 2px solid #F5F5F5;
+    margin-left: 41px;
+}
+
+.header__account-logo {
+    height: 26px;
+    width: 26px;
+    background: url('../../../images/account-logo-min.svg') no-repeat center #313131;
+    border-radius: 50%;
+}
+
+.header__account-logo_type_logged-in {
+    height: 26px;
+    width: 26px;
+    background: url('../../../images/logged-in-icon-min.svg') no-repeat center #073042;
+    border-radius: 50%;
+}

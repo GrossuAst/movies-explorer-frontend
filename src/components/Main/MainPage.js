@@ -1,7 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './MainPage.css';
 import Header from '../Header/Header';
+import HeaderLoginButtons from '../Header/HeaderLoginButtons/HeaderLoginButtons';
+import HeaderNavigate from '../Header/HeaderNavigate/HeaderNavigate';
 import Footer from '../Footer/Footer';
 import Promo from './Promo/Promo';
 import NavTab from './NavTab/NavTab';
@@ -10,18 +13,12 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 
-function MainPage() {
+function MainPage({isLoggedIn}) {
   return (
     <>
       <Header>
-        <div className='header__buttons'>
-          <Link to='/signup'>
-            <button className='header__signup-button'>Регистрация</button>
-          </Link>
-          <Link to='/signin'>
-            <button className='header__signin-button'>Войти</button>
-          </Link>
-        </div>
+        {/* в зависимости от стейта, header рендерит разное содержимое */}
+        { isLoggedIn ? <HeaderNavigate /> : <HeaderLoginButtons /> }
       </Header>
       <main>
           <Promo></Promo>

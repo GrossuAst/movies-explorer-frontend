@@ -56,6 +56,10 @@
     line-height: normal;
 }
 
+.form-page__input_error {
+    color: #EE3465;
+}
+
 .form-page__input:focus {
     outline: none;
 }

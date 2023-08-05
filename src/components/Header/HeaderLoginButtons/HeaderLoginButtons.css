@@ -1,0 +1,44 @@
+.header__buttons {
+    display: flex;
+    height: 32px;
+    gap: 30px;
+}
+
+.header__signup-button {
+    width: 77px;
+    height: 32px;
+    background-color: #073042;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.header__signup-button:hover {
+    opacity: 0.8;
+}
+
+.header__signin-button {
+    width: 76px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: #3DDC84;
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.header__signin-button:hover {
+    opacity: 0.8;
+}

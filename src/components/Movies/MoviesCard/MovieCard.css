@@ -14,6 +14,8 @@
 .card__image {
     width: 364px;
     height: 203px;
+    object-fit: cover;
+    display: block;
 }
 
 .card__descriprion {
@@ -47,9 +49,9 @@
     display: inline-block;
     height: 30px;
     width: 30px;
-    background: url('../../../images/card-like.svg');
+    background: url('../../../images/card-like-min.svg');
 }
 
 .card__like_active {
-    background: url('../../../images/card-like-active.svg');
+    background: url('../../../images/card-like-active-min.svg');
 }

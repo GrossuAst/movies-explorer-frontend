@@ -13,36 +13,6 @@ function MovieCardList() {
                 <li className='movie-block__card'>
                     <MovieCard/>
                 </li>
-                {/* <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li>
-                <li className='movie-block__card'>
-                    <MovieCard/>
-                </li> */}
             </ul>
           </div>
         </section>

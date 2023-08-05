@@ -26,6 +26,11 @@
     height: 74px;
 }
 
+.header_type_profile {
+    background-color: #202020;
+    height: 74px;
+}
+
 .header__wrapper {
     display: flex;
     align-items: center;
@@ -46,7 +51,11 @@
     gap: 44px;
 }
 
-.header__nav {
+.header__wrapper_type_profile {
+    gap: 44px;
+}
+
+/* .header__nav {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -73,15 +82,14 @@
     font-style: normal;
     font-weight: 500;
     line-height: 18px;
-}
+} */
 
-.header__nav-link_active {
+/* .header__nav-link_active { */
     /* border-bottom: 2px solid #000000; */
     /* color: red; */
-}
+/* } */
 
-.header__account-button {
-    /* text-decoration: none; */
+/* .header__account-button {
     cursor: pointer;
     display: flex;
     gap: 7px;
@@ -101,14 +109,14 @@
     line-height: 12px;
     width: 100px;
     height: 32px;
-}
+} */
 
-.header__account-logo {
+/* .header__account-logo {
     height: 26px;
     width: 26px;
-    background: url('../../images/account-logo.svg') no-repeat center #313131;
+    background: url('../../images/account-logo-min.svg') no-repeat center #313131;
     border-radius: 50%;
-}
+} */
 
 .header__wrapper_type_movies {
 
@@ -127,7 +135,7 @@
     margin: 0 auto 0 auto;
 }
 
-.header__buttons {
+/* .header__buttons {
     display: flex;
     height: 32px;
     gap: 30px;
@@ -170,4 +178,4 @@
 
 .header__signin-button:hover {
     opacity: 0.8;
-}
+} */
