@@ -1,6 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+// массивы для теста
+import { movies, savedMovies } from '../../utils/constants';
+
 import './App.css';
 import MainPage from '../Main/MainPage';
 import Register from '../Register/Register';
@@ -26,10 +29,10 @@ function App() {
         />
 
         {/* страница с фильмами */}
-        <Route path='/movies' element={<Movies />}/>
+        <Route path='/movies' element={<Movies movies={movies} />}/>
 
         {/* страница с сохраненными фильмами */}
-        <Route path='/saved-movies' element={<SavedMovies />}/>
+        <Route path='/saved-movies' element={<SavedMovies savedMovies={savedMovies} />}/>
 
         {/* страница профиля */}
         <Route path='/profile' element={<Profile />} />

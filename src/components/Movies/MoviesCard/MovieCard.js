@@ -1,15 +1,15 @@
 import './MovieCard.css';
-import moviePromo from '../../../images/movie-pic.png'
+// import moviePromo from '../../../images/movie-pic.png'
 
-function MovieCard() {
+function MovieCard({image, duration, title}) {
   return (
     <>
         <article className='card'>
-            <img className='card__image' alt='Превью фильма' src={moviePromo}></img>
+            <img className='card__image' alt='Превью фильма' src={image}></img>
             <div className='card__descriprion'>
                 <div>
-                    <h3 className='card__title'>33 слова о дизайне</h3>
-                    <p className='card__duration'>1ч 47м</p>
+                    <h3 className='card__title'>{title}</h3>
+                    <p className='card__duration'>{duration}</p>
                 </div>
                 <div className='card__like'></div>
             </div>

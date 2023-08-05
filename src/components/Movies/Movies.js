@@ -7,7 +7,7 @@ import MovieCardList from './MoviesCardList/MovieCardList';
 import ExpandButton from './ExpandButton/ExpandButton';
 import Footer from '../Footer/Footer';
 
-function Movies() {
+function Movies({movies}) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
@@ -45,7 +45,7 @@ function Movies() {
         </Header>
         <main className='main'>
             <SearchForm></SearchForm>
-            <MovieCardList></MovieCardList>
+            <MovieCardList movies={movies}></MovieCardList>
             <ExpandButton></ExpandButton>
         </main>
         <Footer></Footer>

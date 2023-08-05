@@ -6,7 +6,7 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
 
-function SavedMovies() {
+function SavedMovies({savedMovies}) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
@@ -45,7 +45,7 @@ function SavedMovies() {
         </Header>
         <main className='main'>
             <SearchForm></SearchForm>
-            <MovieCardList></MovieCardList>
+            <MovieCardList savedMovies={savedMovies}></MovieCardList>
         </main>
         <Footer></Footer>
     </>
