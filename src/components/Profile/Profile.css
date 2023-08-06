@@ -17,6 +17,9 @@
     font-weight: 500;
     line-height: normal;
     margin: 74px 0 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .profile__info-container {
@@ -49,6 +52,23 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.profile__user-input {
+    outline: none;
+    padding: 0;
+    background-color: #202020;
+    border: none;
+    color: #FFF;
+    text-align: right;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .profile__control {

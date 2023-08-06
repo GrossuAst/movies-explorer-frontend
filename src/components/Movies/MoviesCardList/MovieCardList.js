@@ -12,6 +12,8 @@ function MovieCardList({movies, savedMovies}) {
         <section className='movie-block'>
           <div className='movie-block__wrapper'>
             <ul className='movie-block__list'>
+
+              {/* в зависимости от адреса movies/saved-movies рендерит соответствующий массив */}
               { isMoviesPage ? movies.map((movie) => (
                 <li key={movie._id} className='movie-block__card'>
                   <MovieCard
@@ -21,7 +23,7 @@ function MovieCardList({movies, savedMovies}) {
                   />
                 </li>
               )) 
-              : 
+              :
               savedMovies.map((movie) => (
                 <li key={movie._id} className='movie-block__card'>
                   <MovieCard

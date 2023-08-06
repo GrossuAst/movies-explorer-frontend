@@ -11,6 +11,16 @@ function Profile() {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
 
+    // здесь будут данные с сервера
+    const [userData, setUserData] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
+    
+    // стейт для управления инпутами
+    const [isInputDisabled, setInputDisable] = React.useState(true);
+
+    function activateInput() {
+        isInputDisabled ? setInputDisable (false) : setInputDisable (true);
+    }
+
     // если стейт false, рендерится компонент редактировать/выйти из аккаунат
     // если стейт true, рендерится кнопка сохранения данных
     const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
@@ -18,6 +28,7 @@ function Profile() {
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
     function editProfile() {
         isEditProfileFormActive ? setEditProfileFormActive(false) : setEditProfileFormActive(true);
+        activateInput();
     }
 
   return (
@@ -52,18 +63,18 @@ function Profile() {
         <main className='main'>
             <section className='profile'>
                 <div className='profile__wrapper'>
-                    <h1 className='profile__title'>Привет, Виталий!</h1>
+                    <h1 className='profile__title'>Привет, {userData.name}!</h1>
                     <div className='profile__info-container'>
-                        <div>
+                        <form>
                             <div className='profile__info'>
                                 <p className='profile__user'>Имя</p>
-                                <p className='profile__user'>Виталий</p>
+                                <input className='profile__user-input' disabled={isInputDisabled} name='name' value={userData.name}></input>
                             </div>
                             <div className='profile__info'>
                                 <p className='profile__user'>E-mail</p>
-                                <p className='profile__user'>pochta@yandex.ru</p>
+                                <input className='profile__user-input' disabled={isInputDisabled} name='email' value={userData.email}></input>
                             </div>    
-                        </div>
+                        </form>
                     </div>
                     <div className='profile__control'>
 
