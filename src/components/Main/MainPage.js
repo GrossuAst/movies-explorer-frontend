@@ -12,6 +12,7 @@ import AboutProject from './AboutProject/AboutProject';
 import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
+import Sidebar from '../Sidebar/Sidebar';
 
 function MainPage({isLoggedIn}) {
   return (
@@ -29,6 +30,7 @@ function MainPage({isLoggedIn}) {
           <Portfolio></Portfolio>
       </main>
       <Footer></Footer>
+      <Sidebar></Sidebar>
     </>
   );
 }

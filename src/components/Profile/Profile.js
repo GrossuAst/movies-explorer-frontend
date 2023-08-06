@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import './Profile.css';
 import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
 
 function Profile() {
     const location = useLocation();
@@ -37,7 +38,8 @@ function Profile() {
             headerMixin={isProfilePage ? 'header_type_profile' : ''}
             wrapperMixin={isProfilePage ? 'header__wrapper_type_profile' : ''}
         >
-            <nav className='header__nav'>
+            <button className='header__menu' type='button'></button>
+            <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
@@ -87,7 +89,9 @@ function Profile() {
                             <>
                                 {/* Чтобы убрать ошибку, нужно удалить модификатор у <p> */}
                                 <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
-                                <button className='profile__save-button' onClick={editProfile}>Сохранить</button>
+                                
+                                {/* чтобы включить кнопку, нужно убрать модификатор */}
+                                <button className='profile__save-button profile__save-button_disabled' onClick={editProfile}>Сохранить</button>
                             </>
                         ) : 
                         (
@@ -100,6 +104,7 @@ function Profile() {
                 </div>  
             </section>
         </main>
+        <Sidebar></Sidebar>
     </>
   );
 }

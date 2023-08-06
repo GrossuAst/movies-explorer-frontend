@@ -153,10 +153,21 @@
     line-height: normal;
 }
 
+.profile__save-button:hover {
+    opacity: 0.8;
+}
+
+.profile__save-button_disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+}
+
+.profile__save-button_disabled:hover {
+    opacity: 1;
+    cursor: auto;
+}
+
 .profile__save-button_disabled {
 
 }
 
-.profile__save-button:hover {
-    opacity: 0.8;
-}

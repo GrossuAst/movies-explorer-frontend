@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
+import Sidebar from '../Sidebar/Sidebar';
 
 function SavedMovies({savedMovies}) {
     const location = useLocation();  // хук useLocation для определения адреса
@@ -19,7 +20,8 @@ function SavedMovies({savedMovies}) {
             headerMixin={isMoviesPage ? 'header_type_movies' : ''}
             wrapperMixin={isMoviesPage ? 'header__wrapper_type_movies' : ''}
         >
-            <nav className='header__nav'>
+            <button className='header__menu' type='button'></button>
+            <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
@@ -48,6 +50,7 @@ function SavedMovies({savedMovies}) {
             <MovieCardList savedMovies={savedMovies}></MovieCardList>
         </main>
         <Footer></Footer>
+        <Sidebar></Sidebar>
     </>
   );
 }

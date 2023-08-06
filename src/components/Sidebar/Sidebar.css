@@ -1,0 +1,107 @@
+.sidebar {
+    display: none;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 520px;
+    width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: #202020;
+    box-sizing: border-box;
+    padding: 27px 27px 0 0;
+    z-index: 2;
+}
+
+.sidebar_active {
+    display: flex;
+}
+
+@media screen and (min-width: 866px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+.sidebar__nav {
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 92px 0 90px 26px;
+}
+
+.sidebar__close-button {
+    cursor: pointer;
+    align-self: flex-end;
+    height: 22px;
+    width: 22px;
+    background: url('../../images/close-button-min.svg') center no-repeat;
+}
+
+.sidebar__close-button:hover {
+    opacity: 0.8;
+}
+
+.sidebar__nav-list {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.sidebar__nav-link {
+    height: 28px;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: #202020;
+    color: #FFF;
+    text-align: right;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.sidebar__nav-link:hover {
+    opacity: 0.7;
+}
+
+.sidebar__nav-link_active {
+    border-bottom: 2px solid #FFF;
+}
+
+.sidebar__nav-link_type_logged-in {
+
+}   
+
+.sidebar__account-button {
+    display: flex;
+    height: 32px;
+    width: 100px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background-color: #202020;
+    border: none;
+    padding: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    gap: 7px;
+}
+
+.sidebar__account-logo {
+    background: url('../../images/account-logo-min.svg') center no-repeat #313131;
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+}

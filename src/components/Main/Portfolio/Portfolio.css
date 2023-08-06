@@ -10,6 +10,7 @@
 
 @media screen and (max-width: 865px) {
     .portfolio {
+        padding-top: 0;
         padding-left: 50px;
         padding-right: 50px;
     }

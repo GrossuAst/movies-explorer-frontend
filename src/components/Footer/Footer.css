@@ -21,6 +21,12 @@
     margin: 0 auto 0 auto;
 }
 
+@media screen and (max-width: 865px) {
+    .footer__wrapper {
+        height: 143px;
+    }
+}
+
 .footer__title {
     box-sizing: border-box;
     padding-bottom: 20px;

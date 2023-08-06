@@ -6,6 +6,7 @@ import SearchForm from './SearchForm/SearchForm';
 import MovieCardList from './MoviesCardList/MovieCardList';
 import ExpandButton from './ExpandButton/ExpandButton';
 import Footer from '../Footer/Footer';
+import Sidebar from '../Sidebar/Sidebar';
 
 function Movies({movies}) {
     const location = useLocation();  // хук useLocation для определения адреса
@@ -20,7 +21,8 @@ function Movies({movies}) {
             headerMixin={isMoviesPage ? 'header_type_movies' : ''}
             wrapperMixin={isMoviesPage ? 'header__wrapper_type_movies' : ''}
         >
-            <nav className='header__nav'>
+            <button className='header__menu' type='button'></button>
+            <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
@@ -49,6 +51,7 @@ function Movies({movies}) {
             <ExpandButton></ExpandButton>
         </main>
         <Footer></Footer>
+        <Sidebar></Sidebar>
     </>
   );
 }

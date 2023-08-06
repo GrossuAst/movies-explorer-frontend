@@ -10,6 +10,8 @@ function HeaderNavigate () {
     return (
         <div>
             <nav className='header__nav'>
+                <button className='header__menu' type='button'></button>
+                
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
