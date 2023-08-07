@@ -37,7 +37,11 @@ function Register() {
                                 <p className='form-page__input-title'>Пароль</p>
                                 <input className='form-page__input' placeholder='Пароль' type={'password'}></input>
                             </div>
-                            <p className='form-page__error-message'></p>
+                            <div className='form-page__error-message-container'>
+                                
+                                {/* удалить модификатор для отключения ошибки */}
+                                <p className='form-page__error-message form-page__error-message_active'>Произошла ошибка</p>
+                            </div>
                             <button className='form-page__button' type='submit'>Зарегистрироваться</button>
                             <p className='form-page__question'>Уже зарегистрированы?
                                 <Link to='/signin'>

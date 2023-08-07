@@ -6,6 +6,13 @@
     margin: 0 auto;
 }
 
+@media screen and (max-width: 865px) {
+    .search-form {
+        padding-top: 80px;
+        padding-bottom: 0;
+    }
+}
+
 .search-form__wrapper {
     max-width: 1140px;
     box-sizing: border-box;
@@ -15,6 +22,12 @@
     height: 176px;
     margin: 0 auto;
     border-bottom: 1px solid #424242;
+}
+
+@media screen and (max-width: 865px) {
+    .search-form__wrapper {
+        height: 15px;
+    }
 }
 
 .search-form__form {

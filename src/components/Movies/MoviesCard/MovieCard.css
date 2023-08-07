@@ -7,6 +7,13 @@
     flex-direction: column;
 }
 
+@media screen and (max-width: 865px) {
+    .card {
+        width: 339px;
+        height: 262px;
+    }
+}
+
 .card:nth-child(n+3) {
     margin-top: 20px;
 }
@@ -19,6 +26,13 @@
     object-fit: contain;
     object-fit: cover;
     display: block;
+}
+
+@media screen and (max-width: 865px) {
+    .card__image {
+        width: 339px;
+        height: 190px;
+    }
 }
 
 .card__descriprion {
@@ -36,6 +50,13 @@
     line-height: normal;
 }
 
+@media screen and (max-width: 865px) {
+    .card__title {
+        margin: 14px 0 0 14px;
+        width: 260px;
+    }
+}
+
 .card__duration {
     margin: 17px 0 0 16px;
     color: #8B8B8B;
@@ -46,13 +67,26 @@
     line-height: normal;
 }
 
+@media screen and (max-width: 865px) {
+    .card__duration {
+        margin: 15px 0 0 14px;
+    }
+}
+
 .card__like {
+    cursor: pointer;
     margin-top: 9px;
     margin-left: 12px;
     display: inline-block;
     height: 30px;
     width: 30px;
     background: url('../../../images/card-like-min.svg');
+}
+
+@media screen and (max-width: 865px) {
+    .card__like {
+        margin-left: 21px;
+    }
 }
 
 .card__like_active {

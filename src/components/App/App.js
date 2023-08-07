@@ -19,7 +19,7 @@ function App() {
   
   // если стейт false, header рендерит компонент для регистрации/логина
   // если стейт true, header рендерит навигацию по страницам movies/saved-movies
-  const [isLoggedIn, setLoggedIn] = React.useState(true);
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
 
   // управление сайдбаром
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
@@ -73,6 +73,8 @@ function App() {
 
         {/* страница регистрации */}
         <Route path='/signup' element={<Register />}/>
+
+        <Route path='*' element={<NotFoundPage/>}/>
 
       </Routes>
       <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar}></Sidebar>

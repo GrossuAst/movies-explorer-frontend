@@ -2,10 +2,16 @@
 
 }
 
+@media screen and (max-width: 865px) {
+    .profile {
+        /* height: 100vh; */
+        margin-top: 236px;
+    }
+}
+
 .profile__wrapper {
     max-width: 410px;
     margin: 0 auto;
-    
 }
 
 .profile__title {
@@ -31,10 +37,17 @@
     margin-top: 105px;
 }
 
+@media screen and (max-width: 865px) {
+    .profile__info-container {
+        margin-top: 79px;
+    }
+}
+
 .profile__info {
     display: flex;
     justify-content: space-between;
     margin-top: 17px;
+    align-items: flex-start;
 }
 
 .profile__info:first-child {
@@ -78,6 +91,12 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+@media screen and (max-width: 865px) {
+    .profile__control {
+        height: 63px;
+    }
 }
 
 .profile__error-message {

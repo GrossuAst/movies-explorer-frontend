@@ -3,6 +3,12 @@
     min-height: 593px;
 }
 
+@media screen and (max-width:865px) {
+    .movie-block {
+        min-height: 825px;
+    }
+}
+
 .movie-block__wrapper {
     box-sizing: border-box;
     padding-top: 70px;
@@ -18,7 +24,7 @@
 
 @media screen and (max-width: 829px) {
     .movie-block__wrapper {
-        max-width: 364px;
+        max-width: 708px;
     }
 }
 
@@ -29,8 +35,20 @@
     list-style-type: none;
     padding: 0;
     gap: 37px 24px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     align-items: flex-start;
+}
+
+@media screen and (max-width: 865px) {
+    .movie-block__list {  
+        gap: 30px 30px;
+    }
+}
+
+@media screen and (max-width: 784px) {
+    .movie-block__list {  
+        width: 339px;
+    }
 }
 
 .movie-block__list:nth-child(n+3) {

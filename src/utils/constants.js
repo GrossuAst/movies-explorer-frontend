@@ -2,8 +2,8 @@
 export const movies = [
     {
         _id: 1,
-        title: 'Интерстеллар',
-        duration: '1ч 50м',
+        title: '33 слова о дизайне',
+        duration: '1ч 47м',
         image: 'https://thingdifferently.files.wordpress.com/2016/03/d0b8d0bdd182d0b5d180d181d182d0b5d0bbd0bbd0b0d180-interstellar-d0bed182d0b7d18bd0b2d18b-d0be-d184d0b8d0bbd18cd0bcd0b5-d0bcd18dd182d182d18c.jpg',
     },
     {
@@ -48,30 +48,30 @@ export const movies = [
         duration: '2ч 0м',
         image: 'https://cdn5.vedomosti.ru/crop/image/2019/3w/1cup9p/original-1rba.jpg?height=609&width=1082',
       },
-      {
-        _id: 9,
-        title: 'Фильм 9',
-        duration: '2ч 0м',
-        image: 'https://cdnn1.inosmi.ru/img/24017/49/240174945_0:0:1920:1080_1240x0_80_0_0_1099393e3faa313ff7e2ea30a6e699b7.jpg',
-      },
-      {
-        _id: 10,
-        title: 'Фильм 10',
-        duration: '2ч 0м',
-        image: 'https://arigus.tv/upload/resize_cache/iblock/170/680_680_1/hr28jsu7wpoy48mzlzscki1pbsk4aeo5.jpg',
-      },
-      {
-        _id: 11,
-        title: 'Фильм 11',
-        duration: '2ч 0м',
-        image: 'https://cdn.forbes.ru/forbes-static/c/1040x549/new/2022/08/House-of-the-Dragon-op-63032ae914b58.webp',
-      },
-      {
-        _id: 12,
-        title: 'Фильм 12',
-        duration: '2ч 0м',
-        image: 'https://icdn.lenta.ru/images/2021/02/11/09/20210211092347661/square_1280_webp_ab2eb94135982db2e1f6363fd45d412b.webp',
-      },
+      // {
+      //   _id: 9,
+      //   title: 'Фильм 9',
+      //   duration: '2ч 0м',
+      //   image: 'https://cdnn1.inosmi.ru/img/24017/49/240174945_0:0:1920:1080_1240x0_80_0_0_1099393e3faa313ff7e2ea30a6e699b7.jpg',
+      // },
+      // {
+      //   _id: 10,
+      //   title: 'Фильм 10',
+      //   duration: '2ч 0м',
+      //   image: 'https://arigus.tv/upload/resize_cache/iblock/170/680_680_1/hr28jsu7wpoy48mzlzscki1pbsk4aeo5.jpg',
+      // },
+      // {
+      //   _id: 11,
+      //   title: 'Фильм 11',
+      //   duration: '2ч 0м',
+      //   image: 'https://cdn.forbes.ru/forbes-static/c/1040x549/new/2022/08/House-of-the-Dragon-op-63032ae914b58.webp',
+      // },
+      // {
+      //   _id: 12,
+      //   title: 'Фильм 12',
+      //   duration: '2ч 0м',
+      //   image: 'https://icdn.lenta.ru/images/2021/02/11/09/20210211092347661/square_1280_webp_ab2eb94135982db2e1f6363fd45d412b.webp',
+      // },
   ];
   
 export const savedMovies = [
