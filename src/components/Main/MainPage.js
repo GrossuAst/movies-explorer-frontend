@@ -14,12 +14,14 @@ import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Sidebar from '../Sidebar/Sidebar';
 
-function MainPage({isLoggedIn}) {
+function MainPage({isLoggedIn, isSidebarOpen, openSidebar}) {
+
   return (
     <>
       <Header>
         {/* в зависимости от стейта, header рендерит разное содержимое */}
-        { isLoggedIn ? <HeaderNavigate /> : <HeaderLoginButtons /> }
+        {/* прокидывает в шапку главной страницы функцию открытия сайдбара */}
+        { isLoggedIn ? <HeaderNavigate  openSidebar={openSidebar}/> : <HeaderLoginButtons /> }
       </Header>
       <main>
           <Promo></Promo>
@@ -30,7 +32,7 @@ function MainPage({isLoggedIn}) {
           <Portfolio></Portfolio>
       </main>
       <Footer></Footer>
-      <Sidebar></Sidebar>
+      {/* <Sidebar isSidebarOpen={isSidebarOpen} changeSidebarVisible={changeSidebarVisible}></Sidebar> */}
     </>
   );
 }

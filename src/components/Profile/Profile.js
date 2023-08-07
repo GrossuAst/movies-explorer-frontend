@@ -5,7 +5,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
-function Profile() {
+function Profile({openSidebar}) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
@@ -38,7 +38,7 @@ function Profile() {
             headerMixin={isProfilePage ? 'header_type_profile' : ''}
             wrapperMixin={isProfilePage ? 'header__wrapper_type_profile' : ''}
         >
-            <button className='header__menu' type='button'></button>
+            <button className='header__menu' type='button' onClick={openSidebar}></button>
             <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
@@ -104,7 +104,7 @@ function Profile() {
                 </div>  
             </section>
         </main>
-        <Sidebar></Sidebar>
+        {/* <Sidebar></Sidebar> */}
     </>
   );
 }

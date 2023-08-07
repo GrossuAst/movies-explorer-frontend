@@ -8,7 +8,8 @@ import ExpandButton from './ExpandButton/ExpandButton';
 import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
-function Movies({movies}) {
+// получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
+function Movies({ movies, openSidebar }) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
@@ -21,7 +22,7 @@ function Movies({movies}) {
             headerMixin={isMoviesPage ? 'header_type_movies' : ''}
             wrapperMixin={isMoviesPage ? 'header__wrapper_type_movies' : ''}
         >
-            <button className='header__menu' type='button'></button>
+            <button className='header__menu' type='button' onClick={openSidebar}></button>
             <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
@@ -51,7 +52,7 @@ function Movies({movies}) {
             <ExpandButton></ExpandButton>
         </main>
         <Footer></Footer>
-        <Sidebar></Sidebar>
+        {/* <Sidebar changeSidebarVisible={changeSidebarVisible} isSidebarOpen={isSidebarOpen}></Sidebar> */}
     </>
   );
 }

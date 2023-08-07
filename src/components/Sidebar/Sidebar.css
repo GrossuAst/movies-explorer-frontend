@@ -1,3 +1,12 @@
+@keyframes slowOpen {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
 .sidebar {
     display: none;
     flex-direction: column;
@@ -15,6 +24,7 @@
 
 .sidebar_active {
     display: flex;
+    animation: slowOpen 0.3s ease-out;
 }
 
 @media screen and (min-width: 866px) {
@@ -54,6 +64,7 @@
 }
 
 .sidebar__nav-link {
+    text-decoration: none;
     height: 28px;
     cursor: pointer;
     border: none;
@@ -76,11 +87,8 @@
     border-bottom: 2px solid #FFF;
 }
 
-.sidebar__nav-link_type_logged-in {
-
-}   
-
 .sidebar__account-button {
+    cursor: pointer;
     display: flex;
     height: 32px;
     width: 100px;
@@ -97,6 +105,10 @@
     font-weight: 500;
     line-height: 12px;
     gap: 7px;
+}
+
+.sidebar__account-button:hover {
+    opacity: 0.7;
 }
 
 .sidebar__account-logo {

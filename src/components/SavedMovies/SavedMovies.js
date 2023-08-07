@@ -7,7 +7,8 @@ import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
-function SavedMovies({savedMovies}) {
+// получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
+function SavedMovies({savedMovies, openSidebar}) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
@@ -20,7 +21,7 @@ function SavedMovies({savedMovies}) {
             headerMixin={isMoviesPage ? 'header_type_movies' : ''}
             wrapperMixin={isMoviesPage ? 'header__wrapper_type_movies' : ''}
         >
-            <button className='header__menu' type='button'></button>
+            <button className='header__menu' type='button' onClick={openSidebar}></button>
             <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
@@ -50,7 +51,7 @@ function SavedMovies({savedMovies}) {
             <MovieCardList savedMovies={savedMovies}></MovieCardList>
         </main>
         <Footer></Footer>
-        <Sidebar></Sidebar>
+        {/* <Sidebar isSidebarOpen={isSidebarOpen} changeSidebarVisible={changeSidebarVisible}></Sidebar> */}
     </>
   );
 }

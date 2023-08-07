@@ -4,37 +4,44 @@ import { NavLink } from 'react-router-dom';
 
 import './Sidebar.css';
 
-function Sidebar() {
+function Sidebar({ isSidebarOpen, closeSidebar }) {
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
 
     // в зависимости от стейта, сайдбар открыт или закрыт
     // также нужно добавить плавное открыти-закрытие
-    const [isSidebarOpen, setSidebarOpen] = React.useState(false);
+    // const [isSidebarOpen, setSidebarOpen] = React.useState(true);
+
+    // function changeSidebarVisible() {
+    //     isSidebarOpen ? setSidebarOpen(false) : setSidebarOpen(true);
+    // }
 
     return (
         <div className={isSidebarOpen ? 'sidebar sidebar_active' : 'sidebar'}>
-            <div className='sidebar__close-button'></div>
+            <div className='sidebar__close-button' onClick={closeSidebar}></div>
             <nav className='sidebar__nav'>   
                 <ul className='sidebar__nav-list'>
                     <li>
-                        <NavLink to='/'>
-                            <button className='sidebar__nav-link sidebar__nav-link_type_logged-in'>Главная</button>
+                        <NavLink to='/' 
+                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                        >
+                            Главная
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/movies'>
-                            <button className='sidebar__nav-link sidebar__nav-link_type_logged-in'>Фильмы</button>
+                        <NavLink to='/movies' 
+                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                        >
+                            Фильмы
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/saved-movies'>
-                            <button className='sidebar__nav-link sidebar__nav-link_type_logged-in'>Сохранённые фильмы</button>
+                        <NavLink to='/saved-movies' 
+                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                        >
+                            Сохранённые фильмы
                         </NavLink>
-                    </li>
-                    <li>
-                        
                     </li>
                 </ul>
                     <NavLink to='/profile' style={linkStyle}>
