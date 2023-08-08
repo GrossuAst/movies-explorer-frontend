@@ -16,6 +16,13 @@
     }
 }
 
+@media screen and (max-width: 467px) {
+    .header {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
 .header_type_form-page {
     background-color: #202020;
     height: 217px;

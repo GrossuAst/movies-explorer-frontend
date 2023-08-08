@@ -4,6 +4,12 @@
     gap: 30px;
 }
 
+@media screen and (max-width: 467px) {
+    .header__buttons {
+        gap: 14px;
+    }
+}
+
 .header__signup-button {
     width: 77px;
     height: 32px;
@@ -17,6 +23,15 @@
     padding: 0;
     border: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 467px) {
+    .header__signup-button {
+        width: 64px;
+        height: 16px;
+        font-size: 10px;
+        margin-top: 8px;
+    }
 }
 
 .header__signup-button:hover {
@@ -37,6 +52,15 @@
     padding: 0;
     border: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 467px) {
+    .header__signin-button {
+        width: 54px;
+        height: 26px;
+        margin-top: 3px;
+        font-size: 10px;
+    }
 }
 
 .header__signin-button:hover {

@@ -24,6 +24,13 @@
     }
 }
 
+@media screen and (max-width: 467px) {
+    .promo__wrapper {
+        padding-top: 207px;
+        height: 570px;
+    }
+}
+
 .promo__image {
     position: absolute;
     z-index: 0;
@@ -35,6 +42,14 @@
 @media screen and (max-width: 865px) {
     .promo__image {
         top: 384px;
+    }
+}
+
+@media screen and (max-width: 467px) {
+    .promo__image {
+        top: 266px;
+        height: 248px;
+        width: 248px;
     }
 }
 
@@ -50,4 +65,12 @@
     font-weight: 400;
     line-height: 58px;
     letter-spacing: -2px;
+}
+
+@media screen and (max-width: 467px) {
+    .promo__title {
+        font-size: 31px;
+        line-height: 39px;
+        letter-spacing: -1.24px;
+    }
 }

@@ -6,6 +6,13 @@
     padding-right: 20px;
 }
 
+@media screen and (max-width: 467px) {
+    .nav {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
 .nav__wrapper {
     max-width: 1140px;
     width: 100%;
@@ -25,6 +32,13 @@
     gap: 40px;
 }
 
+@media screen and (max-width: 467px) {
+    .nav__list {
+        gap: 24px;
+        height: 62px;
+    }
+}
+
 .nav__bullet {
     
 }
@@ -37,6 +51,12 @@
     font-weight: 500;
     text-decoration: none;
     border-bottom: 1px solid #FFF;
+}
+
+@media screen and (max-width: 467px) {
+    .nav__link {
+        font-size: 11px;
+    }
 }
 
 .nav__link:hover {

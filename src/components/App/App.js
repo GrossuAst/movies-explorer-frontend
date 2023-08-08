@@ -19,7 +19,7 @@ function App() {
   
   // если стейт false, header рендерит компонент для регистрации/логина
   // если стейт true, header рендерит навигацию по страницам movies/saved-movies
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(true);
 
   // управление сайдбаром
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
