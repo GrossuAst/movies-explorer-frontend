@@ -30,24 +30,24 @@ export const movies = [
         duration: '2ч 0м',
         image: 'https://hi-news.ru/wp-content/uploads/2020/11/game_throne_secret_image_one-750x480.jpg',
       },
-      {
-        _id: 6,
-        title: 'Фильм 6',
-        duration: '2ч 0м',
-        image: 'https://cdn.tvc.ru/pictures/o/342/170.jpg',
-      },
-      {
-        _id: 7,
-        title: 'Фильм 7',
-        duration: '2ч 0м',
-        image: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/375/719/6.jpg',
-      },
-      {
-        _id: 8,
-        title: 'Фильм 8',
-        duration: '2ч 0м',
-        image: 'https://cdn5.vedomosti.ru/crop/image/2019/3w/1cup9p/original-1rba.jpg?height=609&width=1082',
-      },
+    //   {
+    //     _id: 6,
+    //     title: 'Фильм 6',
+    //     duration: '2ч 0м',
+    //     image: 'https://cdn.tvc.ru/pictures/o/342/170.jpg',
+    //   },
+    //   {
+    //     _id: 7,
+    //     title: 'Фильм 7',
+    //     duration: '2ч 0м',
+    //     image: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/375/719/6.jpg',
+    //   },
+    //   {
+    //     _id: 8,
+    //     title: 'Фильм 8',
+    //     duration: '2ч 0м',
+    //     image: 'https://cdn5.vedomosti.ru/crop/image/2019/3w/1cup9p/original-1rba.jpg?height=609&width=1082',
+    //   },
       // {
       //   _id: 9,
       //   title: 'Фильм 9',

@@ -35,6 +35,13 @@
     }
 }
 
+@media screen and (max-width: 467px) {
+    .header__menu {
+        background: url('../../../images/menu-icon-mobile.svg');
+        width: 40px;
+    }
+}
+
 .header__nav-list {
     list-style-type: none;
     padding: 0;

@@ -149,9 +149,23 @@
     }
 }
 
+@media screen and (max-width: 467px) {
+    .expand-button {
+        margin: 77px auto 110px auto;
+        /* margin-bottom: 110px; */
+        width: 300px;
+    }
+}
+
 .expand-button__wrapper {
     max-width: 1140px;
     margin: 0 auto;
+}
+
+@media screen and (max-width: 467px) {
+    .expand-button__wrapper {
+        width: 300px;
+    }
 }
 
 .expand-button__button {
@@ -169,4 +183,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+@media screen and (max-width: 467px) {
+    .expand-button__button {
+        width: 300px;
+    }
 }
