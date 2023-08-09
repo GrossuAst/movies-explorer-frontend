@@ -1,3 +1,9 @@
 .form-page__button_type_login {
     margin-top: 179px;
 }
+
+@media screen and (max-width: 467px) {
+    .form-page__button_type_login {
+        margin-top: 267px;
+    }
+}

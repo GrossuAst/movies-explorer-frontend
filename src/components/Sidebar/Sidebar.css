@@ -22,6 +22,12 @@
     z-index: 2;
 }
 
+@media screen and (max-width: 467px) {
+    .sidebar {
+        padding: 31px 25px 0 0;
+    }
+}
+
 .sidebar_active {
     display: flex;
     animation: slowOpen 0.3s ease-out;
@@ -51,6 +57,14 @@
     background: url('../../images/close-button-min.svg') center no-repeat;
 }
 
+@media screen and (max-width: 467px) {
+    .sidebar__close-button {
+        position: absolute;
+        top: 17px;
+        right: 18px;
+    }
+}
+
 .sidebar__close-button:hover {
     opacity: 0.8;
 }
@@ -61,6 +75,12 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+@media screen and (max-width: 467px) {
+    .sidebar__nav-list {
+        gap: 27px;
+    }
 }
 
 .sidebar__nav-link {

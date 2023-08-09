@@ -87,10 +87,10 @@ export const savedMovies = [
             duration: '1ч 0м',
             image: 'https://aif-s3.aif.ru/images/012/102/6af279b77b35f392a307a2db751a420e.jpg',
         },
-        {
-            _id: 3,
-            title: '12345',
-            duration: '1ч 0м',
-            image: 'https://mospolytech.ru/upload/iblock/8ec/1575750671_4-4.jpg',
-        },
+        // {
+        //     _id: 3,
+        //     title: '12345',
+        //     duration: '1ч 0м',
+        //     image: 'https://mospolytech.ru/upload/iblock/8ec/1575750671_4-4.jpg',
+        // },
   ]

@@ -24,6 +24,13 @@
     line-height: normal;
 }
 
+@media screen and (max-width: 467px) {
+    .not-found-page__title {
+        font-size: 80px;
+        margin-top: 330px;
+    }
+}
+
 .not-found-page__subtitle {
     margin: 5px 0 0 0;
     color: #FFF;
@@ -33,6 +40,13 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+@media screen and (max-width: 467px) {
+    .not-found-page__subtitle {
+        font-size: 12px;
+        margin-top: 9px;
+    }
 }
 
 .not-found-page__link {
@@ -46,6 +60,14 @@
     font-weight: 400;
     line-height: normal;
 }
+
+@media screen and (max-width: 467px) {
+    .not-found-page__link {
+        margin-top: 284px;
+        font-size: 12px;
+    }
+}
+
 
 .not-found-page__link:hover {
     opacity: 0.7;

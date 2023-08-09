@@ -26,7 +26,8 @@
 
 @media screen and (max-width: 865px) {
     .search-form__wrapper {
-        height: 15px;
+        /* height: 15px; */
+        height: 158px;
     }
 }
 
@@ -58,7 +59,7 @@
         font-size: 11px;
         padding-left: 23px;
         /* padding-right: 15px; */
-        width: 300px;
+        /* width: 300px; */
     }
 }
 

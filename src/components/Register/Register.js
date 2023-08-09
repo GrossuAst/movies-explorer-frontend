@@ -42,7 +42,7 @@ function Register() {
                                 {/* удалить модификатор для отключения ошибки */}
                                 <p className='form-page__error-message form-page__error-message_active'>Произошла ошибка</p>
                             </div>
-                            <button className='form-page__button' type='submit'>Зарегистрироваться</button>
+                            <button className='form-page__button form-page__button_type_register' type='submit'>Зарегистрироваться</button>
                             <p className='form-page__question'>Уже зарегистрированы?
                                 <Link to='/signin'>
                                     <span className='form-page__link'>&nbsp;Войти</span>
