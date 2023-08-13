@@ -56,7 +56,7 @@
     margin: 0;
     padding-bottom: 23px;
     border-bottom: 1px solid #DADADA;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -85,7 +85,7 @@
 
 .about-me__subtitle {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -113,7 +113,7 @@
     margin: 0;
     box-sizing: border-box;
     padding-top: 18px;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -141,8 +141,8 @@
     padding-top: 26px;
     margin: 0;
     width: 590px;
-    height: 160px;
-    font-family: Inter;
+    min-height: 88px;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -153,7 +153,6 @@
     .about-me__description {
         padding-top: 20px;
         width: 364px;
-        height: 108px;
         font-size: 12px;
         line-height: 18px;
     }
@@ -175,10 +174,10 @@
 
 .about-me__github {
     display: block;
-    margin-top: 53px;
+    margin-top: 100px;
     text-decoration: none;
     color: #FFF;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -191,7 +190,7 @@
 
 @media screen and (max-width: 865px) {
     .about-me__github {
-        margin-top: 107px;
+        margin-top: 87px;
     }
 }
 

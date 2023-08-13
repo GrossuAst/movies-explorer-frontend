@@ -4,14 +4,14 @@ import './HeaderLoginButtons.css';
 
 function HeaderLoginButtons () {
     return (
-        <div className='header__buttons'>
+        <nav className='header__buttons'>
             <Link to='/signup'>
-                <button className='header__signup-button'>Регистрация</button>
+                <button className='header__signup-button' type='button'>Регистрация</button>
             </Link>
             <Link to='/signin'>
-                <button className='header__signin-button'>Войти</button>
+                <button className='header__signin-button' type='button'>Войти</button>
             </Link>
-        </div>
+        </nav>
     )
 }
 

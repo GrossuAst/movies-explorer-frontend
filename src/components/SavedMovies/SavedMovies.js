@@ -27,18 +27,18 @@ function SavedMovies({savedMovies, openSidebar}) {
                     <li >
                         <Link to='/movies'>
                             {/* <button className='header__nav-link'>Фильмы</button> */}
-                            <button className={isMoviesPage ? 'header__nav-link header__nav-link_active' : 'header__nav-link'}>Фильмы</button>
+                            <button className={isMoviesPage ? 'header__nav-link header__nav-link_active' : 'header__nav-link'} type='button'>Фильмы</button>
                         </Link>
                     </li>
                     <li>
                         <Link to='/saved-movies'>
-                            <button className='header__nav-link'>Сохранённые фильмы</button>
+                            <button className='header__nav-link' type='button'>Сохранённые фильмы</button>
                         </Link>
                     </li>
                 </ul>
                 <div className='header__nav-list'>
                     <Link to='/profile' style={linkStyle}>
-                        <button className='header__account-button'>
+                        <button className='header__account-button' type='button'>
                             Аккаунт
                             <div className='header__account-logo'></div>
                         </button>

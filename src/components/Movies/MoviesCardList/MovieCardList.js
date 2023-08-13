@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 function MovieCardList({movies, savedMovies}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-  const isSavedMovesPage = location.pathname === '/saved-movies';
 
   return (
     <>

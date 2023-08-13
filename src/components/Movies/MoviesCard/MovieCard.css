@@ -5,7 +5,12 @@
     border-radius: 6px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
+
+.card:hover .card__delete-button {
+    visibility: visible;
+  }
 
 @media screen and (max-width: 865px) {
     .card {
@@ -57,7 +62,7 @@
     width: 290px;
     margin: 16px 0 0 16px;
     color: #FFF;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -75,13 +80,14 @@
     .card__title {
         margin: 15px 0 0 14px;
         font-size: 12px;
+        max-width: 245px;
     }
 }
 
 .card__duration {
     margin: 17px 0 0 16px;
     color: #8B8B8B;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
     font-style: normal;
     font-weight: 400;
@@ -98,6 +104,7 @@
     .card__duration {
         margin: 14px 0 0 14px;
         font-size: 10px;
+        max-width: 245px;
     }
 }
 
@@ -109,6 +116,30 @@
     height: 30px;
     width: 30px;
     background: url('../../../images/card-like-min.svg');
+}
+
+.card__delete-button {
+    visibility: hidden;
+    /* display: none; */
+    cursor: pointer;
+    margin-top: 9px;
+    margin-left: 12px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background: url('../../../images/card-delete-min.svg') center no-repeat;
+}
+
+@media screen and (max-width: 467px) {
+    .card__delete-button {
+        visibility: visible;
+        margin-top: 8px;
+        margin-left: 1px;
+    }
+}
+
+.card__delete-button:hover {
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 865px) {

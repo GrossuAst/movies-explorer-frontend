@@ -30,48 +30,48 @@ export const movies = [
         duration: '2ч 0м',
         image: 'https://hi-news.ru/wp-content/uploads/2020/11/game_throne_secret_image_one-750x480.jpg',
       },
-    //   {
-    //     _id: 6,
-    //     title: 'Фильм 6',
-    //     duration: '2ч 0м',
-    //     image: 'https://cdn.tvc.ru/pictures/o/342/170.jpg',
-    //   },
-    //   {
-    //     _id: 7,
-    //     title: 'Фильм 7',
-    //     duration: '2ч 0м',
-    //     image: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/375/719/6.jpg',
-    //   },
-    //   {
-    //     _id: 8,
-    //     title: 'Фильм 8',
-    //     duration: '2ч 0м',
-    //     image: 'https://cdn5.vedomosti.ru/crop/image/2019/3w/1cup9p/original-1rba.jpg?height=609&width=1082',
-    //   },
-      // {
-      //   _id: 9,
-      //   title: 'Фильм 9',
-      //   duration: '2ч 0м',
-      //   image: 'https://cdnn1.inosmi.ru/img/24017/49/240174945_0:0:1920:1080_1240x0_80_0_0_1099393e3faa313ff7e2ea30a6e699b7.jpg',
-      // },
-      // {
-      //   _id: 10,
-      //   title: 'Фильм 10',
-      //   duration: '2ч 0м',
-      //   image: 'https://arigus.tv/upload/resize_cache/iblock/170/680_680_1/hr28jsu7wpoy48mzlzscki1pbsk4aeo5.jpg',
-      // },
-      // {
-      //   _id: 11,
-      //   title: 'Фильм 11',
-      //   duration: '2ч 0м',
-      //   image: 'https://cdn.forbes.ru/forbes-static/c/1040x549/new/2022/08/House-of-the-Dragon-op-63032ae914b58.webp',
-      // },
-      // {
-      //   _id: 12,
-      //   title: 'Фильм 12',
-      //   duration: '2ч 0м',
-      //   image: 'https://icdn.lenta.ru/images/2021/02/11/09/20210211092347661/square_1280_webp_ab2eb94135982db2e1f6363fd45d412b.webp',
-      // },
+      {
+        _id: 6,
+        title: 'Фильм 6',
+        duration: '2ч 0м',
+        image: 'https://cdn.tvc.ru/pictures/o/342/170.jpg',
+      },
+      {
+        _id: 7,
+        title: 'Фильм 7',
+        duration: '2ч 0м',
+        image: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/375/719/6.jpg',
+      },
+      {
+        _id: 8,
+        title: 'Фильм 8',
+        duration: '2ч 0м',
+        image: 'https://cdn5.vedomosti.ru/crop/image/2019/3w/1cup9p/original-1rba.jpg?height=609&width=1082',
+      },
+      {
+        _id: 9,
+        title: 'Фильм 9',
+        duration: '2ч 0м',
+        image: 'https://cdnn1.inosmi.ru/img/24017/49/240174945_0:0:1920:1080_1240x0_80_0_0_1099393e3faa313ff7e2ea30a6e699b7.jpg',
+      },
+      {
+        _id: 10,
+        title: 'Фильм 10',
+        duration: '2ч 0м',
+        image: 'https://arigus.tv/upload/resize_cache/iblock/170/680_680_1/hr28jsu7wpoy48mzlzscki1pbsk4aeo5.jpg',
+      },
+      {
+        _id: 11,
+        title: 'Фильм 11',
+        duration: '2ч 0м',
+        image: 'https://cdn.forbes.ru/forbes-static/c/1040x549/new/2022/08/House-of-the-Dragon-op-63032ae914b58.webp',
+      },
+      {
+        _id: 12,
+        title: 'Фильм 12',
+        duration: '2ч 0м',
+        image: 'https://icdn.lenta.ru/images/2021/02/11/09/20210211092347661/square_1280_webp_ab2eb94135982db2e1f6363fd45d412b.webp',
+      },
   ];
   
 export const savedMovies = [

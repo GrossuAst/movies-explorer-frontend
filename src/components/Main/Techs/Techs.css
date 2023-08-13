@@ -45,7 +45,7 @@
 
 .technologies__title {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -69,7 +69,7 @@
     padding-top: 90px;
     padding-bottom: 26px;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -97,7 +97,7 @@
     margin: 0 auto 100px auto;
     max-width: 460px;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -160,7 +160,7 @@
 
 .technologies__tech {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

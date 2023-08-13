@@ -43,18 +43,18 @@ function Profile({openSidebar}) {
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
-                            <button className='header__nav-link'>Фильмы</button>
+                            <button className='header__nav-link' type='button'>Фильмы</button>
                         </Link>
                     </li>
                     <li>
                         <Link to='/saved-movies'>
-                            <button className='header__nav-link'>Сохранённые фильмы</button>
+                            <button className='header__nav-link' type='button'>Сохранённые фильмы</button>
                         </Link>
                     </li>
                 </ul>
                 <div className='header__nav-list'>
                     <Link to='/profile' style={linkStyle}>
-                        <button className='header__account-button'>
+                        <button className='header__account-button' type='button'>
                             Аккаунт
                             <div className={isProfilePage ? 'header__account-logo' : ''}></div>
                         </button>
@@ -69,37 +69,38 @@ function Profile({openSidebar}) {
                     <div className='profile__info-container'>
                         <form>
                             <div className='profile__info'>
-                                <p className='profile__user'>Имя</p>
-                                <input className='profile__user-input' disabled={isInputDisabled} name='name' value={userData.name}></input>
+                                <label className='profile__user' for={'name-input-change'}>Имя</label>
+                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя'></input>
                             </div>
                             <div className='profile__info'>
-                                <p className='profile__user'>E-mail</p>
-                                <input className='profile__user-input' disabled={isInputDisabled} name='email' value={userData.email}></input>
-                            </div>    
+                                <label className='profile__user' for={'email-input-change'}>E-mail</label>
+                                <input className='profile__user-input' id='email-input-change' disabled={isInputDisabled} name='email' value={userData.email} placeholder='Почта'></input>
+                            </div>
+
+                            <div className='profile__control'>
+                                {/* если стейт false, рендерится компонент редактировать/выйти из аккаунат */}
+                                {/* если стейт true, рендерится кнопка сохранения данных  */}
+
+                                { isEditProfileFormActive ?
+                                (
+                                    <>
+                                        {/* Чтобы убрать ошибку, нужно удалить модификатор у <p> */}
+                                        <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
+                                        
+                                        {/* чтобы включить кнопку, нужно убрать модификатор */}
+                                        <button className='profile__save-button profile__save-button_disabled' onClick={editProfile} type='submit'>Сохранить</button>
+                                    </>
+                                ) : 
+                                (
+                                <>
+                                    <button className='profile__edit-button' onClick={editProfile} type='button'>Редактировать</button>
+                                    <Link to='/'>
+                                        <button className='profile__logout-button' type='button'>Выйти из аккаунта</button>
+                                    </Link>
+                                </>
+                                )}
+                            </div>
                         </form>
-                    </div>
-                    <div className='profile__control'>
-
-
-                    {/* если стейт false, рендерится компонент редактировать/выйти из аккаунат */}
-                    {/* если стейт true, рендерится кнопка сохранения данных  */}
-
-                        { isEditProfileFormActive ?
-                        (
-                            <>
-                                {/* Чтобы убрать ошибку, нужно удалить модификатор у <p> */}
-                                <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
-                                
-                                {/* чтобы включить кнопку, нужно убрать модификатор */}
-                                <button className='profile__save-button profile__save-button_disabled' onClick={editProfile}>Сохранить</button>
-                            </>
-                        ) : 
-                        (
-                        <>
-                            <button className='profile__edit-button' onClick={editProfile}>Редактировать</button>
-                            <button className='profile__logout-button'>Выйти из аккаунта</button>
-                        </>
-                        )}
                     </div>
                 </div>  
             </section>

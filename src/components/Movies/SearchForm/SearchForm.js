@@ -7,7 +7,7 @@ function SearchForm() {
         <section className='search-form'>
             <div className='search-form__wrapper'>
               <form className='search-form__form'>
-                <input className='search-form__input' type={'text'} placeholder='Фильм'></input>
+                <input className='search-form__input' type={'text'} placeholder='Фильм' required></input>
                 <button className='search-form__button' type='submit'></button>
               </form>
               <div className='search-form__switch-box'>

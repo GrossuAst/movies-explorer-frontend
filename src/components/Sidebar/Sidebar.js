@@ -19,38 +19,40 @@ function Sidebar({ isSidebarOpen, closeSidebar }) {
 
     return (
         <div className={isSidebarOpen ? 'sidebar sidebar_active' : 'sidebar'}>
-            <div className='sidebar__close-button' onClick={closeSidebar}></div>
-            <nav className='sidebar__nav'>   
-                <ul className='sidebar__nav-list'>
-                    <li>
-                        <NavLink to='/' 
-                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
-                        >
-                            Главная
+            <div className='sidebar__menu'>
+                <div className='sidebar__close-button' onClick={closeSidebar}></div>
+                <nav className='sidebar__nav'>   
+                    <ul className='sidebar__nav-list'>
+                        <li>
+                            <NavLink to='/' 
+                                className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                            >
+                                Главная
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/movies' 
+                                className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                            >
+                                Фильмы
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/saved-movies' 
+                                className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
+                            >
+                                Сохранённые фильмы
+                            </NavLink>
+                        </li>
+                    </ul>
+                        <NavLink to='/profile' style={linkStyle}>
+                            <button className='sidebar__account-button sidebar__account-button_type_logged-in' type='button'>
+                                Аккаунт
+                                <div className='sidebar__account-logo sidebar__account-logo_type_logged-in'></div>
+                            </button>
                         </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/movies' 
-                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
-                        >
-                            Фильмы
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/saved-movies' 
-                            className={({isActive}) => `sidebar__nav-link sidebar__nav-link_type_logged-in ${isActive ? 'sidebar__nav-link_active' : ''}`}
-                        >
-                            Сохранённые фильмы
-                        </NavLink>
-                    </li>
-                </ul>
-                    <NavLink to='/profile' style={linkStyle}>
-                        <button className='sidebar__account-button sidebar__account-button_type_logged-in'>
-                            Аккаунт
-                            <div className='sidebar__account-logo sidebar__account-logo_type_logged-in'></div>
-                        </button>
-                    </NavLink>
-            </nav>
+                </nav>
+            </div>
         </div>
     )
 }

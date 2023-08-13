@@ -9,18 +9,51 @@
 
 .sidebar {
     display: none;
+    align-items: end;
     flex-direction: column;
     height: 100vh;
-    max-width: 520px;
+    /* max-width: 520px; */
     width: 100%;
     position: fixed;
     right: 0;
     top: 0;
-    background-color: #202020;
+    /* background-color: #202020; */
+    background-color: rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    /* padding: 27px 27px 0 0; */
+    z-index: 1;
+}
+
+.sidebar__menu {
     box-sizing: border-box;
     padding: 27px 27px 0 0;
+    z-index: 1;
+    max-width: 520px;
+    width: 100%;
+    height: 100%;
+    background-color: #202020;
+    animation: slowOpen 0.3s ease-out;
+}
+
+.sidebar__overlay {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100vw;
+    height: 100vh;
     z-index: 2;
 }
+
+/* .sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+} */
 
 @media screen and (max-width: 467px) {
     .sidebar {
@@ -30,7 +63,6 @@
 
 .sidebar_active {
     display: flex;
-    animation: slowOpen 0.3s ease-out;
 }
 
 @media screen and (min-width: 866px) {
@@ -46,10 +78,11 @@
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 100px 0 90px 26px;
+    padding: 97px 0 90px 26px;
 }
 
 .sidebar__close-button {
+    margin-left: auto;
     cursor: pointer;
     align-self: flex-end;
     height: 22px;
@@ -74,7 +107,7 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 32px;
 }
 
 @media screen and (max-width: 467px) {
@@ -92,7 +125,7 @@
     background-color: #202020;
     color: #FFF;
     text-align: right;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -119,7 +152,7 @@
     border: none;
     padding: 0;
     color: #FFF;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;

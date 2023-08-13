@@ -15,7 +15,7 @@ function AboutProject() {
                     <p className='about-project__description'>У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
                 </li>
             </ul>
-            <div className='about-project__timing'>
+            <article className='about-project__timing'>
                 <div className='about-project__backend'>
                     <div className='about-project__backend-chart'>
                         <p className='about-project__duration'>1 неделя</p>
@@ -28,7 +28,7 @@ function AboutProject() {
                     </div>
                     <p className='about-project__chart-info'>Front-end</p>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
   );

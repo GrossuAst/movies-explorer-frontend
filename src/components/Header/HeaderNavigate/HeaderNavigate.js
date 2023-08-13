@@ -15,18 +15,18 @@ function HeaderNavigate ({ openSidebar }) {
                 <ul className='header__nav-list'>
                     <li >
                         <Link to='/movies'>
-                            <button className='header__nav-link header__nav-link_type_logged-in'>Фильмы</button>
+                            <button className='header__nav-link header__nav-link_type_logged-in' type='button'>Фильмы</button>
                         </Link>
                     </li>
                     <li>
                         <Link to='/saved-movies'>
-                            <button className='header__nav-link header__nav-link_type_logged-in'>Сохранённые фильмы</button>
+                            <button className='header__nav-link header__nav-link_type_logged-in' type='button'>Сохранённые фильмы</button>
                         </Link>
                     </li>
                 </ul>
                 <div className='header__nav-list'>
                     <Link to='/profile' style={linkStyle}>
-                        <button className='header__account-button header__account-button_type_logged-in'>
+                        <button className='header__account-button header__account-button_type_logged-in' type='button'>
                             Аккаунт
                             <div className='header__account-logo header__account-logo_type_logged-in'></div>
                         </button>

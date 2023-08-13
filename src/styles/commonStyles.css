@@ -38,7 +38,7 @@
 .form-page__input-title {
     margin: 0;
     color: #8B8B8B;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -55,7 +55,7 @@
     border-radius: 8px;
     background: #2F2F2F;
     color: #FFF;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -73,7 +73,7 @@
 }
 
 .form-page__input:focus {
-    outline: none;
+    outline: 1px solid white;
 }
 
 .form-page__button {
@@ -87,7 +87,7 @@
     background: #4285F4;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -112,13 +112,15 @@
 }
 
 
+
+
 .form-page__question {
     display: block;
     text-align: center;
     margin: 16px 0 0 0;
     color: #8B8B8B;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -137,7 +139,7 @@
     display: inline-block;
     color: #4285F4;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -164,7 +166,7 @@
 .form-page__error-message {
     display: none;
     color: #EE3465;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -218,7 +220,7 @@
     background: #2F2F2F;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
