@@ -2,6 +2,10 @@
     display: none;
 }
 
+.wrap:hover {
+    opacity: 0.8;
+}
+
 .wrap__slider {
     position: relative; 
     display: block;

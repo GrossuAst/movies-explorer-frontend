@@ -17,19 +17,19 @@ function Login() {
                 headerMixin={isLoginPage ? 'header_type_form-page' : ''}
                 wrapperMixin={isLoginPage ? 'header__wrapper_type_form-page' : ''}
             >
-                <h1 className='header__title_type_form-page'>Рады видеть!</h1>
+                <h1 className='header__title header__title_type_form-page'>Рады видеть!</h1>
             </Header>
             <main>
                 <section className='form-page'>
                     <div className='form-page__wrapper'>          
                         <form className='form-page__form'>
                             <div className='form-page__input-block'>                            
-                                <p className='form-page__input-title'>E-mail</p>
-                                <input className='form-page__input' placeholder='Почта' type={'email'} required maxLength={40}></input>
+                                <label className='form-page__input-title' for={'login-email'}>E-mail</label>
+                                <input className='form-page__input' id='login-email' placeholder='Почта' type={'email'} required maxLength={40}></input>
                             </div>
                             <div className='form-page__input-block'>
-                                <p className='form-page__input-title'>Пароль</p>
-                                <input className='form-page__input' placeholder='Пароль' type={'password'} required minLength={5} maxLength={40}></input>
+                                <label className='form-page__input-title' for={'login-password'}>Пароль</label>
+                                <input className='form-page__input' id='login-password' placeholder='Пароль' type={'password'} required minLength={5} maxLength={40}></input>
                             </div>
                             <p className='form-page__error-message'></p>
                             <button className='form-page__button form-page__button_type_login' type='submit'>Войти</button>

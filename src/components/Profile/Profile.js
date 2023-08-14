@@ -69,7 +69,7 @@ function Profile({openSidebar}) {
                     <div className='profile__info-container'>
                         <form>
                             <div className='profile__info'>
-                                <label className='profile__user' for={'name-input-change'}>Имя</label>
+                                <label className='profile__user' for={'name-input-change'} minLength={2} maxLength={30}>Имя</label>
                                 <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя'></input>
                             </div>
                             <div className='profile__info'>

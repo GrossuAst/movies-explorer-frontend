@@ -118,6 +118,10 @@
     background: url('../../../images/card-like-min.svg');
 }
 
+.card__like:hover {
+    opacity: 0.8;
+}
+
 .card__delete-button {
     visibility: hidden;
     /* display: none; */

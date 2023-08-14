@@ -57,7 +57,7 @@
 
 @media screen and (max-width: 467px) {
     .sidebar {
-        padding: 31px 25px 0 0;
+        /* padding: 31px 25px 0 0; */
     }
 }
 
@@ -79,6 +79,13 @@
     justify-content: space-between;
     box-sizing: border-box;
     padding: 97px 0 90px 26px;
+}
+
+@media screen and (max-width: 467px) {
+    .sidebar__nav {
+        padding-top: 104px;
+        padding-bottom: 198px;
+    }
 }
 
 .sidebar__close-button {
@@ -158,6 +165,12 @@
     font-weight: 500;
     line-height: 12px;
     gap: 7px;
+}
+
+@media screen and (max-width: 467px) {
+    .sidebar__account-button {
+        padding-left: 7px;
+    }
 }
 
 .sidebar__account-button:hover {
