@@ -77,7 +77,7 @@ export const movies = [
 export const savedMovies = [
         {
             _id: 1,
-            title: 'Интерстеллар',
+            title: 'Интерстеллар Интерстеллар',
             duration: '1ч 0м',
             image: 'https://thingdifferently.files.wordpress.com/2016/03/d0b8d0bdd182d0b5d180d181d182d0b5d0bbd0bbd0b0d180-interstellar-d0bed182d0b7d18bd0b2d18b-d0be-d184d0b8d0bbd18cd0bcd0b5-d0bcd18dd182d182d18c.jpg',
         },
@@ -93,4 +93,5 @@ export const savedMovies = [
         //     duration: '1ч 0м',
         //     image: 'https://mospolytech.ru/upload/iblock/8ec/1575750671_4-4.jpg',
         // },
+        
   ]

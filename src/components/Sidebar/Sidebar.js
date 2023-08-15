@@ -45,11 +45,9 @@ function Sidebar({ isSidebarOpen, closeSidebar }) {
                             </NavLink>
                         </li>
                     </ul>
-                        <NavLink to='/profile' style={linkStyle}>
-                            <button className='sidebar__account-button sidebar__account-button_type_logged-in' type='button'>
+                        <NavLink to='/profile' className='sidebar__account-button sidebar__account-button_type_logged-in' style={linkStyle}>
                                 Аккаунт
                                 <div className='sidebar__account-logo sidebar__account-logo_type_logged-in'></div>
-                            </button>
                         </NavLink>
                 </nav>
             </div>

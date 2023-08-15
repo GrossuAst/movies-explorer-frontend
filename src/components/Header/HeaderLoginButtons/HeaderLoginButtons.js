@@ -5,11 +5,11 @@ import './HeaderLoginButtons.css';
 function HeaderLoginButtons () {
     return (
         <nav className='header__buttons'>
-            <Link to='/signup'>
-                <button className='header__signup-button' type='button'>Регистрация</button>
+            <Link to='/signup' className='header__signup-button'>
+                Регистрация
             </Link>
-            <Link to='/signin'>
-                <button className='header__signin-button' type='button'>Войти</button>
+            <Link to='/signin' className='header__signin-button'>
+                Войти
             </Link>
         </nav>
     )

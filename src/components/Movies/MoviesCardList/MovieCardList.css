@@ -22,7 +22,7 @@
     margin: 0 auto;
 }
 
-@media screen and (max-width: 1297px) {
+@media screen and (max-width: 1279px) {
     .movie-block__wrapper {
         max-width: 752px;
     }
@@ -57,7 +57,7 @@
     }
 }
 
-@media screen and (max-width: 784px) {
+@media screen and (max-width: 767px) {
     .movie-block__list {  
         width: 339px;
     }

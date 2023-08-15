@@ -175,6 +175,7 @@
 }
 
 .profile__logout-button {
+    text-decoration: none;
     height: 20px;
     cursor: pointer;
     border: none;
@@ -235,8 +236,4 @@
 .profile__save-button_disabled:hover {
     opacity: 1;
     cursor: auto;
-}
-
-.profile__save-button_disabled {
-
 }

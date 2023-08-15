@@ -42,22 +42,20 @@ function Profile({openSidebar}) {
             <nav className='header__nav header__nav_type_tablet'>
                 <ul className='header__nav-list'>
                     <li >
-                        <Link to='/movies'>
-                            <button className='header__nav-link' type='button'>Фильмы</button>
+                        <Link to='/movies' className='header__nav-link'>
+                            Фильмы
                         </Link>
                     </li>
                     <li>
-                        <Link to='/saved-movies'>
-                            <button className='header__nav-link' type='button'>Сохранённые фильмы</button>
+                        <Link to='/saved-movies' className='header__nav-link'>
+                            Сохранённые фильмы
                         </Link>
                     </li>
                 </ul>
                 <div className='header__nav-list'>
-                    <Link to='/profile' style={linkStyle}>
-                        <button className='header__account-button' type='button'>
+                    <Link to='/profile' style={linkStyle} className='header__account-button'>      
                             Аккаунт
                             <div className={isProfilePage ? 'header__account-logo' : ''}></div>
-                        </button>
                     </Link>
                 </div>
             </nav>
@@ -69,8 +67,8 @@ function Profile({openSidebar}) {
                     <div className='profile__info-container'>
                         <form>
                             <div className='profile__info'>
-                                <label className='profile__user' for={'name-input-change'} minLength={2} maxLength={30}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя'></input>
+                                <label className='profile__user' for={'name-input-change'}>Имя</label>
+                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя' minLength={2} maxLength={30}></input>
                             </div>
                             <div className='profile__info'>
                                 <label className='profile__user' for={'email-input-change'}>E-mail</label>
@@ -94,8 +92,8 @@ function Profile({openSidebar}) {
                                 (
                                 <>
                                     <button className='profile__edit-button' onClick={editProfile} type='button'>Редактировать</button>
-                                    <Link to='/'>
-                                        <button className='profile__logout-button' type='button'>Выйти из аккаунта</button>
+                                    <Link to='/' className='profile__logout-button'>
+                                        Выйти из аккаунта
                                     </Link>
                                 </>
                                 )}

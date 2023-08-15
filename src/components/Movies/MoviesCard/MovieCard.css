@@ -67,6 +67,9 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
 }
 
 @media screen and (max-width: 865px) {
@@ -118,6 +121,19 @@
     background: url('../../../images/card-like-min.svg');
 }
 
+@media screen and (max-width: 865px) {
+    .card__like {
+        margin-left: 21px;
+    }
+}
+
+@media screen and (max-width: 467px) {
+    .card__like {
+        margin-top: 8px;
+        margin-left: 1px;
+    }
+}
+
 .card__like:hover {
     opacity: 0.8;
 }
@@ -146,11 +162,7 @@
     opacity: 0.8;
 }
 
-@media screen and (max-width: 865px) {
-    .card__like {
-        margin-left: 21px;
-    }
-}
+
 
 .card__like_active {
     background: url('../../../images/card-like-active-min.svg');

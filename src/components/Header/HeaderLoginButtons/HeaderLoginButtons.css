@@ -11,6 +11,9 @@
 }
 
 .header__signup-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 77px;
     height: 32px;
     background-color: #073042;
@@ -23,6 +26,7 @@
     padding: 0;
     border: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 467px) {
@@ -39,6 +43,9 @@
 }
 
 .header__signin-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 76px;
     height: 32px;
     border-radius: 3px;
@@ -52,6 +59,7 @@
     padding: 0;
     border: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 467px) {
