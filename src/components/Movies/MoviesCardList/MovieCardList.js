@@ -4,13 +4,9 @@ import './MovieCardList.css';
 import MovieCard from '../MoviesCard/MovieCard';
 import { useLocation } from 'react-router-dom';
 
-function MovieCardList({movies, savedMovies}) {
+function MovieCardList({moviesArray, savedMovies}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-
-  // const [cardNumDesctop, setCardNumDesctop] = React.useState(12);
-  // const [cardNumTablet, setCardNumTablet] = React.useState(8);
-  // const [cardNumTMobile, setCardNumMobile] = React.useState(5);
 
   // статичное отображение. Разное количество для разных экранов рендерится только при перезагрузке
   let visibleMovies;
@@ -24,6 +20,13 @@ function MovieCardList({movies, savedMovies}) {
     visibleMovies = 12;
   }
 
+  // const [isLoaded, setIsLoaded] = React.useState(false);
+  // React.useEffect(() => {
+  //   if(moviesArray !== null) {
+  //     setIsLoaded(true);
+  //   };
+  // }, []);
+
   return (
     <>
         <section className='movie-block'>
@@ -31,7 +34,7 @@ function MovieCardList({movies, savedMovies}) {
             <ul className='movie-block__list'>
 
               {/* в зависимости от адреса movies/saved-movies рендерит соответствующий массив */}
-              { isMoviesPage  ? movies.slice(0, visibleMovies).map((movie) => (
+              { isMoviesPage ? moviesArray.slice(0, visibleMovies).map((movie) => (
                 <li key={movie._id} className='movie-block__card'>
                   <MovieCard
                     title={movie.title}

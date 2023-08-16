@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function Movies({ movies, openSidebar }) {
+function Movies({ moviesArray, openSidebar }) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
@@ -46,7 +46,7 @@ function Movies({ movies, openSidebar }) {
         </Header>
         <main className='main'>
             <SearchForm></SearchForm>
-            <MovieCardList movies={movies}></MovieCardList>
+            <MovieCardList moviesArray={moviesArray}></MovieCardList>
             <ExpandButton></ExpandButton>
         </main>
         <Footer></Footer>
