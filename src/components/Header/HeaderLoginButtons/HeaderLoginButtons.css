@@ -1,0 +1,76 @@
+.header__buttons {
+    display: flex;
+    height: 32px;
+    gap: 30px;
+}
+
+@media screen and (max-width: 467px) {
+    .header__buttons {
+        gap: 14px;
+    }
+}
+
+.header__signup-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 77px;
+    height: 32px;
+    background-color: #073042;
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 467px) {
+    .header__signup-button {
+        width: 64px;
+        height: 16px;
+        font-size: 10px;
+        margin-top: 8px;
+    }
+}
+
+.header__signup-button:hover {
+    opacity: 0.8;
+}
+
+.header__signin-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 76px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: #3DDC84;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 467px) {
+    .header__signin-button {
+        width: 54px;
+        height: 26px;
+        margin-top: 3px;
+        font-size: 10px;
+    }
+}
+
+.header__signin-button:hover {
+    opacity: 0.8;
+}
