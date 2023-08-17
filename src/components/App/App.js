@@ -37,8 +37,10 @@ function App() {
     setSidebarOpen(false);
   };
 
-  // массив с фильмами___________________________________________
-  const [moviesArray, setMoviesArray] = React.useState(null);
+  // исходный массив с фильмами___________________________________________
+  const [moviesArray, setMoviesArray] = React.useState([]);
+  // отвфильтрованный массив, передается в компонент MovieCardList для рендера
+  const [filtredArray, setFiltredArray] = React.useState([]);
 
   React.useEffect(() => {
     moviesApi.getMovies()
@@ -47,11 +49,10 @@ function App() {
     })
   }, []);
 
-  React.useEffect(() => {
-    if(moviesArray !== null) {
-      console.log(moviesArray);
-    }
-  }, [moviesArray]);
+  // функция для изменения стейта отфильтрованного массива
+  function filterArray(filtredArray) {
+    setFiltredArray(filtredArray);
+  }
 
   return (
     <>
@@ -66,14 +67,19 @@ function App() {
         />
 
         {/* страница с фильмами */}
-        <Route path='/movies' element={<Movies moviesArray={moviesArray ? moviesArray : movies}
-          // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
-          openSidebar={openSidebar}
-          />} 
+        <Route path='/movies' 
+          element={ <Movies 
+            moviesArray={moviesArray}
+            // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
+            filterArray={filterArray}
+            filtredArray={filtredArray}
+            // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
+            openSidebar={openSidebar}
+          /> } 
         />
 
         {/* страница с сохраненными фильмами */}
-        <Route path='/saved-movies' element={<SavedMovies savedMovies={savedMovies}
+        <Route path='/saved-movies' element={<SavedMovies filtredArray={filtredArray}
         // управление сайдбаром, прокидывается в компонент SavedMovies и вешается на кнопку
           openSidebar={openSidebar}
           />} 

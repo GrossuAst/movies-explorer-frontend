@@ -12,6 +12,8 @@ export const mainApiConfig = {
   }
 }
 
+export const BASE_URL = 'https://api.nomoreparties.co/';
+
 // массив для теста
 export const movies = [
     // {

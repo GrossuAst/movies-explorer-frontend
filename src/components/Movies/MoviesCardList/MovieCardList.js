@@ -4,7 +4,9 @@ import './MovieCardList.css';
 import MovieCard from '../MoviesCard/MovieCard';
 import { useLocation } from 'react-router-dom';
 
-function MovieCardList({moviesArray, savedMovies}) {
+import { BASE_URL } from '../../../utils/constants';
+
+function MovieCardList({moviesArray, filtredArray}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
 
@@ -20,13 +22,6 @@ function MovieCardList({moviesArray, savedMovies}) {
     visibleMovies = 12;
   }
 
-  // const [isLoaded, setIsLoaded] = React.useState(false);
-  // React.useEffect(() => {
-  //   if(moviesArray !== null) {
-  //     setIsLoaded(true);
-  //   };
-  // }, []);
-
   return (
     <>
         <section className='movie-block'>
@@ -34,18 +29,19 @@ function MovieCardList({moviesArray, savedMovies}) {
             <ul className='movie-block__list'>
 
               {/* в зависимости от адреса movies/saved-movies рендерит соответствующий массив */}
-              { isMoviesPage ? moviesArray.slice(0, visibleMovies).map((movie) => (
-                <li key={movie._id} className='movie-block__card'>
+              { isMoviesPage ? filtredArray.slice(0, visibleMovies).map((movie) => (
+                <li key={movie.id} className='movie-block__card'>
                   <MovieCard
-                    title={movie.title}
+                    movie={movie}
+                    image={`${BASE_URL}${movie.image.url}`}
                     duration={movie.duration}
-                    image={movie.image}
+                    title={movie.title}
                   />
                 </li>
               )) 
               :
-              savedMovies.map((movie) => (
-                <li key={movie._id} className='movie-block__card'>
+              filtredArray.map((movie) => (
+                <li key={movie.id} className='movie-block__card'>
                   <MovieCard
                     title={movie.title}
                     duration={movie.duration}
