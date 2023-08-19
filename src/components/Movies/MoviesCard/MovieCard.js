@@ -13,9 +13,16 @@ function MovieCard({movie, image, duration, title}) {
     return `${hours}ч ${minutes}м`;
   };
 
+  // открытие трейлера фильма в новом окне
+  function linkClick(evt) {
+    if(!evt.target.classList.contains('card__like')) {
+      window.open(movie.trailerLink, '_blank');
+    }
+  }
+
   return (
     <>
-        <article className='card'>
+        <article className='card' onClick={linkClick}>
             <img className='card__image' alt={`Превью фильма '${movie.nameRU}'`} src={image}></img>
             <div className='card__descriprion'>
                 <div>

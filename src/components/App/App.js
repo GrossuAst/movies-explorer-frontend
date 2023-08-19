@@ -54,6 +54,41 @@ function App() {
     setFiltredArray(filtredArray);
   }
 
+  // управление прелоадером
+  let isLoading;
+
+  // управление кол-вом отображаемых карточек
+  const [visibleMovies, setVisibleMovies] = React.useState(0);
+
+  // статичное отображение. Разное количество для разных экранов рендерится только при перезагрузке
+  React.useEffect(() => {
+    if (window.innerWidth < 468) {
+      setVisibleMovies(5);
+    }
+    if (window.innerWidth > 467 && window.innerWidth < 866) {
+      setVisibleMovies(8);
+    }
+    if (window.innerWidth > 865) {
+      setVisibleMovies(12);
+    }
+    console.log(visibleMovies)
+  }, []);
+
+  // увеличение кол-ва карточек при клике на кнопку Еще
+  // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива filtredArray
+  function handleUpdateVisibleMovies() {
+    if (window.innerWidth < 468) {
+      setVisibleMovies(Math.min(visibleMovies + 5, filtredArray.length));
+    }
+    if (window.innerWidth > 467 && window.innerWidth < 866) {
+      setVisibleMovies(Math.min(visibleMovies + 8, filtredArray.length));
+    }
+    if (window.innerWidth > 865) {
+      setVisibleMovies(Math.min(visibleMovies + 12, filtredArray.length));
+    }
+  }
+
+
   return (
     <>
       <Routes>
@@ -68,11 +103,13 @@ function App() {
 
         {/* страница с фильмами */}
         <Route path='/movies' 
-          element={ <Movies 
+          element={ <Movies
             moviesArray={moviesArray}
             // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
             filterArray={filterArray}
             filtredArray={filtredArray}
+            visibleMovies={visibleMovies}
+            handleUpdateVisibleMovies={handleUpdateVisibleMovies}
             // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
             openSidebar={openSidebar}
           /> } 

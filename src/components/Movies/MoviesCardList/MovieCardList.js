@@ -6,21 +6,9 @@ import { useLocation } from 'react-router-dom';
 
 import { BASE_URL } from '../../../utils/constants';
 
-function MovieCardList({moviesArray, filtredArray}) {
+function MovieCardList({moviesArray, filtredArray, visibleMovies}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-
-  // статичное отображение. Разное количество для разных экранов рендерится только при перезагрузке
-  let visibleMovies;
-  if (window.innerWidth < 468) {
-    visibleMovies = 5;
-  }
-  if (window.innerWidth > 467 && window.innerWidth < 866) {
-    visibleMovies = 8;
-  }
-  if (window.innerWidth > 865) {
-    visibleMovies = 12;
-  }
 
   return (
     <>

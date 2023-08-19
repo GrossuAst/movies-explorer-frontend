@@ -18,7 +18,10 @@ function SearchForm({ moviesArray, filterArray }) {
     console.log(moviesArray + 'исходный массив');
     console.log(movieTitleRef.current.value);
     // отфильтрованный массив, не зависит от регистра
-    const filtredArray = moviesArray.filter(movie => movie.nameRU.toLowerCase().includes(movieTitleRef.current.value));
+    const filtredArray = moviesArray.filter(
+      movie => movie.nameRU.toLowerCase().includes(movieTitleRef.current.value) 
+      || movie.nameEN.toLowerCase().includes(movieTitleRef.current.value) 
+    );
     filterArray(filtredArray);
     console.log(filtredArray);
   }
