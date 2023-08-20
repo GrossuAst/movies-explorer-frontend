@@ -24,7 +24,7 @@ function App() {
   
   // если стейт false, header рендерит компонент для регистрации/логина
   // если стейт true, header рендерит навигацию по страницам movies/saved-movies
-  const [isLoggedIn, setLoggedIn] = React.useState(true);
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
 
   // управление сайдбаром_______________________________________
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
@@ -54,6 +54,14 @@ function App() {
     setFiltredArray(filtredArray);
   }
 
+  // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
+  React.useEffect(() => {
+    if(localStorage.getItem('filtredArray')) {
+      setFiltredArray(JSON.parse(localStorage.getItem('filtredArray')));
+      // console.log(JSON.parse(localStorage.getItem('filtredArray')))
+    }
+  }, []);
+
   // управление прелоадером
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -74,8 +82,8 @@ function App() {
   };
 
   const isMobile = window.innerWidth < 468;
-  const isTablet = window.innerWidth > 467 && window.innerWidth < 866;
-  const isDesktop = window.innerWidth > 865;
+  const isTablet = window.innerWidth > 467 && window.innerWidth < 1280;
+  const isDesktop = window.innerWidth > 1279;
 
   // при монтировании рендерит кол-во карточек в зависимости от ширины экрана
   React.useEffect(() => {
@@ -94,13 +102,13 @@ function App() {
   // увеличение кол-ва карточек при клике на кнопку Еще
   // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива filtredArray
   function handleUpdateVisibleMovies() {
-    if (windowSize < 468) {
+    if (isMobile) {
       setVisibleMovies(Math.min(visibleMovies + 1, filtredArray.length));
     }
-    if (windowSize > 467 && windowSize < 866) {
+    if (isTablet) {
       setVisibleMovies(Math.min(visibleMovies + 2, filtredArray.length));
     }
-    if (windowSize > 865) {
+    if (isDesktop) {
       setVisibleMovies(Math.min(visibleMovies + 3, filtredArray.length));
     }
   }
