@@ -3,7 +3,7 @@ import React from 'react';
 import './SearchForm.css';
 import Switch from '../../Switch/Switch';
 
-function SearchForm({ moviesArray, filterArray }) {
+function SearchForm({ moviesArray, filterArray, clearVisibleMoviesState }) {
 
   const movieTitleRef = React.useRef();
 
@@ -15,6 +15,7 @@ function SearchForm({ moviesArray, filterArray }) {
   // хэндлер формы
   function handleSubmit(evt) {
     evt.preventDefault();
+    clearVisibleMoviesState();
     console.log(moviesArray + 'исходный массив');
     console.log(movieTitleRef.current.value);
     // отфильтрованный массив, не зависит от регистра

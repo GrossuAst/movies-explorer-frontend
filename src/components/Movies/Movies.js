@@ -10,7 +10,7 @@ import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleUpdateVisibleMovies, openSidebar }) {
+function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleUpdateVisibleMovies, clearVisibleMoviesState, openSidebar }) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
@@ -55,7 +55,7 @@ function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleU
                 </nav>
             </Header>
             <main className='main'>
-                <SearchForm moviesArray={ moviesArray } filterArray={filterArray} ></SearchForm>
+                <SearchForm moviesArray={ moviesArray } filterArray={filterArray} clearVisibleMoviesState={clearVisibleMoviesState} ></SearchForm>
                 <MovieCardList moviesArray={ moviesArray } filtredArray={filtredArray} visibleMovies={visibleMovies}></MovieCardList>
                 {/* <ExpandButton></ExpandButton> */}
                 {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={handleUpdateVisibleMovies}></ExpandButton> : ''}

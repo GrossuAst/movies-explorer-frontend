@@ -55,20 +55,37 @@ function App() {
   }
 
   // управление прелоадером
-  let isLoading;
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // управление кол-вом отображаемых карточек
   const [visibleMovies, setVisibleMovies] = React.useState(0);
 
-  // статичное отображение. Разное количество для разных экранов рендерится только при перезагрузке
-  React.useEffect(() => {
-    if (window.innerWidth < 468) {
+  // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
+  function clearVisibleMoviesState() {
+    if(isMobile) {
       setVisibleMovies(5);
     }
-    if (window.innerWidth > 467 && window.innerWidth < 866) {
+    if(isTablet) {
       setVisibleMovies(8);
     }
-    if (window.innerWidth > 865) {
+    if(isDesktop) {
+      setVisibleMovies(12);
+    }
+  };
+
+  const isMobile = window.innerWidth < 468;
+  const isTablet = window.innerWidth > 467 && window.innerWidth < 866;
+  const isDesktop = window.innerWidth > 865;
+
+  // при монтировании рендерит кол-во карточек в зависимости от ширины экрана
+  React.useEffect(() => {
+    if (isMobile) {
+      setVisibleMovies(5);
+    }
+    if (isTablet) {
+      setVisibleMovies(8);
+    }
+    if (isDesktop) {
       setVisibleMovies(12);
     }
     console.log(visibleMovies)
@@ -77,16 +94,29 @@ function App() {
   // увеличение кол-ва карточек при клике на кнопку Еще
   // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива filtredArray
   function handleUpdateVisibleMovies() {
-    if (window.innerWidth < 468) {
-      setVisibleMovies(Math.min(visibleMovies + 5, filtredArray.length));
+    if (windowSize < 468) {
+      setVisibleMovies(Math.min(visibleMovies + 1, filtredArray.length));
     }
-    if (window.innerWidth > 467 && window.innerWidth < 866) {
-      setVisibleMovies(Math.min(visibleMovies + 8, filtredArray.length));
+    if (windowSize > 467 && windowSize < 866) {
+      setVisibleMovies(Math.min(visibleMovies + 2, filtredArray.length));
     }
-    if (window.innerWidth > 865) {
-      setVisibleMovies(Math.min(visibleMovies + 12, filtredArray.length));
+    if (windowSize > 865) {
+      setVisibleMovies(Math.min(visibleMovies + 3, filtredArray.length));
     }
   }
+
+  // отслеживание изменения ширины экрана
+  const [windowSize, setWindowSize] = React.useState(window.innerWidth);
+
+  function resize() {
+    setWindowSize(window.innerWidth);
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('resize', () => {
+      setTimeout(resize, 1000);
+    })
+  }, []);
 
 
   return (
@@ -110,6 +140,7 @@ function App() {
             filtredArray={filtredArray}
             visibleMovies={visibleMovies}
             handleUpdateVisibleMovies={handleUpdateVisibleMovies}
+            clearVisibleMoviesState={clearVisibleMoviesState}
             // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
             openSidebar={openSidebar}
           /> } 
