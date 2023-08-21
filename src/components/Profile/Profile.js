@@ -5,15 +5,20 @@ import './Profile.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
-function Profile({openSidebar}) {
+import { CurrentUserContext } from '../contexts/CurrentUser'
+
+function Profile({ openSidebar }) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
 
+    // подписка на контекст
+    const userData = React.useContext(CurrentUserContext);
+
     // здесь будут данные с сервера
-    const [userData, setUserData] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
+    // const [userData, setUserData] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
     
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
@@ -63,16 +68,16 @@ function Profile({openSidebar}) {
         <main className='main'>
             <section className='profile'>
                 <div className='profile__wrapper'>
-                    <h1 className='profile__title'>Привет, {userData.name}!</h1>
+                    <h1 className='profile__title'>Привет, {userData.data.name}!</h1>
                     <div className='profile__info-container'>
                         <form>
                             <div className='profile__info'>
                                 <label className='profile__user' for={'name-input-change'}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя' minLength={2} maxLength={30}></input>
+                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' defaultValue={userData.data.name} placeholder='Имя' minLength={2} maxLength={30}></input>
                             </div>
                             <div className='profile__info'>
                                 <label className='profile__user' for={'email-input-change'}>E-mail</label>
-                                <input className='profile__user-input' id='email-input-change' disabled={isInputDisabled} name='email' value={userData.email} placeholder='Почта'></input>
+                                <input className='profile__user-input' id='email-input-change' disabled={isInputDisabled} name='email' defaultValue={userData.data.email} placeholder='Почта'></input>
                             </div>
 
                             <div className='profile__control'>

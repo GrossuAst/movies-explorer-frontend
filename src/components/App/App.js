@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 // массивы для теста
 import { movies, savedMovies } from '../../utils/constants';
 
+import { CurrentUserContext } from '../contexts/CurrentUser';
+
 // импорт компонентов________________________________________
 import './App.css';
 import MainPage from '../Main/MainPage';
@@ -24,7 +26,7 @@ function App() {
   
   // если стейт false, header рендерит компонент для регистрации/логина
   // если стейт true, header рендерит навигацию по страницам movies/saved-movies
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(true);
 
   // управление сайдбаром_______________________________________
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
@@ -39,15 +41,31 @@ function App() {
 
   // исходный массив с фильмами___________________________________________
   const [moviesArray, setMoviesArray] = React.useState([]);
-  // отвфильтрованный массив, передается в компонент MovieCardList для рендера
+  // стейт пользователя
+  const [userData, setUserData] = React.useState({});
+  // отфильтрованный массив, передается в компонент MovieCardList для рендера
   const [filtredArray, setFiltredArray] = React.useState([]);
 
+  // React.useEffect(() => {
+  //   moviesApi.getMovies()
+  //   .then((res) => {
+  //     setMoviesArray(res);
+  //   })
+  // }, []);
+
   React.useEffect(() => {
-    moviesApi.getMovies()
-    .then((res) => {
-      setMoviesArray(res);
+    if(isLoggedIn === true) {
+    Promise.all([moviesApi.getMovies(), mainApi.getInfoAboutUser()])
+    .then(([movies, user]) => {
+      setMoviesArray(movies);
+      setUserData(user);
+      // console.log(user)
     })
-  }, []);
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
+    })};
+    return;
+  }, [isLoggedIn]);
 
   // функция для изменения стейта отфильтрованного массива
   function filterArray(filtredArray) {
@@ -63,7 +81,7 @@ function App() {
   }, []);
 
   // управление прелоадером
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   // управление кол-вом отображаемых карточек
   const [visibleMovies, setVisibleMovies] = React.useState(0);
@@ -129,53 +147,56 @@ function App() {
 
   return (
     <>
-      <Routes>
-        {/* главная страница */}
-        <Route 
-          path='/' 
-          element={<MainPage isLoggedIn={isLoggedIn}
-          // управление сайдбаром, прокидывается в компонент MainPage и HeaderNavigate для открытия по клику
-          openSidebar={openSidebar}
-          />}
-        />
-
-        {/* страница с фильмами */}
-        <Route path='/movies' 
-          element={ <Movies
-            moviesArray={moviesArray}
-            // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
-            filterArray={filterArray}
-            filtredArray={filtredArray}
-            visibleMovies={visibleMovies}
-            handleUpdateVisibleMovies={handleUpdateVisibleMovies}
-            clearVisibleMoviesState={clearVisibleMoviesState}
-            // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
+      <CurrentUserContext.Provider value={userData}>
+        <Routes>
+          {/* главная страница */}
+          <Route 
+            path='/' 
+            element={<MainPage isLoggedIn={isLoggedIn}
+            // управление сайдбаром, прокидывается в компонент MainPage и HeaderNavigate для открытия по клику
             openSidebar={openSidebar}
-          /> } 
-        />
+            />}
+          />
 
-        {/* страница с сохраненными фильмами */}
-        <Route path='/saved-movies' element={<SavedMovies filtredArray={filtredArray}
-        // управление сайдбаром, прокидывается в компонент SavedMovies и вешается на кнопку
-          openSidebar={openSidebar}
-          />} 
-        />
+          {/* страница с фильмами */}
+          <Route path='/movies' 
+            element={ <Movies
+              moviesArray={moviesArray}
+              // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
+              filterArray={filterArray}
+              filtredArray={filtredArray}
+              visibleMovies={visibleMovies}
+              handleUpdateVisibleMovies={handleUpdateVisibleMovies}
+              clearVisibleMoviesState={clearVisibleMoviesState}
+              // управление сайдбаром, прокидывается в компонент Movies и вешается на кнопку
+              openSidebar={openSidebar}
+            /> } 
+          />
 
-        {/* страница профиля */}
-        <Route path='/profile' element={<Profile 
-          openSidebar={openSidebar}
-          />}
-        />
+          {/* страница с сохраненными фильмами */}
+          <Route path='/saved-movies' element={<SavedMovies filtredArray={filtredArray}
+          // управление сайдбаром, прокидывается в компонент SavedMovies и вешается на кнопку
+            openSidebar={openSidebar}
+            />} 
+          />
 
-        {/* страница логина */}
-        <Route path='/signin' element={<Login />}/>
+          {/* страница профиля */}
+          <Route path='/profile' element={<Profile
+            userData={userData}
+            openSidebar={openSidebar}
+            />}
+          />
 
-        {/* страница регистрации */}
-        <Route path='/signup' element={<Register />}/>
+          {/* страница логина */}
+          <Route path='/signin' element={<Login setUserData={setUserData} />}/>
 
-        <Route path='*' element={<NotFoundPage/>}/>
+          {/* страница регистрации */}
+          <Route path='/signup' element={<Register />}/>
 
-      </Routes>
+          <Route path='*' element={<NotFoundPage/>}/>
+
+        </Routes>
+      </CurrentUserContext.Provider>
       <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar}></Sidebar>
     </>
   );
