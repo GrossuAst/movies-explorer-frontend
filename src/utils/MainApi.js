@@ -30,23 +30,20 @@ export class MainApi {
     getInfoAboutUser() {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
-            credentials: 'include',
             headers: this._headers,  
+            credentials: 'include',
         })
         .then(this._checkResponse)
     }
 
-    // tokenValidate() {
-    //     return fetch(`${this._url}/users/me`, {
-    //         method: 'GET',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             // "Authorization" : `Bearer ${jwt}`
-    //         },
-    //         credentials: 'include'
-    //     })
-    //     .then(this._checkResponse)
-    // }
+    logout() {
+        return fetch(`${this._url}/signout`, {
+            method: 'GET',
+            headers: this._headers,
+            credentials: 'include',
+        })
+        .then(this._checkResponse)
+    }
 }
 
 export const mainApi = new MainApi(mainApiConfig);

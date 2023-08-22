@@ -7,7 +7,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 import { CurrentUserContext } from '../contexts/CurrentUser'
 
-function Profile({ openSidebar }) {
+function Profile({ clearCookies, openSidebar }) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
@@ -97,7 +97,9 @@ function Profile({ openSidebar }) {
                                 (
                                 <>
                                     <button className='profile__edit-button' onClick={editProfile} type='button'>Редактировать</button>
-                                    <Link to='/' className='profile__logout-button'>
+                                    <Link to='/' className='profile__logout-button' 
+                                        onClick={ clearCookies }
+                                    >
                                         Выйти из аккаунта
                                     </Link>
                                 </>

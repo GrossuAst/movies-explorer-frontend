@@ -1,7 +1,8 @@
 export const moviesApiConfig = {
   url: 'https://api.nomoreparties.co/beatfilm-movies',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    "Accept": "application/json",
   }
 };
 
@@ -9,7 +10,8 @@ export const mainApiConfig = {
   // url: 'https://api.grossuast.movie.nomoreparties.sbs',
   url: 'http://localhost:4000',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    "Accept": "application/json",
   }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { mainApi } from '../../utils/MainApi';
 
@@ -9,9 +9,11 @@ import '../../styles/commonStyles.css';
 // import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function Login({ setUserData }) {
+function Login({ setUserData, setLoggedIn }) {
     const location = useLocation();
     const isLoginPage = location.pathname === '/signin';
+
+    const navigate = useNavigate();
 
     const [formValue, setFormValue] = React.useState({
         password: '',
@@ -31,8 +33,10 @@ function Login({ setUserData }) {
         evt.preventDefault();
         await mainApi.login(formValue.password, formValue.email)
         const userData = await mainApi.getInfoAboutUser();
+        setLoggedIn(true);
         setUserData(userData);
-        // setFormValue({password: '', email: ''});
+        setFormValue({password: '', email: ''});
+        navigate('/movies', {replace: true});
     };
 
 
@@ -47,13 +51,13 @@ function Login({ setUserData }) {
             <main>
                 <section className='form-page'>
                     <div className='form-page__wrapper'>          
-                        <form className='form-page__form' onSubmit={handleSubmit}>
+                        <form className='form-page__form' onSubmit={ handleSubmit }>
                             <div className='form-page__input-block'>                            
                                 <label className='form-page__input-title' htmlFor={'login-email'}>E-mail</label>
                                 <input className='form-page__input' id='login-email' 
                                     placeholder='Почта' type={'email'} name="email"
                                     required maxLength={40}
-                                    onChange={handleChange}
+                                    onChange={ handleChange }
                                 >
                                 </input>
                             </div>
@@ -62,7 +66,7 @@ function Login({ setUserData }) {
                                 <input className='form-page__input' id='login-password' 
                                     placeholder='Пароль' type={'password'} name='password'
                                     required minLength={5} maxLength={40}
-                                    onChange={handleChange}
+                                    onChange={ handleChange }
                                 >
                                 </input>
                             </div>
