@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { mainApi, MainApi } from '../../utils/MainApi';
 
 import './Register.css';
 import '../../styles/commonStyles.css';
@@ -11,6 +12,34 @@ import Header from '../Header/Header';
 function Register() {
     const location = useLocation();
     const isRegisterPage = location.pathname === '/signup';
+
+    const navigate = useNavigate();
+
+    const [formValue, setFormValue] = React.useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+
+    function handleInputChange(evt) {
+        const { name, value } = evt.target;
+        setFormValue({
+            ...formValue,
+            [name]: value
+        })
+    }
+
+    function handleRegisterSubmit(evt) {
+        evt.preventDefault();
+        mainApi.register(formValue.name, formValue.email, formValue.password)
+            .then(() => {
+                navigate('/signin', { replace: true });
+                console.log('регистрация успешна!')
+            })
+            .catch((err) => {
+                console.log(`ошибка ${err}`);
+            })
+    }
 
     return (
         <> 
@@ -24,18 +53,27 @@ function Register() {
             <main>
                 <section className='form-page'>
                     <div className='form-page__wrapper'>          
-                        <form className='form-page__form'>
+                        <form className='form-page__form' onSubmit={ handleRegisterSubmit }>
                             <div className='form-page__input-block'>                            
                                 <label className='form-page__input-title' for={'register-name'}>Имя</label>
-                                <input className='form-page__input' id='register-name' placeholder='Имя' type={'text'} required minLength={2} maxLength={30}></input>
+                                <input className='form-page__input' id='register-name' name='name' placeholder='Имя' type={'text'} 
+                                    required minLength={2} maxLength={30}
+                                    onChange={ handleInputChange }
+                                ></input>
                             </div>
                             <div className='form-page__input-block'>                            
                                 <label className='form-page__input-title' for={'register-email'}>E-mail</label>
-                                <input className='form-page__input' id='register-email' placeholder='Почта' type={'email'} required maxLength={40}></input>
+                                <input className='form-page__input' id='register-email' name='email' placeholder='Почта' type={'email'} 
+                                    required maxLength={40}
+                                    onChange={ handleInputChange }
+                                ></input>
                             </div>
                             <div className='form-page__input-block'>
                                 <label className='form-page__input-title' for={'register-password'}>Пароль</label>
-                                <input className='form-page__input' id='register-password' placeholder='Пароль' type={'password'} required minLength={5} maxLength={40}></input>
+                                <input className='form-page__input' id='register-password' name='password' placeholder='Пароль' type={'password'} 
+                                    required minLength={5} maxLength={40}
+                                    onChange={ handleInputChange }
+                                ></input>
                             </div>
                             <div className='form-page__error-message-container'>
                                 

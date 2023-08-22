@@ -13,8 +13,14 @@ export class MainApi {
         return Promise.reject(`Ошибка ${res.status}`);
     };
 
-    register() {
-
+    register(name, email, password) {
+        return fetch(`${this._url}/signup`, {
+            method: 'POST',
+            headers: this._headers,
+            credentials: 'include',
+            body: JSON.stringify({ name, email, password })
+        })
+        .then(this._checkResponse)
     };
 
     login(password, email) {
