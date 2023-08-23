@@ -182,6 +182,17 @@ function App() {
       })
   }
 
+  // обновление данных профиля
+  function handleUpdateProfile({ email, name }) {
+  mainApi.updateProfile( {email, name} )
+      .then((res) => {
+        setUserData(res);
+      })
+      .catch((err) => {
+        console.log(`ошибка ${err}`);
+      })
+  }
+
   return (
     <>
       <CurrentUserContext.Provider value={ userData }>
@@ -237,6 +248,8 @@ function App() {
                   <Profile
                     userData={ userData }
                     clearCookies={ clearCookies }
+                    // setUserData={ setUserData }
+                    handleUpdateProfile={handleUpdateProfile}
                     openSidebar={ openSidebar }
                   />
                 }

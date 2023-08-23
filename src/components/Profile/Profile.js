@@ -6,8 +6,9 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
 import { CurrentUserContext } from '../contexts/CurrentUser'
+import { mainApi } from '../../utils/MainApi';
 
-function Profile({ clearCookies, openSidebar }) {
+function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
@@ -17,8 +18,28 @@ function Profile({ clearCookies, openSidebar }) {
     // подписка на контекст
     const userData = React.useContext(CurrentUserContext);
 
-    // здесь будут данные с сервера
-    // const [userData, setUserData] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
+    const [nameValue, setNameValue] = React.useState(userData.data.name);
+    const [emailValue, setEmailValue] = React.useState(userData.data.email);
+
+    React.useEffect(() => {
+        setNameValue(userData.name);
+        setEmailValue(userData.email);
+        console.log(userData.data.name)
+    }, [userData]);
+
+    function handleNameChange(evt) {
+        setNameValue(evt.target.value);
+    };
+
+    function handleEmailChange(evt) {
+        setEmailValue(evt.target.value)
+        console.log(evt.target)
+    }
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        handleUpdateProfile({ name: nameValue ? nameValue : userData.data.name, email: emailValue ? emailValue : userData.data.email});
+    }
     
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
@@ -70,14 +91,21 @@ function Profile({ clearCookies, openSidebar }) {
                 <div className='profile__wrapper'>
                     <h1 className='profile__title'>Привет, {userData.data.name}!</h1>
                     <div className='profile__info-container'>
-                        <form>
+                        <form onSubmit={ handleSubmit }>
                             <div className='profile__info'>
-                                <label className='profile__user' for={'name-input-change'}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' defaultValue={userData.data.name} placeholder='Имя' minLength={2} maxLength={30}></input>
+                                <label className='profile__user' htmlFor={'name-input-change'}>Имя</label>
+                                <input className='profile__user-input' id='name-input-change' name='name'
+                                    disabled={isInputDisabled} defaultValue={userData.data.name} value={nameValue} placeholder='Имя' 
+                                    minLength={2} maxLength={30}
+                                    onChange={ handleNameChange }
+                                ></input>
                             </div>
                             <div className='profile__info'>
-                                <label className='profile__user' for={'email-input-change'}>E-mail</label>
-                                <input className='profile__user-input' id='email-input-change' disabled={isInputDisabled} name='email' defaultValue={userData.data.email} placeholder='Почта'></input>
+                                <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
+                                <input className='profile__user-input' id='email-input-change' name='email'
+                                    disabled={isInputDisabled}  placeholder='Почта' defaultValue={userData.data.email} value={emailValue}
+                                    onChange={ handleEmailChange }
+                                ></input>
                             </div>
 
                             <div className='profile__control'>
@@ -91,12 +119,15 @@ function Profile({ clearCookies, openSidebar }) {
                                         <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
                                         
                                         {/* чтобы включить кнопку, нужно убрать модификатор */}
-                                        <button className='profile__save-button profile__save-button_disabled' onClick={editProfile} type='submit'>Сохранить</button>
+                                        <button className='profile__save-button profile__save-button_disabled'  type='submit'
+                                        >Сохранить</button>
                                     </>
                                 ) : 
                                 (
                                 <>
-                                    <button className='profile__edit-button' onClick={editProfile} type='button'>Редактировать</button>
+                                    <button className='profile__edit-button'  type='button'
+                                        onClick={editProfile}
+                                    >Редактировать</button>
                                     <Link to='/' className='profile__logout-button' 
                                         onClick={ clearCookies }
                                     >

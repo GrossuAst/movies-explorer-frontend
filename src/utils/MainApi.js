@@ -33,6 +33,16 @@ export class MainApi {
         .then(this._checkResponse)
     };
 
+    updateProfile({email, name}) {
+        return fetch(`${this._url}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            credentials: 'include',
+            body: JSON.stringify({ email, name})
+        })
+        .then(this._checkResponse)
+    }
+
     getInfoAboutUser() {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
