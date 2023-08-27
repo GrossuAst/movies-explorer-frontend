@@ -6,9 +6,14 @@ import { useLocation } from 'react-router-dom';
 
 import { BASE_URL } from '../../../utils/constants';
 
-function MovieCardList({moviesArray, filtredArray, visibleMovies}) {
+import { mainApi } from '../../../utils/MainApi';
+
+function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
+  const isSvaedMoviesPage = location.pathname === '/saved-movies';
+
+  console.log(savedArray)
 
   return (
     <>
@@ -20,20 +25,21 @@ function MovieCardList({moviesArray, filtredArray, visibleMovies}) {
               { isMoviesPage ? filtredArray.slice(0, visibleMovies).map((movie) => (
                 <li key={movie.id} className='movie-block__card'>
                   <MovieCard
-                    movie={movie}
-                    image={`${BASE_URL}${movie.image.url}`}
-                    duration={movie.duration}
-                    title={movie.title}
+                    movie={ movie }
+                    title={ movie.title }
+                    image={ `${ BASE_URL }${ movie.image.url }` }
+                    duration={ movie.duration }
                   />
                 </li>
               )) 
               :
-              filtredArray.map((movie) => (
-                <li key={movie.id} className='movie-block__card'>
+              savedArray.map((movie) => (
+                <li key={movie._id} className='movie-block__card'>
                   <MovieCard
-                    title={movie.title}
-                    duration={movie.duration}
-                    image={movie.image}
+                    movie={ movie }
+                    title={ movie.title }
+                    image={ movie.image }
+                    duration={ movie.duration }
                   />
                 </li>
               )) }

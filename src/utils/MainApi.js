@@ -60,6 +60,25 @@ export class MainApi {
         })
         .then(this._checkResponse)
     }
-}
+
+    saveMovie(movieData) {
+        return fetch(`${this._url}/movies`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify(movieData),
+            credentials: 'include',
+        })
+        .then(this._checkResponse)
+    }
+
+    getAllSavedMovies() {
+        return fetch(`${this._url}/movies`, {
+            method: 'GET',
+            headers: this._headers,
+            credentials: 'include',
+        })
+        .then(this._checkResponse)
+    }
+} 
 
 export const mainApi = new MainApi(mainApiConfig);

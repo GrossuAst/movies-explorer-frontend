@@ -8,12 +8,14 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function SavedMovies({filtredArray, openSidebar}) {
+function SavedMovies({filtredArray, savedArray, openSidebar}) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
+
+    console.log(savedArray);
     
   return (
     <>
@@ -46,7 +48,7 @@ function SavedMovies({filtredArray, openSidebar}) {
         </Header>
         <main className='main'>
             <SearchForm></SearchForm>
-            <MovieCardList filtredArray={filtredArray}></MovieCardList>
+            <MovieCardList filtredArray={ filtredArray } savedArray={ savedArray }></MovieCardList>
         </main>
         <Footer></Footer>
         {/* <Sidebar isSidebarOpen={isSidebarOpen} changeSidebarVisible={changeSidebarVisible}></Sidebar> */}

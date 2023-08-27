@@ -1,9 +1,6 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-// массивы для теста
-import { movies, savedMovies } from '../../utils/constants';
-
 import { CurrentUserContext } from '../contexts/CurrentUser';
 import ProtectedRoute from '../ProtectedRoute';
 
@@ -48,21 +45,17 @@ function App() {
   const [userData, setUserData] = React.useState({});
   // отфильтрованный массив, передается в компонент MovieCardList для рендера
   const [filtredArray, setFiltredArray] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   moviesApi.getMovies()
-  //   .then((res) => {
-  //     setMoviesArray(res);
-  //   })
-  // }, []);
+  // массив сохраненных фильмов
+  const [savedArray, setSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
     if(isLoggedIn === true) {
-    Promise.all([moviesApi.getMovies(), mainApi.getInfoAboutUser()])
-    .then(([movies, user]) => {
+    Promise.all([moviesApi.getMovies(), mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
+    .then(([movies, savedMovies, user]) => {
       setMoviesArray(movies);
       setUserData(user);
-      // console.log(user)
+      setSavedMovies(savedMovies);
+      console.log(user);
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
@@ -79,7 +72,6 @@ function App() {
   React.useEffect(() => {
     if(localStorage.getItem('filtredArray')) {
       setFiltredArray(JSON.parse(localStorage.getItem('filtredArray')));
-      // console.log(JSON.parse(localStorage.getItem('filtredArray')))
     }
   }, []);
 
@@ -117,7 +109,7 @@ function App() {
     if (isDesktop) {
       setVisibleMovies(12);
     }
-    console.log(visibleMovies)
+    // console.log(visibleMovies)
   }, []);
 
   // увеличение кол-ва карточек при клике на кнопку Еще
@@ -233,6 +225,8 @@ function App() {
                 element={ () => 
                   <SavedMovies 
                     filtredArray={ filtredArray }
+                    moviesArray={ moviesArray }
+                    savedArray={ savedArray }
                     openSidebar={ openSidebar }
                   />
                 }

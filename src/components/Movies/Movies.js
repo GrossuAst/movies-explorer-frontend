@@ -57,7 +57,6 @@ function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleU
             <main className='main'>
                 <SearchForm moviesArray={ moviesArray } filterArray={filterArray} clearVisibleMoviesState={clearVisibleMoviesState} ></SearchForm>
                 <MovieCardList moviesArray={ moviesArray } filtredArray={filtredArray} visibleMovies={visibleMovies}></MovieCardList>
-                {/* <ExpandButton></ExpandButton> */}
                 {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={handleUpdateVisibleMovies}></ExpandButton> : ''}
             </main>
             <Footer></Footer>

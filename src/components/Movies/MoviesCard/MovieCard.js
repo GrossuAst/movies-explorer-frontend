@@ -2,7 +2,10 @@ import './MovieCard.css';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MovieCard({movie, image, duration, title}) {
+import { BASE_URL } from '../../../utils/constants';
+import { mainApi } from '../../../utils/MainApi';
+
+function MovieCard({movie, image, savedImage, duration, title}) {
   const location = useLocation();
   const isSavedMovesPage = location.pathname === '/saved-movies';
 
@@ -20,16 +23,45 @@ function MovieCard({movie, image, duration, title}) {
     }
   }
 
+  console.log(savedImage)
+
+  function saveMovie() {
+    console.log(`${ BASE_URL }${ movie.image.url }`)
+    const movieData = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `${ BASE_URL }${ movie.image.url }`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `${ BASE_URL }${ movie.image.formats.thumbnail.url }`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    }
+    mainApi.saveMovie(movieData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.status)
+      })
+  }
+
   return (
     <>
-        <article className='card' onClick={linkClick}>
-            <img className='card__image' alt={`Превью фильма '${movie.nameRU}'`} src={image}></img>
+        <article className='card' onClick={ linkClick }>
+            <img className='card__image' alt={ `Превью фильма '${ movie.nameRU }'` } src={ image }></img>
             <div className='card__descriprion'>
                 <div>
-                    <h2 className='card__title'>{movie.nameRU}</h2>
-                    <p className='card__duration'>{convertDuration(duration)}</p>
+                    <h2 className='card__title'>{ movie.nameRU }</h2>
+                    <p className='card__duration'>{ convertDuration(duration) }</p>
                 </div>
-                <div className={isSavedMovesPage ? 'card__delete-button' : 'card__like'}></div>
+                <div className={ isSavedMovesPage ? 'card__delete-button' : 'card__like' }
+                  onClick={ saveMovie }
+                >
+                </div>
             </div>
         </article>
     </>
