@@ -5,8 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCard({movie, image, savedImage, duration, title}) {
+function MovieCard({movie, image, savedImage, duration, title, isLiked}) {
   const location = useLocation();
+  const isMoviesPage = location.pathname === '/movies';
   const isSavedMovesPage = location.pathname === '/saved-movies';
 
   // принимает минуты и конвертирует в формат чч:мм
@@ -18,12 +19,12 @@ function MovieCard({movie, image, savedImage, duration, title}) {
 
   // открытие трейлера фильма в новом окне
   function linkClick(evt) {
-    if(!evt.target.classList.contains('card__like')) {
+    if(!evt.target.classList.contains('card__like') && !evt.target.classList.contains('card__delete-button')) {
       window.open(movie.trailerLink, '_blank');
     }
   }
 
-  console.log(savedImage)
+  // console.log(savedImage)
 
   function saveMovie() {
     console.log(`${ BASE_URL }${ movie.image.url }`)
@@ -49,6 +50,10 @@ function MovieCard({movie, image, savedImage, duration, title}) {
       })
   }
 
+  function deleteMovie() {
+    mainApi.deleteMovie(movie._id)
+  }
+
   return (
     <>
         <article className='card' onClick={ linkClick }>
@@ -58,10 +63,22 @@ function MovieCard({movie, image, savedImage, duration, title}) {
                     <h2 className='card__title'>{ movie.nameRU }</h2>
                     <p className='card__duration'>{ convertDuration(duration) }</p>
                 </div>
-                <div className={ isSavedMovesPage ? 'card__delete-button' : 'card__like' }
-                  onClick={ saveMovie }
-                >
-                </div>
+                { 
+                  isSavedMovesPage ?
+                  ( 
+                    <div className='card__delete-button'
+                      onClick={ deleteMovie }
+                    >
+                    </div>
+                  ) 
+                  : 
+                  (
+                    <div className={ isLiked ? 'card__like card__like_active' : 'card__like' }
+                      onClick={ saveMovie }
+                    >
+                    </div>
+                  )
+                }
             </div>
         </article>
     </>

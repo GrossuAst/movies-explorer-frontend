@@ -10,7 +10,21 @@ import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleUpdateVisibleMovies, clearVisibleMoviesState, openSidebar }) {
+function Movies({
+    moviesArray, 
+    filterArray,
+    filtredArray,
+    visibleMovies,
+    handleUpdateVisibleMovies,
+    clearVisibleMoviesState,
+    openSidebar,
+    savedArray,
+    // searchMovies,
+    setMoviesArray,
+    isLoading,
+    handleChangeLoadingStatus,
+}) {
+
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
@@ -55,11 +69,24 @@ function Movies({ moviesArray, filterArray, filtredArray, visibleMovies, handleU
                 </nav>
             </Header>
             <main className='main'>
-                <SearchForm moviesArray={ moviesArray } filterArray={filterArray} clearVisibleMoviesState={clearVisibleMoviesState} ></SearchForm>
-                <MovieCardList moviesArray={ moviesArray } filtredArray={filtredArray} visibleMovies={visibleMovies}></MovieCardList>
-                {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={handleUpdateVisibleMovies}></ExpandButton> : ''}
+                <SearchForm
+                    moviesArray={ moviesArray }
+                    filterArray={ filterArray }
+                    clearVisibleMoviesState={ clearVisibleMoviesState }
+                    // searchMovies={ searchMovies }
+                    setMoviesArray={ setMoviesArray }
+                    handleChangeLoadingStatus={ handleChangeLoadingStatus }
+                />
+                <MovieCardList 
+                    moviesArray={ moviesArray } 
+                    filtredArray={filtredArray} 
+                    visibleMovies={visibleMovies} 
+                    isLoading={ isLoading }
+                    savedArray={ savedArray }
+                />
+                {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : ''}
             </main>
-            <Footer></Footer>
+            <Footer />
         </>
     );
 }

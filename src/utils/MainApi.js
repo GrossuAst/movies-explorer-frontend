@@ -79,6 +79,22 @@ export class MainApi {
         })
         .then(this._checkResponse)
     }
+
+    deleteMovie(id) {
+        return fetch(`${this._url}/movies/${id}`, {
+            method: 'DELETE',
+            headers: this._headers,
+            credentials: 'include',
+        })
+        .then((res) => {
+            if(res.ok) {
+                return res.json();
+            }    
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 } 
 
 export const mainApi = new MainApi(mainApiConfig);

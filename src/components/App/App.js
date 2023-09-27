@@ -24,44 +24,71 @@ function App() {
 
   const navigate = useNavigate();
   
-  // если стейт false, header рендерит компонент для регистрации/логина
-  // если стейт true, header рендерит навигацию по страницам movies/saved-movies
+  // стейт содержит булевое значение - залогинин пользователь или нет
   const [isLoggedIn, setLoggedIn] = React.useState(false);
-
-  // управление сайдбаром_______________________________________
-  const [isSidebarOpen, setSidebarOpen] = React.useState(false);
-
-  function openSidebar() {
-    setSidebarOpen(true);
-  };
-
-  function closeSidebar() {
-    setSidebarOpen(false);
-  };
-
-  // исходный массив с фильмами___________________________________________
+  // исходный массив с фильмами
   const [moviesArray, setMoviesArray] = React.useState([]);
+  // управление сайдбаром
+  const [isSidebarOpen, setSidebarOpen] = React.useState(false);
   // стейт пользователя
   const [userData, setUserData] = React.useState({});
   // отфильтрованный массив, передается в компонент MovieCardList для рендера
   const [filtredArray, setFiltredArray] = React.useState([]);
   // массив сохраненных фильмов
   const [savedArray, setSavedMovies] = React.useState([]);
+  // управление прелоадером
+  const [isLoading, setIsLoading] = React.useState(false);
+  // управление кол-вом отображаемых карточек
+  const [visibleMovies, setVisibleMovies] = React.useState(0);
+
+  function handleChangeLoadingStatus() {
+    if(isLoading) {
+      setIsLoading(false)
+    } else if(!isLoading) {
+      setIsLoading(true);
+    }
+  };
 
   React.useEffect(() => {
     if(isLoggedIn === true) {
-    Promise.all([moviesApi.getMovies(), mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
-    .then(([movies, savedMovies, user]) => {
-      setMoviesArray(movies);
+    Promise.all([mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
+    .then(([savedMovies, user]) => {
       setUserData(user);
       setSavedMovies(savedMovies);
-      console.log(user);
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
     })};
     return;
   }, [isLoggedIn]);
+
+  // function searchMovies(evt) {
+  //   evt.preventDefault();
+  //   if(moviesArray.length === 0) {
+  //     moviesApi.getMovies()
+  //       .then((data) => {
+  //         setMoviesArray(data);
+  //         console.log(data);
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  // };
+
+  // получает массив карточек, сохраненных карточек и инфу о пользователе при логине
+  // React.useEffect(() => {
+  //   if(isLoggedIn === true) {
+  //   Promise.all([moviesApi.getMovies(), mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
+  //   .then(([movies, savedMovies, user]) => {
+  //     setMoviesArray(movies);
+  //     setUserData(user);
+  //     setSavedMovies(savedMovies);
+  //     console.log(user);
+  //   })
+  //   .catch((err) => {
+  //     console.log(`ошибка ${err}`);
+  //   })};
+  //   return;
+  // }, [isLoggedIn]);
 
   // функция для изменения стейта отфильтрованного массива
   function filterArray(filtredArray) {
@@ -75,11 +102,9 @@ function App() {
     }
   }, []);
 
-  // управление прелоадером
-  const [isLoading, setIsLoading] = React.useState(true);
+  
 
-  // управление кол-вом отображаемых карточек
-  const [visibleMovies, setVisibleMovies] = React.useState(0);
+  
 
   // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
   function clearVisibleMoviesState() {
@@ -176,14 +201,22 @@ function App() {
 
   // обновление данных профиля
   function handleUpdateProfile({ email, name }) {
-  mainApi.updateProfile( {email, name} )
+    mainApi.updateProfile( {email, name} )
       .then((res) => {
         setUserData(res);
       })
       .catch((err) => {
         console.log(`ошибка ${err}`);
       })
-  }
+  };
+
+  function openSidebar() {
+    setSidebarOpen(true);
+  };
+
+  function closeSidebar() {
+    setSidebarOpen(false);
+  };
 
   return (
     <>
@@ -204,7 +237,6 @@ function App() {
               <ProtectedRoute isLoggedIn={ isLoggedIn }
                 element={ () =>
                   <Movies
-                    moviesArray={ moviesArray }
                     // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
                     filterArray={ filterArray }
                     filtredArray={ filtredArray }
@@ -212,6 +244,15 @@ function App() {
                     handleUpdateVisibleMovies={ handleUpdateVisibleMovies }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
                     openSidebar={ openSidebar }
+
+                    savedArray={ savedArray }
+
+                    moviesArray={ moviesArray }
+                    // searchMovies={ searchMovies }
+
+                    setMoviesArray={ setMoviesArray }
+                    isLoading={ isLoading }
+                    handleChangeLoadingStatus={ setIsLoading }
                   /> 
                 }
               />
@@ -225,7 +266,7 @@ function App() {
                 element={ () => 
                   <SavedMovies 
                     filtredArray={ filtredArray }
-                    moviesArray={ moviesArray }
+                    // moviesArray={ moviesArray }
                     savedArray={ savedArray }
                     openSidebar={ openSidebar }
                   />

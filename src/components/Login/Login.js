@@ -19,8 +19,6 @@ function Login({ setUserData, setLoggedIn }) {
 
     const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-    
-
     async function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
