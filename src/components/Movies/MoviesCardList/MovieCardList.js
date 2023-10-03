@@ -9,14 +9,13 @@ import { BASE_URL } from '../../../utils/constants';
 
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies, isLoading }) {
+function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies, isLoading, setSavedMovies }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSvaedMoviesPage = location.pathname === '/saved-movies';
 
   console.log(savedArray);
-  console.log(filtredArray);
-  // const isLiked = savedArray.some(savedMovie => savedMovie._id === movie.id);
+  // console.log(filtredArray);
 
   return (
     <>
@@ -31,7 +30,9 @@ function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies, i
                         title={ movie.title }
                         image={ `${ BASE_URL }${ movie.image.url }` }
                         duration={ movie.duration }
-                        isLiked={ savedArray.some(savedMovie => savedMovie.movieId === movie.id) }
+                        isLiked={ Array.isArray(savedArray) && savedArray.some(savedMovie => savedMovie.movieId === movie.id) }
+                        setSavedMovies={ setSavedMovies }
+                        savedArray={ savedArray }
                       />
                     </li>
                   )) 
@@ -40,13 +41,16 @@ function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies, i
               <p>Ничего не найденно</p>
             ) : 
             <ul className='movie-block__list'>
-              { savedArray.map((movie) => (
+              { Array.isArray(savedArray) && savedArray.map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
                     movie={ movie }
                     title={ movie.title }
                     image={ movie.image }
                     duration={ movie.duration }
+                    setSavedMovies={ setSavedMovies }
+                    savedArray={ savedArray }
+                    isLiked={ Array.isArray(savedArray) && savedArray.some(savedMovie => savedMovie.movieId === movie.id) }
                   />
                 </li>
               )) }

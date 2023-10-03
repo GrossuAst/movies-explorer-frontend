@@ -55,6 +55,7 @@ function App() {
     .then(([savedMovies, user]) => {
       setUserData(user);
       setSavedMovies(savedMovies);
+      console.log(savedMovies);
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
@@ -249,8 +250,9 @@ function App() {
 
                     moviesArray={ moviesArray }
                     // searchMovies={ searchMovies }
-
+                    setSavedMovies={ setSavedMovies }
                     setMoviesArray={ setMoviesArray }
+                    
                     isLoading={ isLoading }
                     handleChangeLoadingStatus={ setIsLoading }
                   /> 
@@ -266,6 +268,7 @@ function App() {
                 element={ () => 
                   <SavedMovies 
                     filtredArray={ filtredArray }
+                    setSavedMovies={ setSavedMovies }
                     // moviesArray={ moviesArray }
                     savedArray={ savedArray }
                     openSidebar={ openSidebar }

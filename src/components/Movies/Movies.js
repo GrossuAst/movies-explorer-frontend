@@ -23,6 +23,8 @@ function Movies({
     setMoviesArray,
     isLoading,
     handleChangeLoadingStatus,
+    setSavedMovies,
+    cardsId,
 }) {
 
     const location = useLocation();  // хук useLocation для определения адреса
@@ -73,7 +75,6 @@ function Movies({
                     moviesArray={ moviesArray }
                     filterArray={ filterArray }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
-                    // searchMovies={ searchMovies }
                     setMoviesArray={ setMoviesArray }
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
                 />
@@ -83,6 +84,8 @@ function Movies({
                     visibleMovies={visibleMovies} 
                     isLoading={ isLoading }
                     savedArray={ savedArray }
+                    setSavedMovies={ setSavedMovies }
+                    cardsId={ cardsId }
                 />
                 {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : ''}
             </main>

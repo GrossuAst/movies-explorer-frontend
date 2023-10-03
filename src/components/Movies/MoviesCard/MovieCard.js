@@ -5,10 +5,15 @@ import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCard({movie, image, savedImage, duration, title, isLiked}) {
+function MovieCard({ movie, image, savedImage, duration, title, isLiked, setSavedMovies, savedArray, mongoId }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMovesPage = location.pathname === '/saved-movies';
+
+  // console.log(savedArray);
+  // console.log(mongoId);
+
+  const [liked, setLiked] = React.useState(isLiked);
 
   // принимает минуты и конвертирует в формат чч:мм
   function convertDuration(duration) {
@@ -24,10 +29,7 @@ function MovieCard({movie, image, savedImage, duration, title, isLiked}) {
     }
   }
 
-  // console.log(savedImage)
-
-  function saveMovie() {
-    console.log(`${ BASE_URL }${ movie.image.url }`)
+  async function switchLike() {
     const movieData = {
       country: movie.country,
       director: movie.director,
@@ -41,17 +43,25 @@ function MovieCard({movie, image, savedImage, duration, title, isLiked}) {
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
     }
-    mainApi.saveMovie(movieData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.status)
-      })
+    try {
+      if (!liked) {
+        await mainApi.saveMovie(movieData);
+        setLiked(true);
+      } else {
+        await mainApi.deleteMovie(movie.id);
+        setLiked(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function deleteMovie() {
-    mainApi.deleteMovie(movie._id)
+    mainApi.deleteMovie(movie.movieId)
+      .then(() => {
+        const moviToDelete = movie;
+        setSavedMovies(savedArray.filter((movie) => movie !== moviToDelete));
+      })
   }
 
   return (
@@ -73,8 +83,8 @@ function MovieCard({movie, image, savedImage, duration, title, isLiked}) {
                   ) 
                   : 
                   (
-                    <div className={ isLiked ? 'card__like card__like_active' : 'card__like' }
-                      onClick={ saveMovie }
+                    <div className={ liked ? 'card__like card__like_active' : 'card__like' }
+                      onClick={ switchLike }
                     >
                     </div>
                   )

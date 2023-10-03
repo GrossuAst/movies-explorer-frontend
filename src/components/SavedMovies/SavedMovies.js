@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import './SavedMovies.css';
@@ -8,14 +9,12 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function SavedMovies({filtredArray, savedArray, openSidebar}) {
+function SavedMovies({ filtredArray, savedArray, openSidebar, setSavedMovies }) {
     const location = useLocation();  // хук useLocation для определения адреса
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
-
-    console.log(savedArray);
     
   return (
     <>
@@ -48,7 +47,7 @@ function SavedMovies({filtredArray, savedArray, openSidebar}) {
         </Header>
         <main className='main'>
             <SearchForm></SearchForm>
-            <MovieCardList filtredArray={ filtredArray } savedArray={ savedArray }></MovieCardList>
+            <MovieCardList filtredArray={ filtredArray } savedArray={ savedArray } setSavedMovies= {setSavedMovies} ></MovieCardList>
         </main>
         <Footer></Footer>
         {/* <Sidebar isSidebarOpen={isSidebarOpen} changeSidebarVisible={changeSidebarVisible}></Sidebar> */}
