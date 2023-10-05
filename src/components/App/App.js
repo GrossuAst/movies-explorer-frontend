@@ -34,12 +34,22 @@ function App() {
   const [userData, setUserData] = React.useState({});
   // отфильтрованный массив, передается в компонент MovieCardList для рендера
   const [filtredArray, setFiltredArray] = React.useState([]);
-  // массив сохраненных фильмов
+  // исходный массив сохраненных фильмов
+  const [initialSavedMovies, setInitialSavedMovies] = React.useState([]);
+  // массив сохраненных фильмов для рендера
   const [savedArray, setSavedMovies] = React.useState([]);
   // управление прелоадером
   const [isLoading, setIsLoading] = React.useState(false);
   // управление кол-вом отображаемых карточек
   const [visibleMovies, setVisibleMovies] = React.useState(0);
+  // состояние чекбокса короткометражек
+  const [shortsChecked, setShortsChecked] = React.useState(true);
+
+  // function switchCheckboxChecked() {
+  //   requestAnimationFrame(() => {
+  //     setShortsChecked(!shortsChecked);  
+  //   })
+  // };
 
   function handleChangeLoadingStatus() {
     if(isLoading) {
@@ -54,6 +64,7 @@ function App() {
     Promise.all([mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
     .then(([savedMovies, user]) => {
       setUserData(user);
+      setInitialSavedMovies(savedMovies);
       setSavedMovies(savedMovies);
       console.log(savedMovies);
     })
@@ -62,34 +73,6 @@ function App() {
     })};
     return;
   }, [isLoggedIn]);
-
-  // function searchMovies(evt) {
-  //   evt.preventDefault();
-  //   if(moviesArray.length === 0) {
-  //     moviesApi.getMovies()
-  //       .then((data) => {
-  //         setMoviesArray(data);
-  //         console.log(data);
-  //       })
-  //       .catch(err => console.log(err));
-  //   }
-  // };
-
-  // получает массив карточек, сохраненных карточек и инфу о пользователе при логине
-  // React.useEffect(() => {
-  //   if(isLoggedIn === true) {
-  //   Promise.all([moviesApi.getMovies(), mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
-  //   .then(([movies, savedMovies, user]) => {
-  //     setMoviesArray(movies);
-  //     setUserData(user);
-  //     setSavedMovies(savedMovies);
-  //     console.log(user);
-  //   })
-  //   .catch((err) => {
-  //     console.log(`ошибка ${err}`);
-  //   })};
-  //   return;
-  // }, [isLoggedIn]);
 
   // функция для изменения стейта отфильтрованного массива
   function filterArray(filtredArray) {
@@ -102,10 +85,6 @@ function App() {
       setFiltredArray(JSON.parse(localStorage.getItem('filtredArray')));
     }
   }, []);
-
-  
-
-  
 
   // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
   function clearVisibleMoviesState() {
@@ -247,6 +226,7 @@ function App() {
                     openSidebar={ openSidebar }
 
                     savedArray={ savedArray }
+                    // savedMoviesToShow={ savedMoviesToShow }
 
                     moviesArray={ moviesArray }
                     // searchMovies={ searchMovies }
@@ -255,6 +235,9 @@ function App() {
                     
                     isLoading={ isLoading }
                     handleChangeLoadingStatus={ setIsLoading }
+                    // switchCheckboxChecked={ switchCheckboxChecked }
+                    shortsChecked={ shortsChecked }
+                    setShortsChecked={ setShortsChecked }
                   /> 
                 }
               />
@@ -271,7 +254,12 @@ function App() {
                     setSavedMovies={ setSavedMovies }
                     // moviesArray={ moviesArray }
                     savedArray={ savedArray }
+                    // savedMoviesToShow={ savedMoviesToShow }
                     openSidebar={ openSidebar }
+                    initialSavedMovies={ initialSavedMovies }
+                    // switchCheckboxChecked={ switchCheckboxChecked }
+                    shortsChecked={ shortsChecked }
+                    setShortsChecked={ setShortsChecked }
                   />
                 }
               />

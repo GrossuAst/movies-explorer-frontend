@@ -8,9 +8,18 @@ import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
-// получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
-function SavedMovies({ filtredArray, savedArray, openSidebar, setSavedMovies }) {
-    const location = useLocation();  // хук useLocation для определения адреса
+function SavedMovies({
+    filtredArray, 
+    savedArray, 
+    openSidebar, 
+    setSavedMovies,
+    initialSavedMovies,
+    switchCheckboxChecked,
+    shortsChecked,
+    setShortsChecked,
+}) {
+
+    const location = useLocation();
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
@@ -46,11 +55,24 @@ function SavedMovies({ filtredArray, savedArray, openSidebar, setSavedMovies }) 
             </nav>
         </Header>
         <main className='main'>
-            <SearchForm></SearchForm>
-            <MovieCardList filtredArray={ filtredArray } savedArray={ savedArray } setSavedMovies= {setSavedMovies} ></MovieCardList>
+            <SearchForm 
+                savedArray={ savedArray } 
+                setSavedMovies={ setSavedMovies }
+                initialSavedMovies={ initialSavedMovies }
+                switchCheckboxChecked={ switchCheckboxChecked }
+                shortsChecked={ shortsChecked }
+                setShortsChecked={ setShortsChecked }
+            >   
+            </SearchForm>
+            <MovieCardList 
+                filtredArray={ filtredArray } 
+                savedArray={ savedArray } 
+                setSavedMovies= {setSavedMovies}
+                shortsChecked={ shortsChecked }
+            >
+            </MovieCardList>
         </main>
         <Footer></Footer>
-        {/* <Sidebar isSidebarOpen={isSidebarOpen} changeSidebarVisible={changeSidebarVisible}></Sidebar> */}
     </>
   );
 }

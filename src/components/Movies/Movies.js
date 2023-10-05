@@ -25,6 +25,9 @@ function Movies({
     handleChangeLoadingStatus,
     setSavedMovies,
     cardsId,
+    switchCheckboxChecked,
+    shortsChecked,
+    setShortsChecked,
 }) {
 
     const location = useLocation();  // хук useLocation для определения адреса
@@ -77,6 +80,9 @@ function Movies({
                     clearVisibleMoviesState={ clearVisibleMoviesState }
                     setMoviesArray={ setMoviesArray }
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
+                    switchCheckboxChecked={ switchCheckboxChecked }
+                    shortsChecked={ shortsChecked }
+                    setShortsChecked={ setShortsChecked }
                 />
                 <MovieCardList 
                     moviesArray={ moviesArray } 
@@ -86,6 +92,7 @@ function Movies({
                     savedArray={ savedArray }
                     setSavedMovies={ setSavedMovies }
                     cardsId={ cardsId }
+                    shortsChecked={ shortsChecked }
                 />
                 {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : ''}
             </main>

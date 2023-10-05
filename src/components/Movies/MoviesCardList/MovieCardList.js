@@ -9,7 +9,16 @@ import { BASE_URL } from '../../../utils/constants';
 
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCardList({ filtredArray, moviesArray, savedArray, visibleMovies, isLoading, setSavedMovies }) {
+function MovieCardList({
+  filtredArray, 
+  moviesArray, 
+  savedArray, 
+  visibleMovies, 
+  isLoading, 
+  setSavedMovies, 
+  savedMoviesToShow,
+  shortsChecked,
+}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSvaedMoviesPage = location.pathname === '/saved-movies';
