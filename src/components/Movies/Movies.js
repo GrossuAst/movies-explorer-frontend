@@ -11,16 +11,21 @@ import Preloader from '../Preloader/Preloader';
 
 // получает из компонента App функцию открытия сайдбара и вешает на кнопку меню
 function Movies({
-    moviesArray, 
+    // начальный массив фильмов
+    initialMovies,
+    setInitialMovies,
+    // фильтр массива
+    filterMovies,
+
     filterArray,
-    filtredArray,
+    moviesToShow,
     visibleMovies,
     handleUpdateVisibleMovies,
     clearVisibleMoviesState,
     openSidebar,
     savedArray,
     // searchMovies,
-    setMoviesArray,
+    
     isLoading,
     handleChangeLoadingStatus,
     setSavedMovies,
@@ -28,6 +33,10 @@ function Movies({
     switchCheckboxChecked,
     shortsChecked,
     setShortsChecked,
+    toggleCheckboxState,
+    filterMoviesToShow,
+    filterByDuration,
+    
 }) {
 
     const location = useLocation();  // хук useLocation для определения адреса
@@ -39,7 +48,7 @@ function Movies({
 
     // проверка состояния кнопки Ещё
     let expandButtonState;
-    if(filtredArray.length > 12 && visibleMovies < filtredArray.length) {
+    if(moviesToShow.length > 12 && visibleMovies < moviesToShow.length) {
         expandButtonState = true;
     } else {
         expandButtonState = false;
@@ -75,19 +84,29 @@ function Movies({
             </Header>
             <main className='main'>
                 <SearchForm
-                    moviesArray={ moviesArray }
+                    // исходный массив фильмов
+                    initialMovies={ initialMovies }
+                    setInitialMovies={ setInitialMovies }
+                    // фильтр массива
+                    filterMovies={ filterMovies }
+
                     filterArray={ filterArray }
+                    moviesToShow={ moviesToShow }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
-                    setMoviesArray={ setMoviesArray }
+                    
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
                     switchCheckboxChecked={ switchCheckboxChecked }
                     shortsChecked={ shortsChecked }
                     setShortsChecked={ setShortsChecked }
+                    toggleCheckboxState={ toggleCheckboxState }
+                    filterMoviesToShow={ filterMoviesToShow }
+                    filterByDuration={ filterByDuration }
+                    
                 />
                 <MovieCardList 
-                    moviesArray={ moviesArray } 
-                    filtredArray={filtredArray} 
-                    visibleMovies={visibleMovies} 
+                    initialMovies={ initialMovies } 
+                    moviesToShow={ moviesToShow } 
+                    visibleMovies={ visibleMovies } 
                     isLoading={ isLoading }
                     savedArray={ savedArray }
                     setSavedMovies={ setSavedMovies }

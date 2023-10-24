@@ -26,30 +26,132 @@ function App() {
   
   // стейт содержит булевое значение - залогинин пользователь или нет
   const [isLoggedIn, setLoggedIn] = React.useState(false);
-  // исходный массив с фильмами
-  const [moviesArray, setMoviesArray] = React.useState([]);
   // управление сайдбаром
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
+  // управление прелоадером
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  // исходный массив с фильмами
+  const [initialMovies, setInitialMovies] = React.useState([]);
+  // отфильтрованный массив, передается в компонент MovieCardList для рендера
+  const [moviesToShow, setMoviesToShow] = React.useState([]);
+
   // стейт пользователя
   const [userData, setUserData] = React.useState({});
-  // отфильтрованный массив, передается в компонент MovieCardList для рендера
-  const [filtredArray, setFiltredArray] = React.useState([]);
   // исходный массив сохраненных фильмов
   const [initialSavedMovies, setInitialSavedMovies] = React.useState([]);
   // массив сохраненных фильмов для рендера
   const [savedArray, setSavedMovies] = React.useState([]);
-  // управление прелоадером
-  const [isLoading, setIsLoading] = React.useState(false);
+  
   // управление кол-вом отображаемых карточек
   const [visibleMovies, setVisibleMovies] = React.useState(0);
-  // состояние чекбокса короткометражек
-  const [shortsChecked, setShortsChecked] = React.useState(true);
 
-  // function switchCheckboxChecked() {
-  //   requestAnimationFrame(() => {
-  //     setShortsChecked(!shortsChecked);  
-  //   })
+  // состояние чекбокса короткометражек
+  const [shortsChecked, setShortsChecked] = React.useState(JSON.parse(localStorage.getItem('checkboxState')));
+
+  // при первом рендере устанавливает в local storage стейт чекбокса
+  React.useEffect(() => {
+    localStorage.setItem('checkboxState', shortsChecked);
+  }, []);
+
+  // обновление стейта чекбокса и его запись в local storage
+  function toggleCheckboxState() {
+    const updatedState = !shortsChecked;
+    // console.log(updatedState);
+    setShortsChecked(updatedState);
+    localStorage.setItem('checkboxState', JSON.stringify(updatedState));
+  }
+
+  React.useEffect(() => {
+    const storedMoviesToShow = JSON.parse(localStorage.getItem('moviesToShow'));
+    if (storedMoviesToShow) {
+      setMoviesToShow(storedMoviesToShow);
+    }
+  }, []);
+
+  // console.log(shortsChecked);
+
+  function filterMovies(array, name) {
+    console.log(shortsChecked);
+      // массив со всеми фильмами по ключевому слову
+      const filtredArray = array.filter(
+        movie => movie.nameRU.toLowerCase().includes(name.toLowerCase())
+        || movie.nameEN.toLowerCase().includes(name.toLowerCase())
+      );
+      
+
+      if(!shortsChecked) {
+        // console.log(shortsChecked);
+        localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
+        setMoviesToShow(filtredArray);
+        // console.log(filtredArray);
+
+      } else if(shortsChecked) {
+        // массив короткометражек
+        // console.log(shortsChecked);
+        const shorts = filterByDuration(filtredArray);
+        localStorage.setItem('moviesToShow', JSON.stringify(shorts));
+        setMoviesToShow(shorts);
+        // console.log(shorts);
+        
+      };
+      // localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
+
+  }
+
+  // React.useEffect(() => {
+  //   localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
+  //   console.log(moviesToShow);
+  // }, [moviesToShow]);
+
+  // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
+  React.useEffect(() => {
+    if(localStorage.getItem('moviesToShow')) {
+      setMoviesToShow(JSON.parse(localStorage.getItem('moviesToShow')));
+    }
+  }, []);
+
+  function filterByDuration(array) {
+    const arr = array.filter((movie) => movie.duration <= 20);
+    // console.log(arr);
+    return arr;
+  }
+
+  // function filterMoviesToShow(movies, name) {
+  //   // фильтр по названию
+  //   // console.log(shortsChecked);
+  //   let moviesToShow = movies.filter(
+  //     movie => movie.nameRU.toLowerCase().includes(name.toLowerCase()) 
+  //     || movie.nameEN.toLowerCase().includes(name.toLowerCase())
+  //   );
+  //   // фильтр по чекбоксу
+  //   if(shortsChecked) {
+  //     moviesToShow = moviesToShow.filter((movie) => movie.duration <= 40);
+  //   };
+
+  //   setMoviesToShow(moviesToShow);
+    
+  //   localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
+
+  //   console.log(moviesToShow);
+  //   return moviesToShow;
   // };
+
+  // function filterByDuration(array, name) {
+  //   if(shortsChecked) {
+  //     let moviesToShow = array.filter(
+  //       movie => movie.nameRU.toLowerCase().includes(name.toLowerCase()) 
+  //       || movie.nameEN.toLowerCase().includes(name.toLowerCase())
+  //     );
+      
+  //     setMoviesToShow(moviesToShow.filter((movie) => movie.duration <= 40));
+  //   }
+  //   return
+  // };
+
+  // React.useEffect(() => {
+  //   filterMoviesToShow(, localStorage.getItem('inputValue'));
+  // }, []);
 
   function handleChangeLoadingStatus() {
     if(isLoading) {
@@ -66,7 +168,7 @@ function App() {
       setUserData(user);
       setInitialSavedMovies(savedMovies);
       setSavedMovies(savedMovies);
-      console.log(savedMovies);
+      // console.log(savedMovies);
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
@@ -75,16 +177,11 @@ function App() {
   }, [isLoggedIn]);
 
   // функция для изменения стейта отфильтрованного массива
-  function filterArray(filtredArray) {
-    setFiltredArray(filtredArray);
+  function filterArray(moviesToShow) {
+    setMoviesToShow(moviesToShow);
   };
 
-  // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
-  React.useEffect(() => {
-    if(localStorage.getItem('filtredArray')) {
-      setFiltredArray(JSON.parse(localStorage.getItem('filtredArray')));
-    }
-  }, []);
+  
 
   // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
   function clearVisibleMoviesState() {
@@ -118,16 +215,16 @@ function App() {
   }, []);
 
   // увеличение кол-ва карточек при клике на кнопку Еще
-  // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива filtredArray
+  // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива moviesToShow
   function handleUpdateVisibleMovies() {
     if (isMobile) {
-      setVisibleMovies(Math.min(visibleMovies + 1, filtredArray.length));
+      setVisibleMovies(Math.min(visibleMovies + 1, moviesToShow.length));
     }
     if (isTablet) {
-      setVisibleMovies(Math.min(visibleMovies + 2, filtredArray.length));
+      setVisibleMovies(Math.min(visibleMovies + 2, moviesToShow.length));
     }
     if (isDesktop) {
-      setVisibleMovies(Math.min(visibleMovies + 3, filtredArray.length));
+      setVisibleMovies(Math.min(visibleMovies + 3, moviesToShow.length));
     }
   };
 
@@ -217,9 +314,15 @@ function App() {
               <ProtectedRoute isLoggedIn={ isLoggedIn }
                 element={ () =>
                   <Movies
+                    // начальный массив фильмов
+                    initialMovies={ initialMovies }
+                    setInitialMovies={ setInitialMovies }
+                    // фильтр массива
+                    filterMovies={ filterMovies }
+
                     // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
-                    filterArray={ filterArray }
-                    filtredArray={ filtredArray }
+                    // filterArray={ filterArray }
+                    moviesToShow={ moviesToShow }
                     visibleMovies={ visibleMovies }
                     handleUpdateVisibleMovies={ handleUpdateVisibleMovies }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
@@ -228,16 +331,20 @@ function App() {
                     savedArray={ savedArray }
                     // savedMoviesToShow={ savedMoviesToShow }
 
-                    moviesArray={ moviesArray }
+                    
                     // searchMovies={ searchMovies }
                     setSavedMovies={ setSavedMovies }
-                    setMoviesArray={ setMoviesArray }
+                    
                     
                     isLoading={ isLoading }
                     handleChangeLoadingStatus={ setIsLoading }
                     // switchCheckboxChecked={ switchCheckboxChecked }
                     shortsChecked={ shortsChecked }
                     setShortsChecked={ setShortsChecked }
+                    toggleCheckboxState={ toggleCheckboxState }
+                    // filterMoviesToShow={ filterMoviesToShow }
+                    // filterByDuration={ filterByDuration }
+                    
                   /> 
                 }
               />
@@ -250,9 +357,8 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}
                 element={ () => 
                   <SavedMovies 
-                    filtredArray={ filtredArray }
+                    moviesToShow={ moviesToShow }
                     setSavedMovies={ setSavedMovies }
-                    // moviesArray={ moviesArray }
                     savedArray={ savedArray }
                     // savedMoviesToShow={ savedMoviesToShow }
                     openSidebar={ openSidebar }
@@ -260,6 +366,7 @@ function App() {
                     // switchCheckboxChecked={ switchCheckboxChecked }
                     shortsChecked={ shortsChecked }
                     setShortsChecked={ setShortsChecked }
+                    toggleCheckboxState={ toggleCheckboxState }
                   />
                 }
               />

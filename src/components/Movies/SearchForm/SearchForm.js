@@ -6,11 +6,17 @@ import Switch from '../../Switch/Switch';
 
 import { moviesApi } from '../../../utils/MoviesApi';
 
-function SearchForm({ 
-  moviesArray, 
+function SearchForm({
+  // начальный массив фильмов
+  initialMovies,
+  setInitialMovies,
+  // фильтр массива
+  filterMovies,
+
+  moviesToShow,
+
   filterArray,
   clearVisibleMoviesState,
-  setMoviesArray,
   handleChangeLoadingStatus,
   savedArray,
   setSavedMovies,
@@ -18,6 +24,10 @@ function SearchForm({
   // switchCheckboxChecked,
   shortsChecked,
   setShortsChecked,
+  toggleCheckboxState,
+  filterMoviesToShow,
+  filterByDuration,
+  
 }) {
 
   const location = useLocation();
@@ -31,46 +41,38 @@ function SearchForm({
   // состояние инпута на странице /saved-movies
   const savedMovieTitleRef = React.useRef('');
 
-  function handleMoviesArrayChange(data) {
-    setMoviesArray(data);
-  };
+  // console.log(shortsChecked);
 
-  // хэндлер формы для страницы /movies
-  function handleSubmit(evt) {
+  function handleSubmitMoviesForm(evt) {
+    // console.log(shortsChecked);
+    evt.preventDefault();
+    console.log('форма отправлена');
     if(isMoviesPage) {
-      evt.preventDefault();
-      const currentInputValue = movieTitleRef.current.value;
-      console.log(currentInputValue);
-      if(moviesArray.length === 0) {
+      
+      const name = movieTitleRef.current.value;
+
+      // если поиска еще не было
+      if(initialMovies.length === 0) {
         handleChangeLoadingStatus(true);
         moviesApi.getMovies()
-          .then((data) => {
-            handleMoviesArrayChange(data);
-            const filtredArray = data.filter(
-              movie => movie.nameRU.toLowerCase().includes(currentInputValue.toLowerCase()) 
-              || movie.nameEN.toLowerCase().includes(currentInputValue.toLowerCase())
-            );
-            filterArray(filtredArray);
-            
-            localStorage.setItem('inputValue', currentInputValue);
-            localStorage.setItem('filtredArray', JSON.stringify(filtredArray));
-            
+          .then((movies) => {
             handleChangeLoadingStatus(false);
+            setInitialMovies(movies);
+            filterMovies(movies, name);
+
+            localStorage.setItem('inputValue', name);
+            localStorage.setItem('initialMovies', JSON.stringify(movies));
           })
-          .catch((err) => { 
-            handleChangeLoadingStatus(false);
-          })
-      } else if(moviesArray.length > 0) {
-        const filtredArray = moviesArray.filter(
-          movie => movie.nameRU.toLowerCase().includes(currentInputValue.toLowerCase()) 
-          || movie.nameEN.toLowerCase().includes(currentInputValue.toLowerCase())
-        );
-        filterArray(filtredArray);
-        localStorage.setItem('inputValue', currentInputValue);
-        localStorage.setItem('filtredArray', JSON.stringify(filtredArray));
-      }  
+      }
+
+      else if(initialMovies.length > 0) {
+        const moviesInLocal = JSON.parse(localStorage.getItem('initialMovies'));
+        // console.log(moviesInLocal);
+        filterMovies(moviesInLocal, name);
+        localStorage.setItem('inputValue', name);
+      }
     }
-  }
+  };
 
   // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedArray, который рендерится на странице
   function handleSearchSavedMovie(evt) {
@@ -90,7 +92,8 @@ function SearchForm({
         <section className='search-form'>
             <div className='search-form__wrapper'>
               <form className='search-form__form'
-                onSubmit={ isMoviesPage ? handleSubmit : handleSearchSavedMovie }
+                // onSubmit={ isMoviesPage ? handleSubmit : handleSearchSavedMovie }
+                onSubmit={ handleSubmitMoviesForm }
               >
                 { isMoviesPage ? (
                   <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
@@ -111,7 +114,17 @@ function SearchForm({
                 }
                 <button className='search-form__button' type='submit'></button>
                 <div className='search-form__switch-box'>
-                  <Switch shortsChecked={ shortsChecked } setShortsChecked={ setShortsChecked }></Switch>
+                  <Switch 
+                    shortsChecked={ shortsChecked } 
+                    setShortsChecked={ setShortsChecked } 
+                    // handleSubmit={ handleSubmit }
+                    toggleCheckboxState={ toggleCheckboxState }
+                    filterMoviesToShow={ filterMoviesToShow }
+                    movieTitleRef={ movieTitleRef }
+                    initialMovies={ initialMovies }
+                    // handleSearchMovies={ handleSearchMovies }
+                    handleSubmitMoviesForm={ handleSubmitMoviesForm }
+                  /> 
                   <p className='search-form__text'>Короткометражки</p>
                 </div>
               </form>

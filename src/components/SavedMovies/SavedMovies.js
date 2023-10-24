@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
 function SavedMovies({
-    filtredArray, 
+    moviesToShow, 
     savedArray, 
     openSidebar, 
     setSavedMovies,
@@ -17,6 +17,7 @@ function SavedMovies({
     switchCheckboxChecked,
     shortsChecked,
     setShortsChecked,
+    toggleCheckboxState,
 }) {
 
     const location = useLocation();
@@ -62,10 +63,11 @@ function SavedMovies({
                 switchCheckboxChecked={ switchCheckboxChecked }
                 shortsChecked={ shortsChecked }
                 setShortsChecked={ setShortsChecked }
+                toggleCheckboxState={ toggleCheckboxState }
             >   
             </SearchForm>
             <MovieCardList 
-                filtredArray={ filtredArray } 
+                moviesToShow={ moviesToShow } 
                 savedArray={ savedArray } 
                 setSavedMovies= {setSavedMovies}
                 shortsChecked={ shortsChecked }
