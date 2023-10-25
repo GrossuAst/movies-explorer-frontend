@@ -22,6 +22,8 @@ import { mainApi } from '../../utils/MainApi';
 
 function App() {
 
+  const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? true : JSON.parse(localStorage.getItem('checkboxState'));
+
   const navigate = useNavigate();
   
   // стейт содержит булевое значение - залогинин пользователь или нет
@@ -47,7 +49,8 @@ function App() {
   const [visibleMovies, setVisibleMovies] = React.useState(0);
 
   // состояние чекбокса короткометражек
-  const [shortsChecked, setShortsChecked] = React.useState(JSON.parse(localStorage.getItem('checkboxState')));
+  // нужно оптимизировать **
+  const [shortsChecked, setShortsChecked] = React.useState(checkboxState);
 
   // при первом рендере устанавливает в local storage стейт чекбокса
   React.useEffect(() => {
@@ -57,7 +60,6 @@ function App() {
   // обновление стейта чекбокса и его запись в local storage
   function toggleCheckboxState() {
     const updatedState = !shortsChecked;
-    // console.log(updatedState);
     setShortsChecked(updatedState);
     localStorage.setItem('checkboxState', JSON.stringify(updatedState));
   }
@@ -69,40 +71,16 @@ function App() {
     }
   }, []);
 
-  // console.log(shortsChecked);
-
   function filterMovies(array, name) {
-    console.log(shortsChecked);
       // массив со всеми фильмами по ключевому слову
       const filtredArray = array.filter(
         movie => movie.nameRU.toLowerCase().includes(name.toLowerCase())
         || movie.nameEN.toLowerCase().includes(name.toLowerCase())
       );
-      
 
-      if(!shortsChecked) {
-        // console.log(shortsChecked);
-        localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
-        setMoviesToShow(filtredArray);
-        // console.log(filtredArray);
-
-      } else if(shortsChecked) {
-        // массив короткометражек
-        // console.log(shortsChecked);
-        const shorts = filterByDuration(filtredArray);
-        localStorage.setItem('moviesToShow', JSON.stringify(shorts));
-        setMoviesToShow(shorts);
-        // console.log(shorts);
-        
-      };
-      // localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
-
+      setMoviesToShow(filtredArray);
+      localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
   }
-
-  // React.useEffect(() => {
-  //   localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
-  //   console.log(moviesToShow);
-  // }, [moviesToShow]);
 
   // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
   React.useEffect(() => {
@@ -111,47 +89,10 @@ function App() {
     }
   }, []);
 
-  function filterByDuration(array) {
-    const arr = array.filter((movie) => movie.duration <= 20);
-    // console.log(arr);
-    return arr;
-  }
-
-  // function filterMoviesToShow(movies, name) {
-  //   // фильтр по названию
-  //   // console.log(shortsChecked);
-  //   let moviesToShow = movies.filter(
-  //     movie => movie.nameRU.toLowerCase().includes(name.toLowerCase()) 
-  //     || movie.nameEN.toLowerCase().includes(name.toLowerCase())
-  //   );
-  //   // фильтр по чекбоксу
-  //   if(shortsChecked) {
-  //     moviesToShow = moviesToShow.filter((movie) => movie.duration <= 40);
-  //   };
-
-  //   setMoviesToShow(moviesToShow);
-    
-  //   localStorage.setItem('moviesToShow', JSON.stringify(moviesToShow));
-
-  //   console.log(moviesToShow);
-  //   return moviesToShow;
-  // };
-
-  // function filterByDuration(array, name) {
-  //   if(shortsChecked) {
-  //     let moviesToShow = array.filter(
-  //       movie => movie.nameRU.toLowerCase().includes(name.toLowerCase()) 
-  //       || movie.nameEN.toLowerCase().includes(name.toLowerCase())
-  //     );
-      
-  //     setMoviesToShow(moviesToShow.filter((movie) => movie.duration <= 40));
-  //   }
-  //   return
-  // };
-
-  // React.useEffect(() => {
-  //   filterMoviesToShow(, localStorage.getItem('inputValue'));
-  // }, []);
+  // function filterByDuration(array) {
+  //   const arr = array.filter((movie) => movie.duration <= 20);
+  //   return arr;
+  // }
 
   function handleChangeLoadingStatus() {
     if(isLoading) {
@@ -175,13 +116,6 @@ function App() {
     })};
     return;
   }, [isLoggedIn]);
-
-  // функция для изменения стейта отфильтрованного массива
-  function filterArray(moviesToShow) {
-    setMoviesToShow(moviesToShow);
-  };
-
-  
 
   // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
   function clearVisibleMoviesState() {

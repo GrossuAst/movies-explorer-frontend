@@ -10,24 +10,21 @@ function SearchForm({
   // начальный массив фильмов
   initialMovies,
   setInitialMovies,
+  // стейт чекбокса и его функция
+  shortsChecked,
+  toggleCheckboxState,
   // фильтр массива
   filterMovies,
-
-  moviesToShow,
-
-  filterArray,
-  clearVisibleMoviesState,
+  // управление прелоадером
   handleChangeLoadingStatus,
+
+  clearVisibleMoviesState,
   savedArray,
   setSavedMovies,
   initialSavedMovies,
-  // switchCheckboxChecked,
-  shortsChecked,
+
+  // может пригодиться
   setShortsChecked,
-  toggleCheckboxState,
-  filterMoviesToShow,
-  filterByDuration,
-  
 }) {
 
   const location = useLocation();
@@ -41,10 +38,7 @@ function SearchForm({
   // состояние инпута на странице /saved-movies
   const savedMovieTitleRef = React.useRef('');
 
-  // console.log(shortsChecked);
-
   function handleSubmitMoviesForm(evt) {
-    // console.log(shortsChecked);
     evt.preventDefault();
     console.log('форма отправлена');
     if(isMoviesPage) {
@@ -67,14 +61,13 @@ function SearchForm({
 
       else if(initialMovies.length > 0) {
         const moviesInLocal = JSON.parse(localStorage.getItem('initialMovies'));
-        // console.log(moviesInLocal);
         filterMovies(moviesInLocal, name);
         localStorage.setItem('inputValue', name);
       }
     }
   };
 
-  // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedArray, который рендерится на странице
+  // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedArray
   function handleSearchSavedMovie(evt) {
     if(isSavedMovesPage) {
       evt.preventDefault();
@@ -92,7 +85,6 @@ function SearchForm({
         <section className='search-form'>
             <div className='search-form__wrapper'>
               <form className='search-form__form'
-                // onSubmit={ isMoviesPage ? handleSubmit : handleSearchSavedMovie }
                 onSubmit={ handleSubmitMoviesForm }
               >
                 { isMoviesPage ? (
@@ -107,7 +99,6 @@ function SearchForm({
                 (
                   <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
                     ref={ savedMovieTitleRef }
-                    
                   >
                   </input>
                 )
@@ -115,16 +106,10 @@ function SearchForm({
                 <button className='search-form__button' type='submit'></button>
                 <div className='search-form__switch-box'>
                   <Switch 
-                    shortsChecked={ shortsChecked } 
-                    setShortsChecked={ setShortsChecked } 
-                    // handleSubmit={ handleSubmit }
-                    toggleCheckboxState={ toggleCheckboxState }
-                    filterMoviesToShow={ filterMoviesToShow }
-                    movieTitleRef={ movieTitleRef }
-                    initialMovies={ initialMovies }
-                    // handleSearchMovies={ handleSearchMovies }
+                    shortsChecked={ shortsChecked }
+                    toggleCheckboxState={ toggleCheckboxState }                    
                     handleSubmitMoviesForm={ handleSubmitMoviesForm }
-                  /> 
+                  />
                   <p className='search-form__text'>Короткометражки</p>
                 </div>
               </form>

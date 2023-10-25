@@ -87,18 +87,18 @@ function Movies({
                     // исходный массив фильмов
                     initialMovies={ initialMovies }
                     setInitialMovies={ setInitialMovies }
+                    // чекбокс и его функция
+                    shortsChecked={ shortsChecked }
+                    toggleCheckboxState={ toggleCheckboxState }
                     // фильтр массива
                     filterMovies={ filterMovies }
 
-                    filterArray={ filterArray }
                     moviesToShow={ moviesToShow }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
                     
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
                     switchCheckboxChecked={ switchCheckboxChecked }
-                    shortsChecked={ shortsChecked }
-                    setShortsChecked={ setShortsChecked }
-                    toggleCheckboxState={ toggleCheckboxState }
+                    
                     filterMoviesToShow={ filterMoviesToShow }
                     filterByDuration={ filterByDuration }
                     

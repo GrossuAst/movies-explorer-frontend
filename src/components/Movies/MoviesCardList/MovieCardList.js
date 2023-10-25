@@ -10,21 +10,19 @@ import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
 function MovieCardList({
-  moviesToShow, 
-  initialMovies, 
+  shortsChecked,
+  moviesToShow,
+
+  initialMovies,
   savedArray, 
   visibleMovies, 
   isLoading, 
   setSavedMovies, 
   savedMoviesToShow,
-  shortsChecked,
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-  const isSvaedMoviesPage = location.pathname === '/saved-movies';  
-
-  // console.log(savedArray);
-  console.log(moviesToShow);
+  const isSvaedMoviesPage = location.pathname === '/saved-movies';
 
   return (
     <>
@@ -32,7 +30,12 @@ function MovieCardList({
           <div className='movie-block__wrapper'>
             { isMoviesPage ? ( moviesToShow.length > 0 ?
               <ul className='movie-block__list'>
-                { isMoviesPage && isLoading ? <Preloader></Preloader> : moviesToShow.slice(0, visibleMovies).map((movie) => (
+                { isMoviesPage && isLoading ? <Preloader /> : moviesToShow.filter((m) => {
+                  if(shortsChecked) {
+                    return m.duration <= 20;
+                  } else { return m }
+                })
+                .slice(0, visibleMovies).map((movie) => (
                     <li key={movie.id} className='movie-block__card'>
                       <MovieCard
                         movie={ movie }
@@ -44,7 +47,7 @@ function MovieCardList({
                         savedArray={ savedArray }
                       />
                     </li>
-                  )) 
+                  ))
                 }
               </ul> : 
               <p>Ничего не найденно</p>
