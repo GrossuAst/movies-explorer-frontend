@@ -7,6 +7,8 @@ function Switch({
     // стейт чекбокса и функция изменения
     shortsChecked, 
     toggleCheckboxState,
+    savedMoviesShortsChecked,
+    toggleSavedMoviesCheckboxState,
 }) {
 
     const location = useLocation();
@@ -25,6 +27,8 @@ function Switch({
         :
         (<div className='wrap'>
             <input type='checkbox' id='slider-point' 
+                checked={ savedMoviesShortsChecked }
+                onChange={ toggleSavedMoviesCheckboxState }
             />
             <label className='wrap__slider' htmlFor='slider-point' type='submit' ></label>
         </div>)

@@ -13,8 +13,10 @@ function MovieCardList({
   shortsChecked,
   moviesToShow,
 
+  isMoviesToShowEmpty,
+
   initialMovies,
-  savedArray, 
+  savedMovies, 
   visibleMovies, 
   isLoading, 
   setSavedMovies, 
@@ -28,11 +30,11 @@ function MovieCardList({
     <>
         <section className='movie-block'>
           <div className='movie-block__wrapper'>
-            { isMoviesPage ? ( moviesToShow.length > 0 ?
+            { isMoviesPage ? ( !isMoviesToShowEmpty ?
               <ul className='movie-block__list'>
                 { isMoviesPage && isLoading ? <Preloader /> : moviesToShow.filter((m) => {
                   if(shortsChecked) {
-                    return m.duration <= 20;
+                    return m.duration <= 40;
                   } else { return m }
                 })
                 .slice(0, visibleMovies).map((movie) => (
@@ -42,18 +44,18 @@ function MovieCardList({
                         title={ movie.title }
                         image={ `${ BASE_URL }${ movie.image.url }` }
                         duration={ movie.duration }
-                        isLiked={ Array.isArray(savedArray) && savedArray.some(savedMovie => savedMovie.movieId === movie.id) }
+                        isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                         setSavedMovies={ setSavedMovies }
-                        savedArray={ savedArray }
+                        savedMovies={ savedMovies }
                       />
                     </li>
                   ))
                 }
               </ul> : 
-              <p>Ничего не найденно</p>
+              <p className='movie-block__no-result'>Ничего не найденно</p>
             ) : 
             <ul className='movie-block__list'>
-              { Array.isArray(savedArray) && savedArray.map((movie) => (
+              { Array.isArray(savedMovies) && savedMovies.map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
                     movie={ movie }
@@ -61,8 +63,8 @@ function MovieCardList({
                     image={ movie.image }
                     duration={ movie.duration }
                     setSavedMovies={ setSavedMovies }
-                    savedArray={ savedArray }
-                    isLiked={ Array.isArray(savedArray) && savedArray.some(savedMovie => savedMovie.movieId === movie.id) }
+                    savedMovies={ savedMovies }
+                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                   />
                 </li>
               )) }

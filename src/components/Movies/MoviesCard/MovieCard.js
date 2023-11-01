@@ -5,12 +5,12 @@ import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCard({ movie, image, savedImage, duration, title, isLiked, setSavedMovies, savedArray, mongoId }) {
+function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, savedMovies }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMovesPage = location.pathname === '/saved-movies';
 
-  // console.log(savedArray);
+  // console.log(savedMovies);
   // console.log(mongoId);
 
   const [liked, setLiked] = React.useState(isLiked);
@@ -27,7 +27,7 @@ function MovieCard({ movie, image, savedImage, duration, title, isLiked, setSave
     if(!evt.target.classList.contains('card__like') && !evt.target.classList.contains('card__delete-button')) {
       window.open(movie.trailerLink, '_blank');
     }
-  }
+  };
 
   async function switchLike() {
     const movieData = {
@@ -47,9 +47,11 @@ function MovieCard({ movie, image, savedImage, duration, title, isLiked, setSave
       if (!liked) {
         await mainApi.saveMovie(movieData);
         setLiked(true);
+        setSavedMovies([...savedMovies, movieData]);
       } else {
         await mainApi.deleteMovie(movie.id);
         setLiked(false);
+        setSavedMovies(savedMovies.filter(savedMovie => savedMovie.movieId !== movie.id));
       }
     } catch (err) {
       console.log(err);
@@ -60,7 +62,7 @@ function MovieCard({ movie, image, savedImage, duration, title, isLiked, setSave
     mainApi.deleteMovie(movie.movieId)
       .then(() => {
         const moviToDelete = movie;
-        setSavedMovies(savedArray.filter((movie) => movie !== moviToDelete));
+        setSavedMovies(savedMovies.filter((movie) => movie !== moviToDelete));
       })
   }
 

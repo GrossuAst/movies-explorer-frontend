@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { mainApi } from '../../utils/MainApi';
 
-import { useForm, useFormWithValidation } from '../Validation/Validation';
+import { useForm, useFormWithValidation } from '../../hooks/Validation';
 
 import './Login.css';
 import '../../styles/commonStyles.css';
@@ -17,14 +17,14 @@ function Login({ setUserData, setLoggedIn }) {
 
     const navigate = useNavigate();
 
-    const { values, handleChange, errors, isValid } = useFormWithValidation();
+    const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
     async function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
         if(isValid) {
             try {
-                await mainApi.login(values.password, values.email)
+                await mainApi.login(values.password, values.email);
                 const userData = await mainApi.getInfoAboutUser();
                 setLoggedIn(true);
                 setUserData(userData);
@@ -48,7 +48,7 @@ function Login({ setUserData, setLoggedIn }) {
                 <section className='form-page'>
                     <div className='form-page__wrapper'>          
                         <form className='form-page__form' 
-                        onSubmit={ handleSubmit }
+                            onSubmit={ handleSubmit }
                         >
                             <div className='form-page__input-block'>                            
                                 <label className='form-page__input-title' htmlFor={'login-email'}>E-mail</label>

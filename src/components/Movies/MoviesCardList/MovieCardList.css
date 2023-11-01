@@ -74,3 +74,10 @@
 .movie-block__list:nth-child(n+3) {
     margin-top: 10px;
 }
+
+.movie-block__no-result {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+}

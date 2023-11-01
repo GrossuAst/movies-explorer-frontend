@@ -10,16 +10,25 @@ function SearchForm({
   // начальный массив фильмов
   initialMovies,
   setInitialMovies,
-  // стейт чекбокса и его функция
+
+  // стейт чекбокса и его функция, ошибка ответа сервера
   shortsChecked,
   toggleCheckboxState,
-  // фильтр массива
+  setServerErrorMessage,
+  setIsMoviesToShowEmpty,
+
+  // переключение чекбокса на /saved-movies
+  savedMoviesShortsChecked,
+  toggleSavedMoviesCheckboxState,
+  
+  // функция фильтра массива
   filterMovies,
+
   // управление прелоадером
   handleChangeLoadingStatus,
 
   clearVisibleMoviesState,
-  savedArray,
+  savedMovies,
   setSavedMovies,
   initialSavedMovies,
 
@@ -40,6 +49,7 @@ function SearchForm({
 
   function handleSubmitMoviesForm(evt) {
     evt.preventDefault();
+    setServerErrorMessage(false);
     console.log('форма отправлена');
     if(isMoviesPage) {
       
@@ -57,6 +67,10 @@ function SearchForm({
             localStorage.setItem('inputValue', name);
             localStorage.setItem('initialMovies', JSON.stringify(movies));
           })
+          .catch((err) => {
+            console.log(err);
+            setServerErrorMessage(true);
+          })
       }
 
       else if(initialMovies.length > 0) {
@@ -67,10 +81,10 @@ function SearchForm({
     }
   };
 
-  // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedArray
+  // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedMovies
   function handleSearchSavedMovie(evt) {
+    evt.preventDefault();
     if(isSavedMovesPage) {
-      evt.preventDefault();
       const currentInputValue = savedMovieTitleRef.current.value;
       const filteredMovies = initialSavedMovies.filter(movie =>
         movie.nameRU.toLowerCase().includes(currentInputValue.toLowerCase()) ||
@@ -84,7 +98,48 @@ function SearchForm({
     <>
         <section className='search-form'>
             <div className='search-form__wrapper'>
-              <form className='search-form__form'
+              {isMoviesPage ? 
+                (
+                  <form className='search-form__form'
+                    onSubmit={ handleSubmitMoviesForm }
+                  >
+                    <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
+                      ref={ movieTitleRef }
+                      onChange={ (evt) => { setInputValue(evt.target.value) } }
+                      defaultValue={ inputValue }
+                    >
+                    </input>
+                    <button className='search-form__button' type='submit'></button>
+                    <div className='search-form__switch-box'>
+                      <Switch 
+                        shortsChecked={ shortsChecked }
+                        toggleCheckboxState={ toggleCheckboxState }                    
+                      />
+                      <p className='search-form__text'>Короткометражки</p>
+                    </div>
+                  </form>
+                ) 
+              :
+              (
+                <form className='search-form__form'
+                    onSubmit={ handleSearchSavedMovie }
+                  >
+                    <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
+                      ref={ savedMovieTitleRef }
+                    >
+                    </input>
+                    <button className='search-form__button' type='submit'></button>
+                    <div className='search-form__switch-box'>
+                      <Switch 
+                        savedMoviesShortsChecked={ savedMoviesShortsChecked }
+                        toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
+                      />
+                      <p className='search-form__text'>Короткометражки</p>
+                    </div>
+                  </form>
+              )
+              }
+              {/* <form className='search-form__form'
                 onSubmit={ handleSubmitMoviesForm }
               >
                 { isMoviesPage ? (
@@ -112,7 +167,7 @@ function SearchForm({
                   />
                   <p className='search-form__text'>Короткометражки</p>
                 </div>
-              </form>
+              </form> */}
             </div>
         </section>
     </>

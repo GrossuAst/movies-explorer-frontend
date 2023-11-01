@@ -14,25 +14,31 @@ function Movies({
     // начальный массив фильмов
     initialMovies,
     setInitialMovies,
+
+    // массив для рендера на /movies
+    moviesToShow,
+
+    // стейт чекбокса, прелоадера, ошибки ответа сервера, пустой массив для рендера
+    shortsChecked,
+    isLoading,
+    serverErrorMessage,
+    setServerErrorMessage,
+    isMoviesToShowEmpty,
+
     // фильтр массива
     filterMovies,
-
-    filterArray,
-    moviesToShow,
+    
     visibleMovies,
     handleUpdateVisibleMovies,
     clearVisibleMoviesState,
     openSidebar,
-    savedArray,
-    // searchMovies,
+    savedMovies,
     
-    isLoading,
     handleChangeLoadingStatus,
     setSavedMovies,
     cardsId,
     switchCheckboxChecked,
-    shortsChecked,
-    setShortsChecked,
+    
     toggleCheckboxState,
     filterMoviesToShow,
     filterByDuration,
@@ -87,9 +93,12 @@ function Movies({
                     // исходный массив фильмов
                     initialMovies={ initialMovies }
                     setInitialMovies={ setInitialMovies }
-                    // чекбокс и его функция
+
+                    // чекбокс и его функция, ошибка ответа сервера
                     shortsChecked={ shortsChecked }
                     toggleCheckboxState={ toggleCheckboxState }
+                    setServerErrorMessage={ setServerErrorMessage }
+
                     // фильтр массива
                     filterMovies={ filterMovies }
 
@@ -103,17 +112,28 @@ function Movies({
                     filterByDuration={ filterByDuration }
                     
                 />
-                <MovieCardList 
+
+                { serverErrorMessage ? 
+                <p className='movie-block__no-result'>
+                    Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз
+                </p>
+                :
+                <MovieCardList
                     initialMovies={ initialMovies } 
-                    moviesToShow={ moviesToShow } 
-                    visibleMovies={ visibleMovies } 
-                    isLoading={ isLoading }
-                    savedArray={ savedArray }
+                    moviesToShow={ moviesToShow }
+
+                    shortsChecked={ shortsChecked }
+                    isLoading={ isLoading } 
+                    isMoviesToShowEmpty={ isMoviesToShowEmpty }
+                    
+                    visibleMovies={ visibleMovies }
+                    savedMovies={ savedMovies }
                     setSavedMovies={ setSavedMovies }
                     cardsId={ cardsId }
-                    shortsChecked={ shortsChecked }
+                    
                 />
-                {expandButtonState ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : ''}
+                }
+                { expandButtonState && !shortsChecked ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : '' }
             </main>
             <Footer />
         </>

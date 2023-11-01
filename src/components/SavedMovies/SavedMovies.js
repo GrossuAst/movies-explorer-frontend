@@ -10,7 +10,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 function SavedMovies({
     moviesToShow, 
-    savedArray, 
+    savedMovies, 
     openSidebar, 
     setSavedMovies,
     initialSavedMovies,
@@ -18,6 +18,8 @@ function SavedMovies({
     shortsChecked,
     setShortsChecked,
     toggleCheckboxState,
+    savedMoviesShortsChecked,
+    toggleSavedMoviesCheckboxState,
 }) {
 
     const location = useLocation();
@@ -57,18 +59,21 @@ function SavedMovies({
         </Header>
         <main className='main'>
             <SearchForm 
-                savedArray={ savedArray } 
+                savedMovies={ savedMovies } 
                 setSavedMovies={ setSavedMovies }
                 initialSavedMovies={ initialSavedMovies }
                 switchCheckboxChecked={ switchCheckboxChecked }
                 shortsChecked={ shortsChecked }
                 setShortsChecked={ setShortsChecked }
-                toggleCheckboxState={ toggleCheckboxState }
+                // toggleCheckboxState={ toggleCheckboxState }
+                
+                savedMoviesShortsChecked={ savedMoviesShortsChecked }
+                toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
             >   
             </SearchForm>
             <MovieCardList 
                 moviesToShow={ moviesToShow } 
-                savedArray={ savedArray } 
+                savedMovies={ savedMovies } 
                 setSavedMovies= {setSavedMovies}
                 shortsChecked={ shortsChecked }
             >

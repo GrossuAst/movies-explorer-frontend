@@ -21,66 +21,39 @@ import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 
 function App() {
-
-  const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? true : JSON.parse(localStorage.getItem('checkboxState'));
-
-  const navigate = useNavigate();
   
-  // стейт содержит булевое значение - залогинин пользователь или нет
+  const navigate = useNavigate();
+
+  // получение состояния чекбокса при первой загрузке
+  const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? true : JSON.parse(localStorage.getItem('checkboxState'));
+  // const isMoviesToShowEmptyState = localStorage.getItem('moviesToShow') && JSON.parse(localStorage.getItem('moviesToShow')).length > 0 ? false : true;
+  
+  // залогинен ли пользователь, его данные *
   const [isLoggedIn, setLoggedIn] = React.useState(false);
-  // управление сайдбаром
+  const [userData, setUserData] = React.useState({});
+
+  // управление сайдбаром, прелоадером *
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
-  // управление прелоадером
   const [isLoading, setIsLoading] = React.useState(false);
 
-  // исходный массив с фильмами
+  // исходный массив с фильмами и массив для рендера *
   const [initialMovies, setInitialMovies] = React.useState([]);
-  // отфильтрованный массив, передается в компонент MovieCardList для рендера
   const [moviesToShow, setMoviesToShow] = React.useState([]);
 
-  // стейт пользователя
-  const [userData, setUserData] = React.useState({});
-  // исходный массив сохраненных фильмов
+  // исходный массив сохраненных фильмов, массив сохраненных фильмов для рендера *
   const [initialSavedMovies, setInitialSavedMovies] = React.useState([]);
-  // массив сохраненных фильмов для рендера
-  const [savedArray, setSavedMovies] = React.useState([]);
-  
-  // управление кол-вом отображаемых карточек
+  const [savedMovies, setSavedMovies] = React.useState([]);
+
+  // состояние чекбокса короткометражек на /movies и /saved-movies *
+  const [shortsChecked, setShortsChecked] = React.useState(checkboxState);
+  const [savedMoviesShortsChecked, setSavedMoviesShortsChecked] = React.useState(true);
+
+  // ответ с ошибкой от сервера, ответ 'ничего не найдено', кол-во отображаемых карточек *
+  const [serverErrorMessage, setServerErrorMessage] = React.useState(false);
+  const [isMoviesToShowEmpty, setIsMoviesToShowEmpty] = React.useState(false);
   const [visibleMovies, setVisibleMovies] = React.useState(0);
 
-  // состояние чекбокса короткометражек
-  // нужно оптимизировать **
-  const [shortsChecked, setShortsChecked] = React.useState(checkboxState);
-
-  // при первом рендере устанавливает в local storage стейт чекбокса
-  React.useEffect(() => {
-    localStorage.setItem('checkboxState', shortsChecked);
-  }, []);
-
-  // обновление стейта чекбокса и его запись в local storage
-  function toggleCheckboxState() {
-    const updatedState = !shortsChecked;
-    setShortsChecked(updatedState);
-    localStorage.setItem('checkboxState', JSON.stringify(updatedState));
-  }
-
-  React.useEffect(() => {
-    const storedMoviesToShow = JSON.parse(localStorage.getItem('moviesToShow'));
-    if (storedMoviesToShow) {
-      setMoviesToShow(storedMoviesToShow);
-    }
-  }, []);
-
-  function filterMovies(array, name) {
-      // массив со всеми фильмами по ключевому слову
-      const filtredArray = array.filter(
-        movie => movie.nameRU.toLowerCase().includes(name.toLowerCase())
-        || movie.nameEN.toLowerCase().includes(name.toLowerCase())
-      );
-
-      setMoviesToShow(filtredArray);
-      localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
-  }
+  // логика отображения фильмов на /movies **
 
   // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
   React.useEffect(() => {
@@ -89,17 +62,39 @@ function App() {
     }
   }, []);
 
-  // function filterByDuration(array) {
-  //   const arr = array.filter((movie) => movie.duration <= 20);
-  //   return arr;
-  // }
+  // при первом рендере устанавливает в local storage стейт чекбокса на /movies
+  React.useEffect(() => {
+    localStorage.setItem('checkboxState', shortsChecked);
+  }, []);
 
-  function handleChangeLoadingStatus() {
-    if(isLoading) {
-      setIsLoading(false)
-    } else if(!isLoading) {
-      setIsLoading(true);
-    }
+  // обновление стейта чекбокса на /movies и его запись в local storage
+  function toggleCheckboxState() {
+    const updatedState = !shortsChecked;
+    setShortsChecked(updatedState);
+    localStorage.setItem('checkboxState', JSON.stringify(updatedState));
+  };
+
+  // обновление чекбокса на /saved-movies
+  function toggleSavedMoviesCheckboxState() {
+    const updatedState = !savedMoviesShortsChecked;
+    setSavedMoviesShortsChecked(updatedState);
+    console.log('qwer')
+  }
+
+  // функция фильтрации по ключевому слову на /movies
+  function filterMovies(array, name) {
+      // массив со всеми фильмами по ключевому слову
+      const filtredArray = array.filter(
+        movie => movie.nameRU.toLowerCase().includes(name.toLowerCase())
+        || movie.nameEN.toLowerCase().includes(name.toLowerCase())
+      );
+      setMoviesToShow(filtredArray);
+      if(filtredArray.length === 0) {
+        setIsMoviesToShowEmpty(true);
+      } else if(filtredArray.length > 0) {
+        setIsMoviesToShowEmpty(false);
+      }
+      localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
   };
 
   React.useEffect(() => {
@@ -175,6 +170,8 @@ function App() {
     })
   }, []);
 
+  // логика авторизации и логаута **
+  
   // проверка токена и автоматичексий запрос данных
   React.useEffect(() => {
     checkToken();
@@ -208,7 +205,7 @@ function App() {
       .catch((err) => {
         console.log(`ошибка ${err}`);
       })
-  }
+  };
 
   // обновление данных профиля
   function handleUpdateProfile({ email, name }) {
@@ -220,6 +217,8 @@ function App() {
         console.log(`ошибка ${err}`);
       })
   };
+
+  // управление сайдбаром **
 
   function openSidebar() {
     setSidebarOpen(true);
@@ -237,7 +236,7 @@ function App() {
           <Route 
             path='/' 
             element={<MainPage isLoggedIn={ isLoggedIn }
-            // управление сайдбаром, прокидывается в компонент MainPage и HeaderNavigate для открытия по клику
+            // управление сайдбаром, передается в компонент MainPage и HeaderNavigate для открытия по клику
             openSidebar={ openSidebar }
             />}
           />
@@ -251,34 +250,34 @@ function App() {
                     // начальный массив фильмов
                     initialMovies={ initialMovies }
                     setInitialMovies={ setInitialMovies }
-                    // фильтр массива
-                    filterMovies={ filterMovies }
 
-                    // функция для изменения стейта отфильтрованного массива, прокидывается в компонент поисковика
-                    // filterArray={ filterArray }
+                    // массив для рендера на /movies
                     moviesToShow={ moviesToShow }
+
+                    // стейт чекбокса, прелоадера, ошибки ответа сервера, пустой массив для рендера
+                    shortsChecked={ shortsChecked }
+                    isLoading={ isLoading }
+                    serverErrorMessage={ serverErrorMessage }
+                    setServerErrorMessage={ setServerErrorMessage }
+                    isMoviesToShowEmpty={ isMoviesToShowEmpty }
+                    setIsMoviesToShowEmpty={ setIsMoviesToShowEmpty }
+
+                    // функция фильтра массива
+                    filterMovies={ filterMovies }
+                    
                     visibleMovies={ visibleMovies }
                     handleUpdateVisibleMovies={ handleUpdateVisibleMovies }
                     clearVisibleMoviesState={ clearVisibleMoviesState }
                     openSidebar={ openSidebar }
 
-                    savedArray={ savedArray }
+                    savedMovies={ savedMovies }
                     // savedMoviesToShow={ savedMoviesToShow }
-
                     
-                    // searchMovies={ searchMovies }
                     setSavedMovies={ setSavedMovies }
-                    
-                    
-                    isLoading={ isLoading }
+
                     handleChangeLoadingStatus={ setIsLoading }
-                    // switchCheckboxChecked={ switchCheckboxChecked }
-                    shortsChecked={ shortsChecked }
-                    setShortsChecked={ setShortsChecked }
+
                     toggleCheckboxState={ toggleCheckboxState }
-                    // filterMoviesToShow={ filterMoviesToShow }
-                    // filterByDuration={ filterByDuration }
-                    
                   /> 
                 }
               />
@@ -293,14 +292,16 @@ function App() {
                   <SavedMovies 
                     moviesToShow={ moviesToShow }
                     setSavedMovies={ setSavedMovies }
-                    savedArray={ savedArray }
+                    savedMovies={ savedMovies }
                     // savedMoviesToShow={ savedMoviesToShow }
                     openSidebar={ openSidebar }
                     initialSavedMovies={ initialSavedMovies }
                     // switchCheckboxChecked={ switchCheckboxChecked }
-                    shortsChecked={ shortsChecked }
+                    // shortsChecked={ shortsChecked }
                     setShortsChecked={ setShortsChecked }
-                    toggleCheckboxState={ toggleCheckboxState }
+                    // toggleCheckboxState={ toggleCheckboxState }
+                    savedMoviesShortsChecked={ savedMoviesShortsChecked }
+                    toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
                   />
                 }
               />
