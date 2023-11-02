@@ -93,24 +93,14 @@ function Movies({
                     // исходный массив фильмов
                     initialMovies={ initialMovies }
                     setInitialMovies={ setInitialMovies }
-
                     // чекбокс и его функция, ошибка ответа сервера
                     shortsChecked={ shortsChecked }
                     toggleCheckboxState={ toggleCheckboxState }
                     setServerErrorMessage={ setServerErrorMessage }
-
                     // фильтр массива
                     filterMovies={ filterMovies }
-
-                    moviesToShow={ moviesToShow }
-                    clearVisibleMoviesState={ clearVisibleMoviesState }
-                    
+                    // управление прелоадером
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
-                    switchCheckboxChecked={ switchCheckboxChecked }
-                    
-                    filterMoviesToShow={ filterMoviesToShow }
-                    filterByDuration={ filterByDuration }
-                    
                 />
 
                 { serverErrorMessage ? 
@@ -119,7 +109,6 @@ function Movies({
                 </p>
                 :
                 <MovieCardList
-                    initialMovies={ initialMovies } 
                     moviesToShow={ moviesToShow }
 
                     shortsChecked={ shortsChecked }
@@ -128,9 +117,7 @@ function Movies({
                     
                     visibleMovies={ visibleMovies }
                     savedMovies={ savedMovies }
-                    setSavedMovies={ setSavedMovies }
-                    cardsId={ cardsId }
-                    
+                    setSavedMovies={ setSavedMovies }                    
                 />
                 }
                 { expandButtonState && !shortsChecked ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : '' }

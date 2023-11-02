@@ -78,7 +78,6 @@ function App() {
   function toggleSavedMoviesCheckboxState() {
     const updatedState = !savedMoviesShortsChecked;
     setSavedMoviesShortsChecked(updatedState);
-    console.log('qwer')
   }
 
   // функция фильтрации по ключевому слову на /movies
@@ -97,6 +96,7 @@ function App() {
       localStorage.setItem('moviesToShow', JSON.stringify(filtredArray));
   };
 
+  // запросы данных пользователя и сохраненных карточек
   React.useEffect(() => {
     if(isLoggedIn === true) {
     Promise.all([mainApi.getAllSavedMovies(), mainApi.getInfoAboutUser()])
@@ -290,16 +290,13 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}
                 element={ () => 
                   <SavedMovies 
-                    moviesToShow={ moviesToShow }
+                    // moviesToShow={ moviesToShow }
                     setSavedMovies={ setSavedMovies }
                     savedMovies={ savedMovies }
-                    // savedMoviesToShow={ savedMoviesToShow }
+
                     openSidebar={ openSidebar }
                     initialSavedMovies={ initialSavedMovies }
-                    // switchCheckboxChecked={ switchCheckboxChecked }
-                    // shortsChecked={ shortsChecked }
-                    setShortsChecked={ setShortsChecked }
-                    // toggleCheckboxState={ toggleCheckboxState }
+
                     savedMoviesShortsChecked={ savedMoviesShortsChecked }
                     toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
                   />

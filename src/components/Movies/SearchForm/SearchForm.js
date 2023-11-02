@@ -10,30 +10,23 @@ function SearchForm({
   // начальный массив фильмов
   initialMovies,
   setInitialMovies,
+  // функция фильтра массива на /movies
+  filterMovies,
+  // начальный массив сохраненных фильмов
+  setSavedMovies,
+  initialSavedMovies,
 
   // стейт чекбокса и его функция, ошибка ответа сервера
   shortsChecked,
   toggleCheckboxState,
   setServerErrorMessage,
-  setIsMoviesToShowEmpty,
 
   // переключение чекбокса на /saved-movies
   savedMoviesShortsChecked,
   toggleSavedMoviesCheckboxState,
   
-  // функция фильтра массива
-  filterMovies,
-
   // управление прелоадером
   handleChangeLoadingStatus,
-
-  clearVisibleMoviesState,
-  savedMovies,
-  setSavedMovies,
-  initialSavedMovies,
-
-  // может пригодиться
-  setShortsChecked,
 }) {
 
   const location = useLocation();
@@ -100,6 +93,7 @@ function SearchForm({
             <div className='search-form__wrapper'>
               {isMoviesPage ? 
                 (
+                  // форма на роуте /movies
                   <form className='search-form__form'
                     onSubmit={ handleSubmitMoviesForm }
                   >
@@ -121,6 +115,7 @@ function SearchForm({
                 ) 
               :
               (
+                // форма на роуте /saved-movies
                 <form className='search-form__form'
                     onSubmit={ handleSearchSavedMovie }
                   >
@@ -139,35 +134,6 @@ function SearchForm({
                   </form>
               )
               }
-              {/* <form className='search-form__form'
-                onSubmit={ handleSubmitMoviesForm }
-              >
-                { isMoviesPage ? (
-                  <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
-                    ref={ movieTitleRef }
-                    onChange={ (evt) => { setInputValue(evt.target.value) } }
-                    defaultValue={ inputValue }
-                  >
-                  </input>
-                )
-                :
-                (
-                  <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
-                    ref={ savedMovieTitleRef }
-                  >
-                  </input>
-                )
-                }
-                <button className='search-form__button' type='submit'></button>
-                <div className='search-form__switch-box'>
-                  <Switch 
-                    shortsChecked={ shortsChecked }
-                    toggleCheckboxState={ toggleCheckboxState }                    
-                    handleSubmitMoviesForm={ handleSubmitMoviesForm }
-                  />
-                  <p className='search-form__text'>Короткометражки</p>
-                </div>
-              </form> */}
             </div>
         </section>
     </>

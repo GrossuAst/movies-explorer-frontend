@@ -12,8 +12,12 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
-        textDecoration: 'none', // Убирает у Link подчеркивание
+        textDecoration: 'none',
     };
+    
+    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
+    // если стейт true, рендерится кнопка сохранения данных
+    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
 
     // подписка на контекст
     const userData = React.useContext(CurrentUserContext);
@@ -24,7 +28,7 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     React.useEffect(() => {
         setNameValue(userData.name);
         setEmailValue(userData.email);
-        console.log(userData.data.name)
+        // console.log(userData.data.name)
     }, [userData]);
 
     function handleNameChange(evt) {
@@ -33,7 +37,7 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
 
     function handleEmailChange(evt) {
         setEmailValue(evt.target.value)
-        console.log(evt.target)
+        // console.log(evt.target)
     }
 
     function handleSubmit(evt) {
@@ -48,9 +52,7 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
         isInputDisabled ? setInputDisable (false) : setInputDisable (true);
     }
 
-    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
-    // если стейт true, рендерится кнопка сохранения данных
-    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
+    
 
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
     function editProfile() {
@@ -89,21 +91,25 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
         <main className='main'>
             <section className='profile'>
                 <div className='profile__wrapper'>
-                    <h1 className='profile__title'>Привет, {userData.data.name}!</h1>
+                    <h1 className='profile__title'>Привет, { userData.data.name }!</h1>
                     <div className='profile__info-container'>
                         <form onSubmit={ handleSubmit }>
                             <div className='profile__info'>
                                 <label className='profile__user' htmlFor={'name-input-change'}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' name='name'
-                                    disabled={isInputDisabled} defaultValue={userData.data.name} value={nameValue} placeholder='Имя' 
-                                    minLength={2} maxLength={30}
+                                <input className='profile__user-input' id='name-input-change' name='name' placeholder='Имя' minLength={2} 
+                                    maxLength={30}
+                                    disabled={ isInputDisabled } 
+                                    // defaultValue={ userData.data.name } 
+                                    value={ nameValue } 
                                     onChange={ handleNameChange }
                                 ></input>
                             </div>
                             <div className='profile__info'>
                                 <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
                                 <input className='profile__user-input' id='email-input-change' name='email'
-                                    disabled={isInputDisabled}  placeholder='Почта' defaultValue={userData.data.email} value={emailValue}
+                                    disabled={ isInputDisabled }  placeholder='Почта'
+                                    // defaultValue={userData.data.email} 
+                                    value={ emailValue }
                                     onChange={ handleEmailChange }
                                 ></input>
                             </div>
@@ -127,7 +133,9 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 <>
                                     <button className='profile__edit-button'  type='button'
                                         onClick={editProfile}
-                                    >Редактировать</button>
+                                    >
+                                        Редактировать
+                                    </button>
                                     <Link to='/' className='profile__logout-button' 
                                         onClick={ clearCookies }
                                     >
@@ -141,7 +149,6 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                 </div>  
             </section>
         </main>
-        {/* <Sidebar></Sidebar> */}
     </>
   );
 }

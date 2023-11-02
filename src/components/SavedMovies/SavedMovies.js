@@ -9,15 +9,14 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 
 function SavedMovies({
-    moviesToShow, 
     savedMovies, 
     openSidebar, 
     setSavedMovies,
+    filterSavedMovies,
     initialSavedMovies,
     switchCheckboxChecked,
     shortsChecked,
     setShortsChecked,
-    toggleCheckboxState,
     savedMoviesShortsChecked,
     toggleSavedMoviesCheckboxState,
 }) {
@@ -59,23 +58,17 @@ function SavedMovies({
         </Header>
         <main className='main'>
             <SearchForm 
-                savedMovies={ savedMovies } 
                 setSavedMovies={ setSavedMovies }
                 initialSavedMovies={ initialSavedMovies }
-                switchCheckboxChecked={ switchCheckboxChecked }
-                shortsChecked={ shortsChecked }
-                setShortsChecked={ setShortsChecked }
-                // toggleCheckboxState={ toggleCheckboxState }
-                
                 savedMoviesShortsChecked={ savedMoviesShortsChecked }
                 toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
+                filterSavedMovies={ filterSavedMovies }
             >   
             </SearchForm>
             <MovieCardList 
-                moviesToShow={ moviesToShow } 
                 savedMovies={ savedMovies } 
                 setSavedMovies= {setSavedMovies}
-                shortsChecked={ shortsChecked }
+                savedMoviesShortsChecked={ savedMoviesShortsChecked }
             >
             </MovieCardList>
         </main>

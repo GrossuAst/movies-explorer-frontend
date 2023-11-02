@@ -10,17 +10,18 @@ import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
 function MovieCardList({
-  shortsChecked,
   moviesToShow,
-
+  
+  shortsChecked,
+  savedMoviesShortsChecked,
+  
+  savedMovies,
+  setSavedMovies,
   isMoviesToShowEmpty,
-
-  initialMovies,
-  savedMovies, 
+   
   visibleMovies, 
   isLoading, 
-  setSavedMovies, 
-  savedMoviesToShow,
+   
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
@@ -31,6 +32,7 @@ function MovieCardList({
         <section className='movie-block'>
           <div className='movie-block__wrapper'>
             { isMoviesPage ? ( !isMoviesToShowEmpty ?
+            // роут /movies
               <ul className='movie-block__list'>
                 { isMoviesPage && isLoading ? <Preloader /> : moviesToShow.filter((m) => {
                   if(shortsChecked) {
@@ -54,8 +56,14 @@ function MovieCardList({
               </ul> : 
               <p className='movie-block__no-result'>Ничего не найденно</p>
             ) : 
+            // роут /saved-movies
             <ul className='movie-block__list'>
-              { Array.isArray(savedMovies) && savedMovies.map((movie) => (
+              { Array.isArray(savedMovies) && savedMovies.filter((m) => {
+                if(savedMoviesShortsChecked) {
+                  return m.duration <= 40;
+                } else { return m }
+              })
+              .map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
                     movie={ movie }
