@@ -68,6 +68,11 @@
     justify-content: space-between;
     margin-top: 17px;
     align-items: flex-start;
+    position: relative;
+}
+
+.profile__info:nth-child(n+2) {
+    /* margin-top: 0; */
 }
 
 .profile__info:first-child {

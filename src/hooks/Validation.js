@@ -15,8 +15,8 @@ export function useForm(initialValues = {}) {
 }
 
 //хук управления формой и валидации формы
-export function useFormWithValidation(initialValues = {}) {
-  const [values, setValues] = React.useState({});
+export function useFormWithValidation(initialValues) {
+  const [values, setValues] = React.useState(initialValues);
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
@@ -29,6 +29,9 @@ export function useFormWithValidation(initialValues = {}) {
     setIsValid(target.closest("form").checkValidity());
   };
 
+  console.log(values.name.length);
+  console.log(errors);
+
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
@@ -38,5 +41,5 @@ export function useFormWithValidation(initialValues = {}) {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return { values, setValues, errors, setErrors, handleChange, resetForm, isValid };
 }

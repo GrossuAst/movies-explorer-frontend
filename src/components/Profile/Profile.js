@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import './Profile.css';
 import Header from '../Header/Header';
-import Sidebar from '../Sidebar/Sidebar';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import { CurrentUserContext } from '../contexts/CurrentUser'
 
@@ -19,36 +19,6 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     // подписка на контекст
     const userData = React.useContext(CurrentUserContext);
 
-    
-
-    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
-    // если стейт true, рендерится кнопка сохранения данных
-    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
-    
-    const [nameValue, setNameValue] = React.useState(userData.data.name);
-    const [emailValue, setEmailValue] = React.useState(userData.data.email);
-
-    const { values, setValues, errors, setErrors, isValid, handleChange } = useFormWithValidation( {name: nameValue, email: emailValue} );
-    
-    React.useEffect(() => {
-        setNameValue(userData.name);
-        setEmailValue(userData.email);
-        // console.log(userData.data.name)
-    }, [userData]);
-
-    function handleNameChange(evt) {
-        setNameValue(evt.target.value);
-    };
-
-    function handleEmailChange(evt) {
-        setEmailValue(evt.target.value)
-    };
-
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        handleUpdateProfile({ name: nameValue ? nameValue : userData.data.name, email: emailValue ? emailValue : userData.data.email});
-    };
-    
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
 
@@ -56,6 +26,27 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
         isInputDisabled ? setInputDisable (false) : setInputDisable (true);
     };
 
+    // console.log(userData.data.name);
+
+    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
+    // если стейт true, рендерится кнопка сохранения данных
+    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
+    
+    // const [nameValue, setNameValue] = React.useState(userData.data.name);
+    // const [emailValue, setEmailValue] = React.useState(userData.data.email);
+
+    const { values, setValues, errors, setErrors, isValid, handleChange } = useFormWithValidation({ name: userData.data.name, email: userData.data.email });
+
+    React.useEffect(() => {
+        setValues({ ...values, name: userData.data.name, email: userData.data.email });
+    }, [setValues]);
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        handleUpdateProfile({ name: values.name, email: values.email })
+        
+    };
+    
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
     function editProfile() {
         isEditProfileFormActive ? setEditProfileFormActive(false) : setEditProfileFormActive(true);
@@ -95,27 +86,29 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                 <div className='profile__wrapper'>
                     <h1 className='profile__title'>Привет, { userData.data.name }!</h1>
                     <div className='profile__info-container'>
-                        <form onSubmit={ handleSubmit }>
+                        <form onSubmit={ handleSubmit } noValidate>
                             <div className='profile__info'>
                                 <label className='profile__user' htmlFor={'name-input-change'}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' name='name' placeholder='Имя' minLength={2} 
-                                    maxLength={30}
+                                <input className='profile__user-input' id='name-input-change' type='text' name='name' placeholder='Имя' minLength={2} maxLength={30} required
+                                    // pattern="^[a-zA-Zа-яА-Я\s-]+$"
                                     disabled={ isInputDisabled } 
-                                    defaultValue={ nameValue }
-                                    // value={ nameValue } 
-                                    onChange={ handleNameChange }
+                                    defaultValue={ userData.data.name }
+                                    onChange={ handleChange }
                                 ></input>
+                            <ErrorMessage message={ errors.name }/>    
                             </div>
+                            
                             <div className='profile__info'>
                                 <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
-                                <input className='profile__user-input' id='email-input-change' name='email'
+                                <input className='profile__user-input' id='email-input-change' name='email' type='email' required
                                     disabled={ isInputDisabled }  placeholder='Почта'
-                                    defaultValue={ emailValue }
-                                    // value={ emailValue }
-                                    onChange={ handleEmailChange }
+                                    pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+                                    defaultValue={ userData.data.email }
+                                    onChange={ handleChange }
                                 ></input>
+                                <ErrorMessage message={ errors.email }/>
                             </div>
-
+                            
                             <div className='profile__control'>
                                 {/* если стейт false, рендерится компонент редактировать/выйти из аккаунат */}
                                 {/* если стейт true, рендерится кнопка сохранения данных  */}
@@ -123,12 +116,18 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 { isEditProfileFormActive ?
                                 (
                                     <>
-                                        {/* Чтобы убрать ошибку, нужно удалить модификатор у <p> */}
-                                        <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
+                                        {/* Чтобы убрать ошибку, нужно удалить модификатор 'profile__error-message_active' у <p> */}
+                                        <p className='profile__error-message'
+                                        >При обновлении профиля произошла ошибка.</p>
                                         
                                         {/* чтобы включить кнопку, нужно убрать модификатор */}
-                                        <button className='profile__save-button profile__save-button_disabled'  type='submit'
-                                        >Сохранить</button>
+                                        <button
+                                            className={ isValid ? 'profile__save-button' : 'profile__save-button profile__save-button_disabled' }
+                                            type='submit' 
+                                            disabled={ !isValid }
+                                        >
+                                            Сохранить
+                                        </button>
                                     </>
                                 ) : 
                                 (
