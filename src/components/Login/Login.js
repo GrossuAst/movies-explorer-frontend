@@ -19,6 +19,9 @@ function Login({ setUserData, setLoggedIn }) {
 
     const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
+    // console.log(values);
+    console.log(errors);
+
     async function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
@@ -55,7 +58,7 @@ function Login({ setUserData, setLoggedIn }) {
                                 <input className='form-page__input' id='login-email' 
                                     placeholder='Почта' type={'email'} name="email"
                                     required maxLength={40}
-                                    value={values.email}
+                                    defaultValue={ values.email }
                                     onChange={ handleChange }
                                 >
                                 </input>
@@ -66,7 +69,7 @@ function Login({ setUserData, setLoggedIn }) {
                                 <input className='form-page__input' id='login-password' 
                                     placeholder='Пароль' type={'password'} name='password'
                                     required minLength={5} maxLength={40}
-                                    value={values.password}
+                                    defaultValue={ values.password }
                                     onChange={ handleChange }
                                 >
                                 </input>

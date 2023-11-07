@@ -6,7 +6,8 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
 import { CurrentUserContext } from '../contexts/CurrentUser'
-import { mainApi } from '../../utils/MainApi';
+
+import { useForm, useFormWithValidation } from '../../hooks/Validation';
 
 function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }) {
     const location = useLocation();
@@ -14,17 +15,21 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     const linkStyle = {
         textDecoration: 'none',
     };
-    
-    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
-    // если стейт true, рендерится кнопка сохранения данных
-    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
 
     // подписка на контекст
     const userData = React.useContext(CurrentUserContext);
 
+    
+
+    // если стейт false, рендерится компонент редактировать/выйти из аккаунат
+    // если стейт true, рендерится кнопка сохранения данных
+    const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
+    
     const [nameValue, setNameValue] = React.useState(userData.data.name);
     const [emailValue, setEmailValue] = React.useState(userData.data.email);
 
+    const { values, setValues, errors, setErrors, isValid, handleChange } = useFormWithValidation( {name: nameValue, email: emailValue} );
+    
     React.useEffect(() => {
         setNameValue(userData.name);
         setEmailValue(userData.email);
@@ -37,28 +42,25 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
 
     function handleEmailChange(evt) {
         setEmailValue(evt.target.value)
-        // console.log(evt.target)
-    }
+    };
 
     function handleSubmit(evt) {
         evt.preventDefault();
         handleUpdateProfile({ name: nameValue ? nameValue : userData.data.name, email: emailValue ? emailValue : userData.data.email});
-    }
+    };
     
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
 
     function activateInput() {
         isInputDisabled ? setInputDisable (false) : setInputDisable (true);
-    }
-
-    
+    };
 
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
     function editProfile() {
         isEditProfileFormActive ? setEditProfileFormActive(false) : setEditProfileFormActive(true);
         activateInput();
-    }
+    };
 
   return (
     <>
@@ -99,8 +101,8 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 <input className='profile__user-input' id='name-input-change' name='name' placeholder='Имя' minLength={2} 
                                     maxLength={30}
                                     disabled={ isInputDisabled } 
-                                    // defaultValue={ userData.data.name } 
-                                    value={ nameValue } 
+                                    defaultValue={ nameValue }
+                                    // value={ nameValue } 
                                     onChange={ handleNameChange }
                                 ></input>
                             </div>
@@ -108,8 +110,8 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
                                 <input className='profile__user-input' id='email-input-change' name='email'
                                     disabled={ isInputDisabled }  placeholder='Почта'
-                                    // defaultValue={userData.data.email} 
-                                    value={ emailValue }
+                                    defaultValue={ emailValue }
+                                    // value={ emailValue }
                                     onChange={ handleEmailChange }
                                 ></input>
                             </div>
