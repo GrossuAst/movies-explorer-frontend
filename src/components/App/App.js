@@ -208,15 +208,15 @@ function App() {
   };
 
   // обновление данных профиля
-  function handleUpdateProfile({ email, name }) {
-    mainApi.updateProfile( {email, name} )
-      .then((res) => {
-        setUserData(res);
-      })
-      .catch((err) => {
-        console.log(`ошибка ${err}`);
-      })
-  };
+  // function handleUpdateProfile({ email, name }) {
+  //   mainApi.updateProfile( {email, name} )
+  //     .then((res) => {
+  //       setUserData(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(`ошибка ${err}`);
+  //     })
+  // };
 
   // управление сайдбаром **
 
@@ -313,8 +313,8 @@ function App() {
                   <Profile
                     userData={ userData }
                     clearCookies={ clearCookies }
-                    // setUserData={ setUserData }
-                    handleUpdateProfile={handleUpdateProfile}
+                    setUserData={ setUserData }
+                    // handleUpdateProfile={handleUpdateProfile}
                     openSidebar={ openSidebar }
                   />
                 }

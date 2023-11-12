@@ -5,6 +5,8 @@ import './Profile.css';
 import Header from '../Header/Header';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
+import { mainApi } from '../../utils/MainApi';
+
 import { CurrentUserContext } from '../contexts/CurrentUser'
 
 import { useForm, useFormWithValidation } from '../../hooks/Validation';
@@ -22,29 +24,40 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
 
-    function activateInput() {
-        isInputDisabled ? setInputDisable (false) : setInputDisable (true);
-    };
-
-    // console.log(userData.data.name);
-
     // если стейт false, рендерится компонент редактировать/выйти из аккаунат
     // если стейт true, рендерится кнопка сохранения данных
     const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
-    
-    // const [nameValue, setNameValue] = React.useState(userData.data.name);
-    // const [emailValue, setEmailValue] = React.useState(userData.data.email);
 
-    const { values, setValues, errors, setErrors, isValid, handleChange } = useFormWithValidation({ name: userData.data.name, email: userData.data.email });
+    const [isResponseError, setIsResponseError] = React.useState(false);
+
+    function activateInput() {
+        isInputDisabled ? setInputDisable(false) : setInputDisable(true);
+    };
+
+    const { values, setValues, errors, isValid, handleChange } = useFormWithValidation({ name: userData.data.name, email: userData.data.email });
 
     React.useEffect(() => {
         setValues({ ...values, name: userData.data.name, email: userData.data.email });
     }, [setValues]);
 
+    // console.log(values);
+
     function handleSubmit(evt) {
         evt.preventDefault();
         handleUpdateProfile({ name: values.name, email: values.email })
         
+    };
+    
+    // обновление данных профиля
+    function handleUpdateProfile({ name, email }) {
+        mainApi.updateProfile({ email, name })
+        .then((res) => {
+            setUserData(res);
+            setIsResponseError(false);
+        })
+        .catch((err) => {
+            setIsResponseError(true);
+        })
     };
     
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
@@ -102,7 +115,7 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
                                 <input className='profile__user-input' id='email-input-change' name='email' type='email' required
                                     disabled={ isInputDisabled }  placeholder='Почта'
-                                    pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+                                    // pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
                                     defaultValue={ userData.data.email }
                                     onChange={ handleChange }
                                 ></input>
@@ -117,8 +130,10 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                 (
                                     <>
                                         {/* Чтобы убрать ошибку, нужно удалить модификатор 'profile__error-message_active' у <p> */}
-                                        <p className='profile__error-message'
-                                        >При обновлении профиля произошла ошибка.</p>
+                                        <p className='profile__error-message'>
+                                            { isResponseError && 'При обновлении профиля произошла ошибка.' }
+                                        </p>
+                                        
                                         
                                         {/* чтобы включить кнопку, нужно убрать модификатор */}
                                         <button

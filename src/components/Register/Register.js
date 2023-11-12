@@ -2,12 +2,13 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mainApi, MainApi } from '../../utils/MainApi';
 
+import { useFormWithValidation } from '../../hooks/Validation';
+
 import './Register.css';
 import '../../styles/commonStyles.css';
-// import '../Header/Header.css';
 
-// import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function Register() {
     const location = useLocation();
@@ -15,35 +16,25 @@ function Register() {
 
     const navigate = useNavigate();
 
-    const [formValue, setFormValue] = React.useState({
-        name: '',
-        email: '',
-        password: '',
-    });
+    const [isResponseError, setIsResponseError] = React.useState(false);
 
-    function handleInputChange(evt) {
-        const { name, value } = evt.target;
-        setFormValue({
-            ...formValue,
-            [name]: value
-        })
-    }
+    const { values, errors, setErrors, isValid, handleChange, resetForm } = useFormWithValidation({ name: '', email: '', password: '', });
 
-    function handleRegisterSubmit(evt) {
+    function handleSubmit(evt) {
         evt.preventDefault();
-        mainApi.register(formValue.name, formValue.email, formValue.password)
+        mainApi.register( values.name, values.email, values.password )
             .then(() => {
                 navigate('/signin', { replace: true });
-                console.log('регистрация успешна!')
+                setIsResponseError(false);
+                resetForm();
             })
             .catch((err) => {
-                console.log(`ошибка ${err}`);
+                setIsResponseError(true);
             })
-    }
+    };
 
     return (
         <> 
-        {/* добавить фалидацию форм */}
             <Header 
                 headerMixin={isRegisterPage ? 'header_type_form-page' : ''}
                 wrapperMixin={isRegisterPage ? 'header__wrapper_type_form-page' : ''}
@@ -52,45 +43,56 @@ function Register() {
             </Header>
             <main>
                 <section className='form-page'>
-                    <div className='form-page__wrapper'>          
-                        <form className='form-page__form' onSubmit={ handleRegisterSubmit }>
+                    <div className='form-page__wrapper'>
+                        <form className='form-page__form' noValidate
+                            onSubmit={ handleSubmit }
+                        >
                             <div className='form-page__input-block'>                            
-                                <label className='form-page__input-title' for={'register-name'}>Имя</label>
+                                <label className='form-page__input-title' htmlFor={'register-name'}>Имя</label>
                                 <input className='form-page__input' id='register-name' name='name' placeholder='Имя' type={'text'} 
                                     required minLength={2} maxLength={30}
-                                    onChange={ handleInputChange }
+                                    onChange={ handleChange }
                                 ></input>
+                                <ErrorMessage message={ errors.name }/>
                             </div>
                             <div className='form-page__input-block'>                            
-                                <label className='form-page__input-title' for={'register-email'}>E-mail</label>
-                                <input className='form-page__input' id='register-email' name='email' placeholder='Почта' type={'email'} 
+                                <label className='form-page__input-title' htmlFor={'register-email'}>E-mail</label>
+                                <input className='form-page__input' id='register-email' name='email' placeholder='Почта' type={'email'}
                                     required maxLength={40}
-                                    onChange={ handleInputChange }
+                                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                                    onChange={ handleChange }
                                 ></input>
+                                <ErrorMessage message={ errors.email }/>
                             </div>
                             <div className='form-page__input-block'>
-                                <label className='form-page__input-title' for={'register-password'}>Пароль</label>
+                                <label className='form-page__input-title' htmlFor={'register-password'}>Пароль</label>
                                 <input className='form-page__input' id='register-password' name='password' placeholder='Пароль' type={'password'} 
                                     required minLength={5} maxLength={40}
-                                    onChange={ handleInputChange }
+                                    onChange={ handleChange }
                                 ></input>
+                                <ErrorMessage message={ errors.password }/>
                             </div>
                             <div className='form-page__error-message-container'>
                                 
                                 {/* удалить модификатор для отключения ошибки */}
-                                <p className='form-page__error-message form-page__error-message_active'>Произошла ошибка</p>
+                                <p className='form-page__error-message form-page__error-message_active'>{ isResponseError ? 'Произошла ошибка' : ''}</p>
                             </div>
-                            <button className='form-page__button form-page__button_type_register' type='submit'>Зарегистрироваться</button>
+                            <button type='submit'
+                                className={ isValid? 'form-page__button form-page__button_type_register' : 'form-page__button form-page__button_type_disabled'} 
+                            
+                                disabled={ !isValid }
+                            >
+                                Зарегистрироваться
+                            </button>
                             <p className='form-page__question'>Уже зарегистрированы?
                                 <Link to='/signin'>
                                     <span className='form-page__link'>&nbsp;Войти</span>
-                                </Link>    
+                                </Link>
                             </p>
                         </form>
                     </div>
                 </section>
             </main>
-            {/* <Footer></Footer> */}
         </>
     );
   }

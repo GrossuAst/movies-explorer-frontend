@@ -10,6 +10,7 @@ import '../../styles/commonStyles.css';
 
 // import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function Login({ setUserData, setLoggedIn }) {
     const location = useLocation();
@@ -17,24 +18,22 @@ function Login({ setUserData, setLoggedIn }) {
 
     const navigate = useNavigate();
 
-    const { values, handleChange, errors, isValid } = useFormWithValidation({});
+    const [isResponseError, setIsResponseError] = React.useState(false);
 
-    // console.log(values);
-    console.log(errors);
+    const { values, errors, setErrors, isValid, handleChange, resetForm } = useFormWithValidation({ email: '', password: '', });
 
     async function handleSubmit(evt) {
         evt.preventDefault();
-        console.log(values);
         if(isValid) {
             try {
                 await mainApi.login(values.password, values.email);
                 const userData = await mainApi.getInfoAboutUser();
                 setLoggedIn(true);
                 setUserData(userData);
-                // resetForm();
+                resetForm();
                 navigate('/movies', { replace: true });
             } catch(err) {
-                console.log(err);
+                setIsResponseError(true);
             }
         }
     }
@@ -50,7 +49,7 @@ function Login({ setUserData, setLoggedIn }) {
             <main>
                 <section className='form-page'>
                     <div className='form-page__wrapper'>          
-                        <form className='form-page__form' 
+                        <form className='form-page__form' noValidate
                             onSubmit={ handleSubmit }
                         >
                             <div className='form-page__input-block'>                            
@@ -58,26 +57,28 @@ function Login({ setUserData, setLoggedIn }) {
                                 <input className='form-page__input' id='login-email' 
                                     placeholder='Почта' type={'email'} name="email"
                                     required maxLength={40}
-                                    defaultValue={ values.email }
+                                    // defaultValue={ values.email }
                                     onChange={ handleChange }
                                 >
                                 </input>
-                                {errors.email && <p className='form-page__error-message'>{errors.email}</p>}
+                                <ErrorMessage message={errors.email} />
                             </div>
                             <div className='form-page__input-block'>
                                 <label className='form-page__input-title' htmlFor={'login-password'}>Пароль</label>
                                 <input className='form-page__input' id='login-password' 
                                     placeholder='Пароль' type={'password'} name='password'
                                     required minLength={5} maxLength={40}
-                                    defaultValue={ values.password }
+                                    // defaultValue={ values.password }
                                     onChange={ handleChange }
                                 >
                                 </input>
-                                {errors.password && <p className='form-page__error-message'>{errors.pasword}</p>}
+                                <ErrorMessage message={errors.password} />
                             </div>
-                            <p className='form-page__error-message'></p>
-                            <button className='form-page__button form-page__button_type_login'  type='submit' 
-                                // disabled={!isValid}
+                            <p className='form-page__error-message form-page__error-message_active'>{ isResponseError ? 'Произошла ошибка' : ''}</p>
+                            <button type='submit' 
+                                // className='form-page__button form-page__button_type_login'
+                                className={ isValid? 'form-page__button form-page__button_type_login' : 'form-page__button form-page__button_type_login-disabled'}
+                                disabled={ !isValid }
                             >
                                 Войти
                             </button>

@@ -27,10 +27,8 @@ export function useFormWithValidation(initialValues) {
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
+    
   };
-
-  console.log(values.name.length);
-  console.log(errors);
 
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {

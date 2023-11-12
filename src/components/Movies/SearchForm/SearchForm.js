@@ -43,7 +43,6 @@ function SearchForm({
   function handleSubmitMoviesForm(evt) {
     evt.preventDefault();
     setServerErrorMessage(false);
-    console.log('форма отправлена');
     if(isMoviesPage) {
       
       const name = movieTitleRef.current.value;

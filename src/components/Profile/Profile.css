@@ -121,7 +121,7 @@
     height: 63px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 4px;
     margin-top: 192px;
 }
 
@@ -139,7 +139,7 @@
 
 .profile__error-message {
     margin: 0;
-    display: none;
+    /* display: none; */
     color: #FF004C;
     text-align: center;
     font-family: 'Inter', sans-serif;

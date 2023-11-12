@@ -2,8 +2,23 @@
     margin-top: 179px;
 }
 
+.form-page__button_type_login-disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    margin-top: 179px;
+}
+
+.form-page__button_type_login-disabled:hover {
+    opacity: 1;
+    cursor: auto;
+}
+
 @media screen and (max-width: 467px) {
     .form-page__button_type_login {
+        margin-top: 267px;
+    }
+
+    .form-page__button_type_login-disabled {
         margin-top: 267px;
     }
 }
