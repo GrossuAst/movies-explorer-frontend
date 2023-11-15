@@ -332,7 +332,10 @@ function App() {
 
           {/* страница регистрации */}
           <Route path='/signup' element={
-            <Register /> }
+            <Register 
+              checkToken={ checkToken }
+            /> 
+          }
           />
 
           <Route path='*' element={ <NotFoundPage/> }/>

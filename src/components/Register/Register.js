@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { mainApi, MainApi } from '../../utils/MainApi';
+import { Link, useLocation } from 'react-router-dom';
+import { mainApi } from '../../utils/MainApi';
 
 import { useFormWithValidation } from '../../hooks/Validation';
 
@@ -10,23 +10,26 @@ import '../../styles/commonStyles.css';
 import Header from '../Header/Header';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-function Register() {
+function Register({ checkToken }) {
     const location = useLocation();
     const isRegisterPage = location.pathname === '/signup';
 
-    const navigate = useNavigate();
-
     const [isResponseError, setIsResponseError] = React.useState(false);
 
-    const { values, errors, setErrors, isValid, handleChange, resetForm } = useFormWithValidation({ name: '', email: '', password: '', });
+    const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation({ name: '', email: '', password: '', });
 
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        mainApi.register( values.name, values.email, values.password )
+        await mainApi.register( values.name, values.email, values.password )
             .then(() => {
-                navigate('/signin', { replace: true });
                 setIsResponseError(false);
-                resetForm();
+            })
+            .then(() => {
+                mainApi.login(values.password, values.email)
+                    .then(() =>{
+                        checkToken();
+                        resetForm();
+                    })
             })
             .catch((err) => {
                 setIsResponseError(true);
