@@ -17,6 +17,7 @@ function MovieCardList({
   
   savedMovies,
   setSavedMovies,
+  initialSavedMovies,
   isMoviesToShowEmpty,
    
   visibleMovies, 
@@ -25,7 +26,22 @@ function MovieCardList({
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-  const isSvaedMoviesPage = location.pathname === '/saved-movies';
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
+
+  // React.useEffect(() => {
+  //   // Обновляем savedMovies только при нахождении на странице '/saved-movies'
+  //   // if (window.location.pathname === '/saved-movies') {
+  //   //   setSavedMovies(initialSavedMovies);
+  //   // }
+
+  //   // Функция, которая будет вызвана при размонтировании компонента
+  //   return () => {
+  //     // Обновляем savedMovies при покидании страницы
+  //     if (window.location.pathname !== '/saved-movies') {
+  //       setSavedMovies(initialSavedMovies);
+  //     }
+  //   };
+  // }, [initialSavedMovies]);
 
   return (
     <>
@@ -58,7 +74,20 @@ function MovieCardList({
             ) : 
             // роут /saved-movies
             <ul className='movie-block__list'>
-              { Array.isArray(savedMovies) && savedMovies.filter((m) => {
+              { Array.isArray(savedMovies) && savedMovies.map((movie) => (
+                <li key={movie.movieId} className='movie-block__card'>
+                  <MovieCard
+                    movie={ movie }
+                    title={ movie.title }
+                    image={ movie.image }
+                    duration={ movie.duration }
+                    setSavedMovies={ setSavedMovies }
+                    savedMovies={ savedMovies }
+                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                  />
+                </li>
+              )) }
+              {/* { Array.isArray(savedMovies) && savedMovies.filter((m) => {
                 if(savedMoviesShortsChecked) {
                   return m.duration <= 40;
                 } else { return m }
@@ -75,7 +104,7 @@ function MovieCardList({
                     isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                   />
                 </li>
-              )) }
+              )) } */}
             </ul> }
           </div>
         </section>

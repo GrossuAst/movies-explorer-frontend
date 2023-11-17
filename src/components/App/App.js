@@ -53,6 +53,9 @@ function App() {
   const [isMoviesToShowEmpty, setIsMoviesToShowEmpty] = React.useState(false);
   const [visibleMovies, setVisibleMovies] = React.useState(0);
 
+  // попап успешного обновления профиля
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
   // логика отображения фильмов на /movies **
 
   // при монтировании проверяет localStorage. Если предыдущий поиск в нем сохранен, рендерит его
@@ -104,7 +107,6 @@ function App() {
       setUserData(user);
       setInitialSavedMovies(savedMovies);
       setSavedMovies(savedMovies);
-      // console.log(savedMovies);
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
@@ -207,17 +209,6 @@ function App() {
       })
   };
 
-  // обновление данных профиля
-  // function handleUpdateProfile({ email, name }) {
-  //   mainApi.updateProfile( {email, name} )
-  //     .then((res) => {
-  //       setUserData(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`ошибка ${err}`);
-  //     })
-  // };
-
   // управление сайдбаром **
 
   function openSidebar() {
@@ -227,6 +218,11 @@ function App() {
   function closeSidebar() {
     setSidebarOpen(false);
   };
+
+  // открыть/закрыть попап успешного обновления профиля
+  function handlePopupChange() {
+    isPopupOpen ? setIsPopupOpen(false) : setIsPopupOpen(true);
+  }
 
   return (
     <>
@@ -314,8 +310,9 @@ function App() {
                     userData={ userData }
                     clearCookies={ clearCookies }
                     setUserData={ setUserData }
-                    // handleUpdateProfile={handleUpdateProfile}
                     openSidebar={ openSidebar }
+                    handlePopupChange={ handlePopupChange }
+                    isPopupOpen={ isPopupOpen }
                   />
                 }
               />

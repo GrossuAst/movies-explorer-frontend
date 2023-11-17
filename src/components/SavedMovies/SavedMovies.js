@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
-import Sidebar from '../Sidebar/Sidebar';
 
 function SavedMovies({
     savedMovies, 
@@ -57,7 +56,7 @@ function SavedMovies({
             </nav>
         </Header>
         <main className='main'>
-            <SearchForm 
+            <SearchForm
                 setSavedMovies={ setSavedMovies }
                 initialSavedMovies={ initialSavedMovies }
                 savedMoviesShortsChecked={ savedMoviesShortsChecked }
@@ -65,10 +64,11 @@ function SavedMovies({
                 filterSavedMovies={ filterSavedMovies }
             >   
             </SearchForm>
-            <MovieCardList 
-                savedMovies={ savedMovies } 
+            <MovieCardList
+                savedMovies={ savedMovies }
                 setSavedMovies= {setSavedMovies}
                 savedMoviesShortsChecked={ savedMoviesShortsChecked }
+                initialSavedMovies={ initialSavedMovies }
             >
             </MovieCardList>
         </main>

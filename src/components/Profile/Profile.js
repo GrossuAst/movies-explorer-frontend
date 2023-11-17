@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Popup from '../Popup/Popup';
 
 import { mainApi } from '../../utils/MainApi';
 
@@ -11,7 +12,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 
 import { useForm, useFormWithValidation } from '../../hooks/Validation';
 
-function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }) {
+function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar, handlePopupChange, isPopupOpen }) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
@@ -23,12 +24,11 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
 
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
-
     // если стейт false, рендерится компонент редактировать/выйти из аккаунат
     // если стейт true, рендерится кнопка сохранения данных
     const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
-
     const [isResponseError, setIsResponseError] = React.useState(false);
+    const [isNewData, setIsNewData] = React.useState(false);
 
     function activateInput() {
         isInputDisabled ? setInputDisable(false) : setInputDisable(true);
@@ -39,21 +39,22 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
     React.useEffect(() => {
         setValues({ ...values, name: userData.data.name, email: userData.data.email });
     }, [setValues]);
-
-    // console.log(values);
+    
+    React.useEffect(() => {
+        if(values.name === userData.data.name && values.email === userData.data.email) {
+            setIsNewData(false)
+        } else if(values.name !== userData.data.name || values.email !== userData.data.email) {
+            setIsNewData(true);
+        }
+    }, [values]);
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        handleUpdateProfile({ name: values.name, email: values.email })
-        
-    };
-    
-    // обновление данных профиля
-    function handleUpdateProfile({ name, email }) {
-        mainApi.updateProfile({ email, name })
+        mainApi.updateProfile({ name: values.name, email: values.email })
         .then((res) => {
             setUserData(res);
             setIsResponseError(false);
+            handlePopupChange();
         })
         .catch((err) => {
             setIsResponseError(true);
@@ -137,9 +138,9 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                                         
                                         {/* чтобы включить кнопку, нужно убрать модификатор */}
                                         <button
-                                            className={ isValid ? 'profile__save-button' : 'profile__save-button profile__save-button_disabled' }
+                                            className={ isValid && isNewData ? 'profile__save-button' : 'profile__save-button profile__save-button_disabled' }
                                             type='submit' 
-                                            disabled={ !isValid }
+                                            disabled={ !isValid || !isNewData}
                                         >
                                             Сохранить
                                         </button>
@@ -165,6 +166,10 @@ function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar }
                 </div>  
             </section>
         </main>
+        <Popup 
+            isPopupOpen={ isPopupOpen }
+            handlePopupChange={ handlePopupChange }
+        />
     </>
   );
 }
