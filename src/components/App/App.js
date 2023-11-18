@@ -224,6 +224,8 @@ function App() {
     isPopupOpen ? setIsPopupOpen(false) : setIsPopupOpen(true);
   }
 
+  console.log(savedMovies);
+
   return (
     <>
       <CurrentUserContext.Provider value={ userData }>

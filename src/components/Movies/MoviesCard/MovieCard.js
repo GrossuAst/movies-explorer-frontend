@@ -5,15 +5,17 @@ import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, savedMovies }) {
+function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, savedMovies, _id, isSaved }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMovesPage = location.pathname === '/saved-movies';
 
+  // console.log(isSaved);
+
   // console.log(savedMovies);
   // console.log(mongoId);
 
-  const [liked, setLiked] = React.useState(isLiked);
+  // const [liked, setLiked] = React.useState(isLiked);
 
   // принимает минуты и конвертирует в формат чч:мм
   function convertDuration(duration) {
@@ -44,14 +46,17 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
       nameEN: movie.nameEN,
     }
     try {
-      if (!liked) {
+      if (!isLiked) {
         await mainApi.saveMovie(movieData);
-        setLiked(true);
+        // setLiked(true);
         setSavedMovies([...savedMovies, movieData]);
-      } else {
-        await mainApi.deleteMovie(movie.id);
-        setLiked(false);
-        setSavedMovies(savedMovies.filter(savedMovie => savedMovie.movieId !== movie.id));
+      } else if(isLiked) {
+        console.log(savedMovies.filter((i) => i.movieId ))
+        // await mainApi.deleteMovie(savedMovies.filter((i) => i.movieId === movie.id)[0]._id);
+        
+        // console.log(movie)
+        // setLiked(false);
+        // setSavedMovies(savedMovies.filter(savedMovie => savedMovie.movieId !== movie.id));
       }
     } catch (err) {
       console.log(err);
@@ -59,7 +64,8 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
   }
 
   function deleteMovie() {
-    mainApi.deleteMovie(movie.movieId)
+    // mainApi.deleteMovie(movie.movieId)
+    mainApi.deleteMovie(movie._id)
       .then(() => {
         const moviToDelete = movie;
         setSavedMovies(savedMovies.filter((movie) => movie !== moviToDelete));
@@ -85,7 +91,7 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
                   ) 
                   : 
                   (
-                    <div className={ liked ? 'card__like card__like_active' : 'card__like' }
+                    <div className={ isLiked ? 'card__like card__like_active' : 'card__like' }
                       onClick={ switchLike }
                     >
                     </div>

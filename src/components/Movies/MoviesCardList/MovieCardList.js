@@ -28,21 +28,9 @@ function MovieCardList({
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
-  // React.useEffect(() => {
-  //   // Обновляем savedMovies только при нахождении на странице '/saved-movies'
-  //   // if (window.location.pathname === '/saved-movies') {
-  //   //   setSavedMovies(initialSavedMovies);
-  //   // }
-
-  //   // Функция, которая будет вызвана при размонтировании компонента
-  //   return () => {
-  //     // Обновляем savedMovies при покидании страницы
-  //     if (window.location.pathname !== '/saved-movies') {
-  //       setSavedMovies(initialSavedMovies);
-  //     }
-  //   };
-  // }, [initialSavedMovies]);
-
+  const isMovieSaved = (savedArr, movie) =>
+    savedArr.find((card) => card.movieId === movie.id);
+  
   return (
     <>
         <section className='movie-block'>
@@ -58,13 +46,15 @@ function MovieCardList({
                 .slice(0, visibleMovies).map((movie) => (
                     <li key={movie.id} className='movie-block__card'>
                       <MovieCard
+                        isLiked={ isMovieSaved(savedMovies, movie) }
                         movie={ movie }
                         title={ movie.title }
                         image={ `${ BASE_URL }${ movie.image.url }` }
                         duration={ movie.duration }
-                        isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                        // isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                         setSavedMovies={ setSavedMovies }
                         savedMovies={ savedMovies }
+                        // _id={ movie._id }
                       />
                     </li>
                   ))
@@ -77,13 +67,15 @@ function MovieCardList({
               { Array.isArray(savedMovies) && savedMovies.map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
+                    isLiked={ isMovieSaved(savedMovies, movie) }
                     movie={ movie }
                     title={ movie.title }
                     image={ movie.image }
                     duration={ movie.duration }
                     setSavedMovies={ setSavedMovies }
                     savedMovies={ savedMovies }
-                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                    _id={ movie._id }
+                    // isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                   />
                 </li>
               )) }
