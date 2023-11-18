@@ -3,8 +3,11 @@ import { useLocation } from 'react-router-dom';
 
 import './SearchForm.css';
 import Switch from '../../Switch/Switch';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 import { moviesApi } from '../../../utils/MoviesApi';
+
+import { useFormWithValidation } from '../../../hooks/Validation';
 
 function SearchForm({
   // начальный массив фильмов
@@ -36,15 +39,26 @@ function SearchForm({
   // состояние инпута на странице /movies
   const movieTitleRef = React.useRef('');
   const [inputValue, setInputValue] = React.useState(localStorage.getItem('inputValue') || '');
+  const [errorMessage, setErrorMessage] = React.useState('');
+
+  const { values, setValues, errors, isValid, handleChange } = useFormWithValidation({ name: inputValue });
+
+  // console.log(values)
 
   // состояние инпута на странице /saved-movies
   const savedMovieTitleRef = React.useRef('');
 
   function handleSubmitMoviesForm(evt) {
     evt.preventDefault();
+    if(values.name.length < 1) {
+      setErrorMessage('Нужно ввести ключевое слово');
+      return
+    } else if(values.name.length > 0) {
+      setErrorMessage('');
+    }
     setServerErrorMessage(false);
     if(isMoviesPage) {
-      
+      console.log('отправлено')
       const name = movieTitleRef.current.value;
 
       // если поиска еще не было
@@ -93,16 +107,18 @@ function SearchForm({
               {isMoviesPage ? 
                 (
                   // форма на роуте /movies
-                  <form className='search-form__form'
+                  <form className='search-form__form' noValidate
                     onSubmit={ handleSubmitMoviesForm }
                   >
                     <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
                       ref={ movieTitleRef }
-                      onChange={ (evt) => { setInputValue(evt.target.value) } }
+                      // onChange={ (evt) => { setInputValue(evt.target.value) } }
+                      onChange={ handleChange }
                       defaultValue={ inputValue }
                     >
                     </input>
                     <button className='search-form__button' type='submit'></button>
+                    <ErrorMessage message={ errorMessage }/>
                     <div className='search-form__switch-box'>
                       <Switch 
                         shortsChecked={ shortsChecked }
@@ -123,6 +139,7 @@ function SearchForm({
                     >
                     </input>
                     <button className='search-form__button' type='submit'></button>
+
                     <div className='search-form__switch-box'>
                       <Switch 
                         savedMoviesShortsChecked={ savedMoviesShortsChecked }

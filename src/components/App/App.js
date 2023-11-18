@@ -25,7 +25,7 @@ function App() {
   const navigate = useNavigate();
 
   // получение состояния чекбокса при первой загрузке
-  const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? true : JSON.parse(localStorage.getItem('checkboxState'));
+  const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? false : JSON.parse(localStorage.getItem('checkboxState'));
   // const isMoviesToShowEmptyState = localStorage.getItem('moviesToShow') && JSON.parse(localStorage.getItem('moviesToShow')).length > 0 ? false : true;
   
   // залогинен ли пользователь, его данные *
@@ -46,7 +46,7 @@ function App() {
 
   // состояние чекбокса короткометражек на /movies и /saved-movies *
   const [shortsChecked, setShortsChecked] = React.useState(checkboxState);
-  const [savedMoviesShortsChecked, setSavedMoviesShortsChecked] = React.useState(true);
+  const [savedMoviesShortsChecked, setSavedMoviesShortsChecked] = React.useState(false);
 
   // ответ с ошибкой от сервера, ответ 'ничего не найдено', кол-во отображаемых карточек *
   const [serverErrorMessage, setServerErrorMessage] = React.useState(false);

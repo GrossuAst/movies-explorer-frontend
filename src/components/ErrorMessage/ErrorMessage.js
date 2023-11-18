@@ -9,8 +9,13 @@ import { useLocation } from 'react-router-dom';
 
     const registerPage = location.pathname === '/signup';
     const loginPage = location.pathname === '/signin';
+    const moviesPage = location.pathname === '/movies';
 
-   const errorClass = registerPage ? 'error-message error-message_type_register' : loginPage ? 'error-message error-message_type_login' : 'error-message';
+    const errorClass = 
+    registerPage ? 'error-message error-message_type_register' : 
+    loginPage ? 'error-message error-message_type_login' : 
+    moviesPage ? 'error-message error-message_type_movies' : 
+    'error-message';
 
     return(
         <p className={ errorClass }>{message}</p>
