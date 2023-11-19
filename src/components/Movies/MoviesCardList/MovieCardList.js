@@ -27,9 +27,6 @@ function MovieCardList({
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMoviesPage = location.pathname === '/saved-movies';
-
-  const isMovieSaved = (savedArr, movie) =>
-    savedArr.find((card) => card.movieId === movie.id);
   
   return (
     <>
@@ -64,7 +61,12 @@ function MovieCardList({
             ) : 
             // роут /saved-movies
             <ul className='movie-block__list'>
-              { Array.isArray(savedMovies) && savedMovies.map((movie) => (
+              { Array.isArray(savedMovies) && savedMovies.filter((m) => {
+                if(savedMoviesShortsChecked) {
+                  return m.duration <= 40;
+                } else { return m}
+              })
+              .map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
                     // isLiked={ isMovieSaved(savedMovies, movie) }

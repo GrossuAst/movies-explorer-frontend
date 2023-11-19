@@ -45,7 +45,7 @@ function Movies({
     
 }) {
 
-    const location = useLocation();  // хук useLocation для определения адреса
+    const location = useLocation();
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
@@ -101,6 +101,7 @@ function Movies({
                     filterMovies={ filterMovies }
                     // управление прелоадером
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
+                    clearVisibleMoviesState={ clearVisibleMoviesState }
                 />
 
                 { serverErrorMessage ? 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { CurrentUserContext } from '../contexts/CurrentUser';
 import ProtectedRoute from '../ProtectedRoute';
@@ -23,6 +24,9 @@ import { mainApi } from '../../utils/MainApi';
 function App() {
   
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isSavedMovesPage = location.pathname === '/saved-movies';
 
   // получение состояния чекбокса при первой загрузке
   const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? false : JSON.parse(localStorage.getItem('checkboxState'));
@@ -55,6 +59,19 @@ function App() {
 
   // попап успешного обновления профиля
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
+  // сброс стейтов
+  function resetStates() {
+    setSavedMovies(initialSavedMovies);
+    setSavedMoviesShortsChecked(false);
+  };
+
+  // useEffect для сброса состояния при покидании saved-movies
+  React.useEffect(() => {
+      if (location.pathname !== '/saved-movies') {
+        resetStates();
+      }
+  }, [location]);
 
   // логика отображения фильмов на /movies **
 
@@ -142,14 +159,13 @@ function App() {
     if (isDesktop) {
       setVisibleMovies(12);
     }
-    // console.log(visibleMovies)
   }, []);
 
   // увеличение кол-ва карточек при клике на кнопку Еще
   // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива moviesToShow
   function handleUpdateVisibleMovies() {
     if (isMobile) {
-      setVisibleMovies(Math.min(visibleMovies + 1, moviesToShow.length));
+      setVisibleMovies(Math.min(visibleMovies + 2, moviesToShow.length));
     }
     if (isTablet) {
       setVisibleMovies(Math.min(visibleMovies + 2, moviesToShow.length));

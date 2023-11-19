@@ -30,6 +30,8 @@ function SearchForm({
   
   // управление прелоадером
   handleChangeLoadingStatus,
+
+  clearVisibleMoviesState,
 }) {
 
   const location = useLocation();
@@ -40,16 +42,15 @@ function SearchForm({
   const movieTitleRef = React.useRef('');
   const [inputValue, setInputValue] = React.useState(localStorage.getItem('inputValue') || '');
   const [errorMessage, setErrorMessage] = React.useState('');
-
-  const { values, setValues, errors, isValid, handleChange } = useFormWithValidation({ name: inputValue });
-
-  // console.log(values)
-
+  
   // состояние инпута на странице /saved-movies
   const savedMovieTitleRef = React.useRef('');
 
+  const { values, setValues, errors, isValid, handleChange, resetForm } = useFormWithValidation({ name: inputValue } || { name: savedMovieTitleRef.current.value });
+
   function handleSubmitMoviesForm(evt) {
     evt.preventDefault();
+    clearVisibleMoviesState();
     if(values.name.length < 1) {
       setErrorMessage('Нужно ввести ключевое слово');
       return
@@ -58,7 +59,6 @@ function SearchForm({
     }
     setServerErrorMessage(false);
     if(isMoviesPage) {
-      console.log('отправлено')
       const name = movieTitleRef.current.value;
 
       // если поиска еще не было
@@ -69,7 +69,7 @@ function SearchForm({
             handleChangeLoadingStatus(false);
             setInitialMovies(movies);
             filterMovies(movies, name);
-
+            resetForm();
             localStorage.setItem('inputValue', name);
             localStorage.setItem('initialMovies', JSON.stringify(movies));
           })
@@ -82,6 +82,7 @@ function SearchForm({
       else if(initialMovies.length > 0) {
         const moviesInLocal = JSON.parse(localStorage.getItem('initialMovies'));
         filterMovies(moviesInLocal, name);
+        resetForm()
         localStorage.setItem('inputValue', name);
       }
     }
@@ -90,8 +91,15 @@ function SearchForm({
   // функция для поиска на странице /saved-movies. Фильтрует изначальный массив и сохраняет его в стейт savedMovies
   function handleSearchSavedMovie(evt) {
     evt.preventDefault();
+    
     if(isSavedMovesPage) {
       const currentInputValue = savedMovieTitleRef.current.value;
+      if(currentInputValue.length < 1) {
+        setErrorMessage('Нужно ввести ключевое слово');
+        return
+      } else if(currentInputValue.length > 0) {
+      setErrorMessage('');
+      }
       const filteredMovies = initialSavedMovies.filter(movie =>
         movie.nameRU.toLowerCase().includes(currentInputValue.toLowerCase()) ||
         movie.nameEN.toLowerCase().includes(currentInputValue.toLowerCase())
@@ -131,15 +139,16 @@ function SearchForm({
               :
               (
                 // форма на роуте /saved-movies
-                <form className='search-form__form'
+                <form className='search-form__form' noValidate
                     onSubmit={ handleSearchSavedMovie }
                   >
                     <input className='search-form__input' type={ 'text' } placeholder='Фильм' required name='name' 
+                      onChange={ handleChange }
                       ref={ savedMovieTitleRef }
                     >
                     </input>
                     <button className='search-form__button' type='submit'></button>
-
+                    <ErrorMessage message={ errorMessage } />
                     <div className='search-form__switch-box'>
                       <Switch 
                         savedMoviesShortsChecked={ savedMoviesShortsChecked }
