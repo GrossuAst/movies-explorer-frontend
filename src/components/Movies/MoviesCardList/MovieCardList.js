@@ -46,12 +46,12 @@ function MovieCardList({
                 .slice(0, visibleMovies).map((movie) => (
                     <li key={movie.id} className='movie-block__card'>
                       <MovieCard
-                        isLiked={ isMovieSaved(savedMovies, movie) }
+                        // isLiked={ isMovieSaved(savedMovies, movie) }
                         movie={ movie }
                         title={ movie.title }
                         image={ `${ BASE_URL }${ movie.image.url }` }
                         duration={ movie.duration }
-                        // isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                        isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                         setSavedMovies={ setSavedMovies }
                         savedMovies={ savedMovies }
                         // _id={ movie._id }
@@ -67,7 +67,7 @@ function MovieCardList({
               { Array.isArray(savedMovies) && savedMovies.map((movie) => (
                 <li key={movie.movieId} className='movie-block__card'>
                   <MovieCard
-                    isLiked={ isMovieSaved(savedMovies, movie) }
+                    // isLiked={ isMovieSaved(savedMovies, movie) }
                     movie={ movie }
                     title={ movie.title }
                     image={ movie.image }
@@ -75,7 +75,7 @@ function MovieCardList({
                     setSavedMovies={ setSavedMovies }
                     savedMovies={ savedMovies }
                     _id={ movie._id }
-                    // isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                   />
                 </li>
               )) }
