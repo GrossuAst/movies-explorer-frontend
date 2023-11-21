@@ -132,61 +132,34 @@ function App() {
   }, [isLoggedIn]);
 
   // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
-  function clearVisibleMoviesState() {
-    if(isMobile) {
-      setVisibleMovies(5);
-    }
-    if(isTablet) {
-      setVisibleMovies(8);
-    }
-    if(isDesktop) {
-      setVisibleMovies(12);
-    }
-  };
+  // function clearVisibleMoviesState() {
+  //   if(isMobile) {
+  //     setVisibleMovies(5);
+  //   }
+  //   if(isTablet) {
+  //     setVisibleMovies(8);
+  //   }
+  //   if(isDesktop) {
+  //     setVisibleMovies(12);
+  //   }
+  // };
 
-  const isMobile = window.innerWidth < 468;
-  const isTablet = window.innerWidth > 467 && window.innerWidth < 1280;
-  const isDesktop = window.innerWidth > 1279;
+  // const isMobile = window.innerWidth < 468;
+  // const isTablet = window.innerWidth > 467 && window.innerWidth < 1280;
+  // const isDesktop = window.innerWidth > 1279;
 
   // при монтировании рендерит кол-во карточек в зависимости от ширины экрана
-  React.useEffect(() => {
-    if (isMobile) {
-      setVisibleMovies(5);
-    }
-    if (isTablet) {
-      setVisibleMovies(8);
-    }
-    if (isDesktop) {
-      setVisibleMovies(12);
-    }
-  }, []);
-
-  // увеличение кол-ва карточек при клике на кнопку Еще
-  // Math.min гарантирует, что стейт visibleMovies не будет больше чем длина массива moviesToShow
-  function handleUpdateVisibleMovies() {
-    if (isMobile) {
-      setVisibleMovies(Math.min(visibleMovies + 2, moviesToShow.length));
-    }
-    if (isTablet) {
-      setVisibleMovies(Math.min(visibleMovies + 2, moviesToShow.length));
-    }
-    if (isDesktop) {
-      setVisibleMovies(Math.min(visibleMovies + 3, moviesToShow.length));
-    }
-  };
-
-  // отслеживание изменения ширины экрана
-  const [windowSize, setWindowSize] = React.useState(window.innerWidth);
-
-  function resize() {
-    setWindowSize(window.innerWidth);
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('resize', () => {
-      setTimeout(resize, 1000);
-    })
-  }, []);
+  // React.useEffect(() => {
+  //   if (isMobile) {
+  //     setVisibleMovies(5);
+  //   }
+  //   if (isTablet) {
+  //     setVisibleMovies(8);
+  //   }
+  //   if (isDesktop) {
+  //     setVisibleMovies(12);
+  //   }
+  // }, []);
 
   // логика авторизации и логаута **
   
@@ -280,8 +253,7 @@ function App() {
                     filterMovies={ filterMovies }
                     
                     visibleMovies={ visibleMovies }
-                    handleUpdateVisibleMovies={ handleUpdateVisibleMovies }
-                    clearVisibleMoviesState={ clearVisibleMoviesState }
+                    // clearVisibleMoviesState={ clearVisibleMoviesState }
                     openSidebar={ openSidebar }
 
                     savedMovies={ savedMovies }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { useMediaQuery } from '../../hooks/UseMediaQuery';
+
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
@@ -30,7 +32,7 @@ function Movies({
     
     visibleMovies,
     handleUpdateVisibleMovies,
-    clearVisibleMoviesState,
+    // clearVisibleMoviesState,
     openSidebar,
     savedMovies,
     
@@ -50,15 +52,36 @@ function Movies({
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
+    
+    const isDesktop = useMediaQuery('(min-width: 1297px)');
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
+    const cardColumnCount = isDesktop ? 3 : isTablet ? 2 : 1;
+    const initialCardsCount = isDesktop ? 12 : isTablet ? 8 : 5;
+    
+    const [visibleCardCount, setVisibleCardCount] = React.useState(initialCardsCount);
 
-    // проверка состояния кнопки Ещё
-    let expandButtonState;
-    if(moviesToShow.length > 12 && visibleMovies < moviesToShow.length) {
-        expandButtonState = true;
-    } else {
-        expandButtonState = false;
-    }
+    const roundedVisibleCardCount = Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
+
+    const expandButtonState = moviesToShow.length > 12 && roundedVisibleCardCount < moviesToShow.length ? true : false;
+    
+    React.useEffect(() => {
+        setVisibleCardCount(initialCardsCount);
+    }, [isDesktop, isTablet]);
+
+    function handleClick() {
+        calculateCardCount();
+    };
+
+    function calculateCardCount() {
+        if(isDesktop) {
+            return setVisibleCardCount(visibleCardCount + 3)
+        }
+        if(isTablet) {
+            return setVisibleCardCount(visibleCardCount + 2)
+        }
+        setVisibleCardCount(visibleCardCount + 2)
+    };
 
     return (
         <>
@@ -101,7 +124,7 @@ function Movies({
                     filterMovies={ filterMovies }
                     // управление прелоадером
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
-                    clearVisibleMoviesState={ clearVisibleMoviesState }
+                    // clearVisibleMoviesState={ clearVisibleMoviesState }
                 />
 
                 { serverErrorMessage ? 
@@ -118,10 +141,12 @@ function Movies({
                     
                     visibleMovies={ visibleMovies }
                     savedMovies={ savedMovies }
-                    setSavedMovies={ setSavedMovies }                    
+                    setSavedMovies={ setSavedMovies }
+                    
+                    roundedVisibleCardCount={ roundedVisibleCardCount }
                 />
                 }
-                { expandButtonState && !shortsChecked ?  <ExpandButton handleUpdateVisibleMovies={ handleUpdateVisibleMovies }></ExpandButton> : '' }
+                { expandButtonState && !shortsChecked ?  <ExpandButton handleClick={ handleClick }></ExpandButton> : '' }
             </main>
             <Footer />
         </>

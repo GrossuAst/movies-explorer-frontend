@@ -31,7 +31,7 @@ function SearchForm({
   // управление прелоадером
   handleChangeLoadingStatus,
 
-  clearVisibleMoviesState,
+  // clearVisibleMoviesState,
 }) {
 
   const location = useLocation();
@@ -50,7 +50,7 @@ function SearchForm({
 
   function handleSubmitMoviesForm(evt) {
     evt.preventDefault();
-    clearVisibleMoviesState();
+    // clearVisibleMoviesState();
     if(values.name.length < 1) {
       setErrorMessage('Нужно ввести ключевое слово');
       return

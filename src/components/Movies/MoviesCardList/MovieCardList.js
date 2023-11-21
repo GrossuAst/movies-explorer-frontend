@@ -22,12 +22,13 @@ function MovieCardList({
    
   visibleMovies, 
   isLoading, 
-   
+  
+  roundedVisibleCardCount,
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMoviesPage = location.pathname === '/saved-movies';
-  
+
   return (
     <>
         <section className='movie-block'>
@@ -40,7 +41,7 @@ function MovieCardList({
                     return m.duration <= 40;
                   } else { return m }
                 })
-                .slice(0, visibleMovies).map((movie) => (
+                .slice(0, roundedVisibleCardCount).map((movie) => (
                     <li key={movie.id} className='movie-block__card'>
                       <MovieCard
                         // isLiked={ isMovieSaved(savedMovies, movie) }
