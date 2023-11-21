@@ -47,10 +47,16 @@ function Movies({
     
 }) {
 
+    const shortsListLength = moviesToShow.filter((m) => {
+        if(shortsChecked) {
+          return m.duration <= 40;
+        } else { return m }
+    }).length
+
     const location = useLocation();
     const isMoviesPage = location.pathname === '/movies';
     const linkStyle = {
-        textDecoration: 'none', // Убирает у Link подчеркивание
+        textDecoration: 'none',
     };
     
     const isDesktop = useMediaQuery('(min-width: 1297px)');
@@ -63,7 +69,9 @@ function Movies({
 
     const roundedVisibleCardCount = Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
 
-    const expandButtonState = moviesToShow.length > 12 && roundedVisibleCardCount < moviesToShow.length ? true : false;
+    const expandButtonState = moviesToShow.length > 12 && roundedVisibleCardCount < moviesToShow.length && !shortsChecked ? true
+    : shortsChecked && roundedVisibleCardCount < shortsListLength ? true
+    : false;
     
     React.useEffect(() => {
         setVisibleCardCount(initialCardsCount);
@@ -146,7 +154,7 @@ function Movies({
                     roundedVisibleCardCount={ roundedVisibleCardCount }
                 />
                 }
-                { expandButtonState && !shortsChecked ?  <ExpandButton handleClick={ handleClick }></ExpandButton> : '' }
+                { expandButtonState ? <ExpandButton handleClick={ handleClick } /> : '' }
             </main>
             <Footer />
         </>
