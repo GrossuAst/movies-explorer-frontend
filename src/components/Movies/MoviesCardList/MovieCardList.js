@@ -24,10 +24,19 @@ function MovieCardList({
   isLoading, 
   
   roundedVisibleCardCount,
+
+  handleDeleteMovie,
+  handleUpdateSavedMovies,
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMoviesPage = location.pathname === '/saved-movies';
+
+  React.useEffect(() => {
+    console.log('ререндер CardList');
+  } );
+
+  
 
   return (
     <>
@@ -42,9 +51,8 @@ function MovieCardList({
                   } else { return m }
                 })
                 .slice(0, roundedVisibleCardCount).map((movie) => (
-                    <li key={movie.id} className='movie-block__card'>
+                    <li key={ movie.id } className='movie-block__card'>
                       <MovieCard
-                        // isLiked={ isMovieSaved(savedMovies, movie) }
                         movie={ movie }
                         title={ movie.title }
                         image={ `${ BASE_URL }${ movie.image.url }` }
@@ -68,9 +76,9 @@ function MovieCardList({
                 } else { return m}
               })
               .map((movie) => (
-                <li key={movie.movieId} className='movie-block__card'>
+                <li key={ movie._id } className='movie-block__card'>
                   <MovieCard
-                    // isLiked={ isMovieSaved(savedMovies, movie) }
+
                     movie={ movie }
                     title={ movie.title }
                     image={ movie.image }
@@ -79,27 +87,12 @@ function MovieCardList({
                     savedMovies={ savedMovies }
                     _id={ movie._id }
                     isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+
+                    handleDeleteMovie={ handleDeleteMovie }
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                   />
                 </li>
               )) }
-              {/* { Array.isArray(savedMovies) && savedMovies.filter((m) => {
-                if(savedMoviesShortsChecked) {
-                  return m.duration <= 40;
-                } else { return m }
-              })
-              .map((movie) => (
-                <li key={movie.movieId} className='movie-block__card'>
-                  <MovieCard
-                    movie={ movie }
-                    title={ movie.title }
-                    image={ movie.image }
-                    duration={ movie.duration }
-                    setSavedMovies={ setSavedMovies }
-                    savedMovies={ savedMovies }
-                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
-                  />
-                </li>
-              )) } */}
             </ul> }
           </div>
         </section>

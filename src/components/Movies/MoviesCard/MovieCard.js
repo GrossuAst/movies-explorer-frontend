@@ -5,13 +5,12 @@ import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../../utils/constants';
 import { mainApi } from '../../../utils/MainApi';
 
-function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, savedMovies, _id, isSaved }) {
+function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, savedMovies, _id, isSaved, handleDeleteMovie, handleUpdateSavedMovies }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMovesPage = location.pathname === '/saved-movies';
 
-  const isLikedInitially = savedMovies.some((m) => m.movieId === movie.id);
-  const [liked, setLiked] = React.useState(isLikedInitially);
+  // console.log(isLiked);
 
   // принимает минуты и конвертирует в формат чч:мм
   function convertDuration(duration) {
@@ -43,27 +42,30 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
     };
 
     try {
-      if (!liked) {
+      if (!isLiked) {
         await mainApi.saveMovie(movieData)
-          .then(() => { 
-            setLiked(true)
-            mainApi.getAllSavedMovies()
-            .then((res) => {
-              setSavedMovies(res)
-            })
-            .catch((err) => {console.log(err)})
+          .then((card) => {
+            // console.log(card.data)
+            const newArray = [...savedMovies, card.data];
+            setSavedMovies(newArray);
           })
           .catch((err) => {console.log(err)})
-      } else {
-        const movieToDelete = savedMovies.find((m) => m.movieId === movie.id);
-        await mainApi.deleteMovie(movieToDelete._id)
-          .then(() => {
-            setLiked(false)
-            mainApi.getAllSavedMovies()
-              .then((res) => {
-                setSavedMovies(res);
-              })
-              .catch((err) => {console.log(err)})
+      } else if(isLiked) {
+        const movieToDelete = savedMovies.filter((i) => i.movieId === movie.id)[0]._id;
+        // console.log(movieToDelete)
+        await mainApi.deleteMovie(movieToDelete)
+          .then((data) => {
+            console.log(data);
+            const newArray = savedMovies.filter((i) => i._id !== data._id);
+            setSavedMovies(newArray);
+            console.log(newArray);
+            // тоже рабочий способ
+            // const updatedArray = [...savedMovies];
+            // const indexToDelete = updatedArray.findIndex((i) => i._id === data._id);
+            // if (indexToDelete !== -1) {
+            //   updatedArray.splice(indexToDelete, 1);
+            //   setSavedMovies(updatedArray);
+            // }
           })
           .catch((err) => {console.log(err)})
       }
@@ -73,15 +75,34 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
   };
 
   function deleteMovie() {
-    // mainApi.deleteMovie(movie.movieId)
+
+    // console.log('delete movie');
+
     mainApi.deleteMovie(movie._id)
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         const moviToDelete = movie;
-        setSavedMovies(savedMovies.filter((movie) => movie !== moviToDelete));
+        const arr = savedMovies.filter((movie) => movie !== moviToDelete);
+        handleUpdateSavedMovies(arr);
+        // const updatedArr = savedMovies.filter((m) => m._id !== movie._id);
+        // console.log(updatedArr)
+        // handleUpdateSavedMovies()
       })
-      .catch((err) => {
-        console.log(err);
-      })
+
+    // handleDeleteMovie(movie._id);
+
+    // // код приводит к ререндеру компонента SavedMovies
+    // mainApi.deleteMovie(movie._id)
+    //   .then((card) => {
+    //     // console.log(card)
+    //     // const moviToDelete = movie;
+    // //     setSavedMovies(savedMovies.filter((movie) => movie !== moviToDelete));
+    //     const movies = savedMovies.filter((movie) => movie._id !== card._id);
+    //     setSavedMovies(movies);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
   };
 
   return (
@@ -103,7 +124,7 @@ function MovieCard({ movie, image, duration, title, isLiked, setSavedMovies, sav
                   ) 
                   : 
                   (
-                    <div className={ liked ? 'card__like card__like_active' : 'card__like' }
+                    <div className={ isLiked ? 'card__like card__like_active' : 'card__like' }
                       onClick={ switchLike }
                     >
                     </div>

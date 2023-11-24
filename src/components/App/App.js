@@ -22,6 +22,10 @@ import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 
 function App() {
+
+  React.useEffect(() => {
+    console.log('ререндер APP')
+  }, []);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +34,6 @@ function App() {
 
   // получение состояния чекбокса при первой загрузке
   const checkboxState = JSON.parse(localStorage.getItem('checkboxState')) === null ? false : JSON.parse(localStorage.getItem('checkboxState'));
-  // const isMoviesToShowEmptyState = localStorage.getItem('moviesToShow') && JSON.parse(localStorage.getItem('moviesToShow')).length > 0 ? false : true;
   
   // залогинен ли пользователь, его данные *
   const [isLoggedIn, setLoggedIn] = React.useState(false);
@@ -55,7 +58,7 @@ function App() {
   // ответ с ошибкой от сервера, ответ 'ничего не найдено', кол-во отображаемых карточек *
   const [serverErrorMessage, setServerErrorMessage] = React.useState(false);
   const [isMoviesToShowEmpty, setIsMoviesToShowEmpty] = React.useState(false);
-  const [visibleMovies, setVisibleMovies] = React.useState(0);
+  // const [visibleMovies, setVisibleMovies] = React.useState(0);
 
   // попап успешного обновления профиля
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
@@ -64,6 +67,19 @@ function App() {
   function resetStates() {
     setSavedMovies(initialSavedMovies);
     setSavedMoviesShortsChecked(false);
+  };
+
+  // function handleDeleteMovie(id) {
+  //   console.log('клик в App')
+  //   return mainApi.deleteMovie(id)
+  //     .then((movie) => {
+  //       const newSavedMovies = savedMovies.filter((m) => m._id !== movie._id);
+  //       setSavedMovies(newSavedMovies);
+  //     })
+  // }
+
+  function handleUpdateSavedMovies(arr) {
+    setSavedMovies(arr);
   };
 
   // useEffect для сброса состояния при покидании saved-movies
@@ -130,36 +146,6 @@ function App() {
     })};
     return;
   }, [isLoggedIn]);
-
-  // прокидывается в компонент SearchForm для обнуления стейта при каждом сабмите формы
-  // function clearVisibleMoviesState() {
-  //   if(isMobile) {
-  //     setVisibleMovies(5);
-  //   }
-  //   if(isTablet) {
-  //     setVisibleMovies(8);
-  //   }
-  //   if(isDesktop) {
-  //     setVisibleMovies(12);
-  //   }
-  // };
-
-  // const isMobile = window.innerWidth < 468;
-  // const isTablet = window.innerWidth > 467 && window.innerWidth < 1280;
-  // const isDesktop = window.innerWidth > 1279;
-
-  // при монтировании рендерит кол-во карточек в зависимости от ширины экрана
-  // React.useEffect(() => {
-  //   if (isMobile) {
-  //     setVisibleMovies(5);
-  //   }
-  //   if (isTablet) {
-  //     setVisibleMovies(8);
-  //   }
-  //   if (isDesktop) {
-  //     setVisibleMovies(12);
-  //   }
-  // }, []);
 
   // логика авторизации и логаута **
   
@@ -252,7 +238,7 @@ function App() {
                     // функция фильтра массива
                     filterMovies={ filterMovies }
                     
-                    visibleMovies={ visibleMovies }
+                    // visibleMovies={ visibleMovies }
                     // clearVisibleMoviesState={ clearVisibleMoviesState }
                     openSidebar={ openSidebar }
 
@@ -264,6 +250,8 @@ function App() {
                     handleChangeLoadingStatus={ setIsLoading }
 
                     toggleCheckboxState={ toggleCheckboxState }
+
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                   /> 
                 }
               />
@@ -285,6 +273,9 @@ function App() {
 
                     savedMoviesShortsChecked={ savedMoviesShortsChecked }
                     toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
+
+                    // handleDeleteMovie={ handleDeleteMovie }
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                   />
                 }
               />

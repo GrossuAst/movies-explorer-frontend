@@ -8,7 +8,7 @@ import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
 
 function SavedMovies({
-    savedMovies, 
+    savedMovies,
     openSidebar, 
     setSavedMovies,
     filterSavedMovies,
@@ -18,6 +18,9 @@ function SavedMovies({
     setShortsChecked,
     savedMoviesShortsChecked,
     toggleSavedMoviesCheckboxState,
+
+    handleDeleteMovie,
+    handleUpdateSavedMovies,
 }) {
 
     const location = useLocation();
@@ -25,6 +28,14 @@ function SavedMovies({
     const linkStyle = {
         textDecoration: 'none', // Убирает у Link подчеркивание
     };
+
+    // React.useEffect(() => {
+    //     console.log('ререндер компонента SavedMovies');
+    // }, []);
+
+    // React.useEffect(() => {
+    //     console.log('проп setSavedMovies изменился')
+    // }, [setSavedMovies])
     
     return (
         <>
@@ -69,6 +80,9 @@ function SavedMovies({
                     setSavedMovies= {setSavedMovies}
                     savedMoviesShortsChecked={ savedMoviesShortsChecked }
                     initialSavedMovies={ initialSavedMovies }
+
+                    handleDeleteMovie={ handleDeleteMovie }
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                 >
                 </MovieCardList>
             </main>

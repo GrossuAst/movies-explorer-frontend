@@ -44,7 +44,7 @@ function Movies({
     toggleCheckboxState,
     filterMoviesToShow,
     filterByDuration,
-    
+    handleUpdateSavedMovies,
 }) {
 
     const shortsListLength = moviesToShow.filter((m) => {
@@ -82,14 +82,14 @@ function Movies({
     };
 
     function calculateCardCount() {
-        if(isDesktop) {
-            return setVisibleCardCount(visibleCardCount + 3)
-        }
-        if(isTablet) {
-            return setVisibleCardCount(visibleCardCount + 2)
-        }
-        setVisibleCardCount(visibleCardCount + 2)
+        setVisibleCardCount(isDesktop ? visibleCardCount + 3 : isTablet ? visibleCardCount + 2 : visibleCardCount + 2);
     };
+
+    // console.log(roundedVisibleCardCount)
+
+    // React.useEffect(() => {
+    //     console.log('ререндер Movies');
+    //   }, []);
 
     return (
         <>
@@ -152,6 +152,8 @@ function Movies({
                     setSavedMovies={ setSavedMovies }
                     
                     roundedVisibleCardCount={ roundedVisibleCardCount }
+
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                 />
                 }
                 { expandButtonState ? <ExpandButton handleClick={ handleClick } /> : '' }
