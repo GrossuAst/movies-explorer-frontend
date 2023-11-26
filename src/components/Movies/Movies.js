@@ -45,6 +45,8 @@ function Movies({
     filterMoviesToShow,
     filterByDuration,
     handleUpdateSavedMovies,
+    handleSaveMovie,
+    handleDeleteMovie,
 }) {
 
     const shortsListLength = moviesToShow.filter((m) => {
@@ -87,9 +89,9 @@ function Movies({
 
     // console.log(roundedVisibleCardCount)
 
-    // React.useEffect(() => {
-    //     console.log('ререндер Movies');
-    //   }, []);
+    React.useEffect(() => {
+        console.log('ререндер Movies');
+      }, []);
 
     return (
         <>
@@ -154,6 +156,8 @@ function Movies({
                     roundedVisibleCardCount={ roundedVisibleCardCount }
 
                     handleUpdateSavedMovies={ handleUpdateSavedMovies }
+                    handleSaveMovie={ handleSaveMovie }
+                    handleDeleteMovie={ handleDeleteMovie }
                 />
                 }
                 { expandButtonState ? <ExpandButton handleClick={ handleClick } /> : '' }

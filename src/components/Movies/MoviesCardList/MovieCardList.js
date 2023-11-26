@@ -25,8 +25,9 @@ function MovieCardList({
   
   roundedVisibleCardCount,
 
-  handleDeleteMovie,
   handleUpdateSavedMovies,
+  handleSaveMovie,
+  handleDeleteMovie,
 }) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
@@ -34,9 +35,7 @@ function MovieCardList({
 
   React.useEffect(() => {
     console.log('ререндер CardList');
-  } );
-
-  
+  }, []);
 
   return (
     <>
@@ -60,6 +59,8 @@ function MovieCardList({
                         isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
                         setSavedMovies={ setSavedMovies }
                         savedMovies={ savedMovies }
+                        handleSaveMovie={ handleSaveMovie }
+                        handleDeleteMovie={ handleDeleteMovie }
                         // _id={ movie._id }
                       />
                     </li>

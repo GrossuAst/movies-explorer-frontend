@@ -78,16 +78,32 @@ function App() {
   //     })
   // }
 
-  function handleUpdateSavedMovies(arr) {
-    setSavedMovies(arr);
+  function handleSaveMovie(data) {
+    mainApi.saveMovie(data)
+      .then((card) => {
+        setSavedMovies([...savedMovies, card.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
+  function handleDeleteMovie(id) {
+    mainApi.deleteMovie(id)
+      .then((card) => {
+        setSavedMovies(savedMovies.filter((m) => m._id !== card._id))
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   // useEffect для сброса состояния при покидании saved-movies
-  React.useEffect(() => {
-      if (location.pathname !== '/saved-movies') {
-        resetStates();
-      }
-  }, [location]);
+  // React.useEffect(() => {
+  //     if (location.pathname !== '/saved-movies') {
+  //       resetStates();
+  //     }
+  // }, [location]);
 
   // логика отображения фильмов на /movies **
 
@@ -251,7 +267,10 @@ function App() {
 
                     toggleCheckboxState={ toggleCheckboxState }
 
-                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
+                    // handleUpdateSavedMovies={ handleUpdateSavedMovies }
+
+                    handleSaveMovie={ handleSaveMovie }
+                    handleDeleteMovie={ handleDeleteMovie }
                   /> 
                 }
               />
@@ -274,8 +293,7 @@ function App() {
                     savedMoviesShortsChecked={ savedMoviesShortsChecked }
                     toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
 
-                    // handleDeleteMovie={ handleDeleteMovie }
-                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
+                    handleDeleteMovie={ handleDeleteMovie }
                   />
                 }
               />
