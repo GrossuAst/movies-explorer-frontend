@@ -237,46 +237,30 @@ function App() {
           {/* страница с фильмами, защищена авторизацией */}
           <Route path='/movies' 
             element={ 
-              <ProtectedRoute isLoggedIn={ isLoggedIn }
-                element={ () =>
-                  <Movies
-                    // начальный массив фильмов
-                    initialMovies={ initialMovies }
-                    setInitialMovies={ setInitialMovies }
-
-                    // массив для рендера на /movies
-                    moviesToShow={ moviesToShow }
-
-                    // стейт чекбокса, прелоадера, ошибки ответа сервера, пустой массив для рендера
-                    shortsChecked={ shortsChecked }
-                    isLoading={ isLoading }
-                    serverErrorMessage={ serverErrorMessage }
-                    setServerErrorMessage={ setServerErrorMessage }
-                    isMoviesToShowEmpty={ isMoviesToShowEmpty }
-                    setIsMoviesToShowEmpty={ setIsMoviesToShowEmpty }
-
-                    // функция фильтра массива
-                    filterMovies={ filterMovies }
-                    
-                    // visibleMovies={ visibleMovies }
-                    // clearVisibleMoviesState={ clearVisibleMoviesState }
-                    openSidebar={ openSidebar }
-
-                    savedMovies={ savedMovies }
-                    // savedMoviesToShow={ savedMoviesToShow }
-                    
-                    setSavedMovies={ setSavedMovies }
-
-                    handleChangeLoadingStatus={ setIsLoading }
-
-                    toggleCheckboxState={ toggleCheckboxState }
-
-                    // handleUpdateSavedMovies={ handleUpdateSavedMovies }
-
-                    handleSaveMovie={ handleSaveMovie }
-                    handleDeleteMovie={ handleDeleteMovie }
-                  /> 
-                }
+              <ProtectedRoute 
+                isLoggedIn={ isLoggedIn }
+                element= { Movies }
+                // начальный массив фильмов
+                initialMovies={ initialMovies }
+                setInitialMovies={ setInitialMovies }
+                // массив для рендера на /movies
+                moviesToShow={ moviesToShow }
+                // стейт чекбокса, прелоадера, ошибки ответа сервера, пустой массив для рендера
+                shortsChecked={ shortsChecked }
+                isLoading={ isLoading }
+                serverErrorMessage={ serverErrorMessage }
+                setServerErrorMessage={ setServerErrorMessage }
+                isMoviesToShowEmpty={ isMoviesToShowEmpty }
+                setIsMoviesToShowEmpty={ setIsMoviesToShowEmpty }
+                // функция фильтра массива
+                filterMovies={ filterMovies }
+                openSidebar={ openSidebar }
+                savedMovies={ savedMovies }
+                setSavedMovies={ setSavedMovies }
+                handleChangeLoadingStatus={ setIsLoading }
+                toggleCheckboxState={ toggleCheckboxState }
+                handleSaveMovie={ handleSaveMovie }
+                handleDeleteMovie={ handleDeleteMovie }
               />
             }
           />
@@ -284,22 +268,16 @@ function App() {
           {/* страница с сохраненными фильмами, защищена авторизацией */}
           <Route path='/saved-movies' 
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}
-                element={ () => 
-                  <SavedMovies 
-                    // moviesToShow={ moviesToShow }
-                    setSavedMovies={ setSavedMovies }
-                    savedMovies={ savedMovies }
-
-                    openSidebar={ openSidebar }
-                    initialSavedMovies={ initialSavedMovies }
-
-                    savedMoviesShortsChecked={ savedMoviesShortsChecked }
-                    toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
-
-                    handleDeleteMovie={ handleDeleteMovie }
-                  />
-                }
+              <ProtectedRoute 
+                isLoggedIn={isLoggedIn}
+                element= { SavedMovies }
+                setSavedMovies={ setSavedMovies }
+                savedMovies={ savedMovies }
+                openSidebar={ openSidebar }
+                initialSavedMovies={ initialSavedMovies }
+                savedMoviesShortsChecked={ savedMoviesShortsChecked }
+                toggleSavedMoviesCheckboxState={ toggleSavedMoviesCheckboxState }
+                handleDeleteMovie={ handleDeleteMovie }
               />
             }
           />
@@ -307,17 +285,15 @@ function App() {
           {/* страница профиля, защищена авторизацией */}
           <Route path='/profile' 
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}
-                element={ () => 
-                  <Profile
-                    userData={ userData }
-                    clearCookies={ clearCookies }
-                    setUserData={ setUserData }
-                    openSidebar={ openSidebar }
-                    handlePopupChange={ handlePopupChange }
-                    isPopupOpen={ isPopupOpen }
-                  />
-                }
+              <ProtectedRoute 
+                element={Profile}
+                isLoggedIn={isLoggedIn}
+                userData={ userData }
+                clearCookies={ clearCookies }
+                setUserData={ setUserData }
+                openSidebar={ openSidebar }
+                handlePopupChange={ handlePopupChange }
+                isPopupOpen={ isPopupOpen }
               />
             }
           />

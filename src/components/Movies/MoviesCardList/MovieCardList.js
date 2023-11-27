@@ -34,7 +34,7 @@ function MovieCardList({
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   React.useEffect(() => {
-    // console.log('ререндер CardList');
+    console.log('ререндер CardList');
   }, []);
 
   return (
@@ -44,7 +44,8 @@ function MovieCardList({
             { isMoviesPage ? ( !isMoviesToShowEmpty ?
             // роут /movies
               <ul className='movie-block__list'>
-                { isMoviesPage && isLoading ? <Preloader /> : moviesToShow.filter((m) => {
+                { isMoviesPage && isLoading ? <Preloader /> : moviesToShow
+                .filter((m) => {
                   if(shortsChecked) {
                     return m.duration <= 40;
                   } else { return m }
@@ -70,7 +71,8 @@ function MovieCardList({
             ) : 
             // роут /saved-movies
             <ul className='movie-block__list'>
-              { Array.isArray(savedMovies) && savedMovies.filter((m) => {
+              { Array.isArray(savedMovies) && savedMovies
+              .filter((m) => {
                 if(savedMoviesShortsChecked) {
                   return m.duration <= 40;
                 } else { return m}
