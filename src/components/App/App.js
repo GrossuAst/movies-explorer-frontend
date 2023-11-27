@@ -22,10 +22,6 @@ import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 
 function App() {
-
-  React.useEffect(() => {
-    console.log('ререндер APP')
-  }, []);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,16 +57,6 @@ function App() {
 
   // попап успешного обновления профиля
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    console.log('ререндер App');
-  }, []);
-
-  React.useEffect(() => {
-    if(!isSavedMovesPage) {
-      localStorage.removeItem('savedInputValue');
-    }
-  }, []);
 
   // сброс стейтов
   function resetStates() {

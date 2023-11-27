@@ -33,10 +33,6 @@ function MovieCardList({
   const isMoviesPage = location.pathname === '/movies';
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
-  React.useEffect(() => {
-    console.log('ререндер CardList');
-  }, []);
-
   return (
     <>
         <section className='movie-block'>
