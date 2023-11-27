@@ -67,8 +67,6 @@ function App() {
   function handleSaveMovie(data) {
     mainApi.saveMovie(data)
       .then((card) => {
-        // console.log(card.data._id);
-        // console.log([...savedMovies, card.data]);
         setSavedMovies([...savedMovies, card.data]);
         setInitialSavedMovies([...savedMovies, card.data]);
       })
@@ -80,10 +78,8 @@ function App() {
   function handleDeleteMovie(id) {
     mainApi.deleteMovie(id)
       .then((card) => {
-        // console.log(card._id);
-        // console.log(savedMovies.filter((m) => m._id !== card._id));
         setSavedMovies(savedMovies.filter((m) => m._id !== card._id));
-        setInitialSavedMovies(savedMovies.filter((m) => m._id !== card._id));
+        setInitialSavedMovies(prevInitialSavedMovies => prevInitialSavedMovies.filter((m) => m._id !== id));
       })
       .catch((err) => {
         console.log(err);

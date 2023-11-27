@@ -29,6 +29,10 @@ function SavedMovies({
     const linkStyle = {
         textDecoration: 'none',
     };
+
+    React.useEffect(() => {
+        console.log(savedMovies, initialSavedMovies);
+    }, [savedMovies]);
     
     return (
         <>

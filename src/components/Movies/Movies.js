@@ -81,6 +81,10 @@ function Movies({
         setVisibleCardCount(isDesktop ? visibleCardCount + 3 : isTablet ? visibleCardCount + 2 : visibleCardCount + 2);
     };
 
+    React.useEffect(() => {
+        console.log(savedMovies);
+    }, []);
+
     return (
         <>
             <Header
