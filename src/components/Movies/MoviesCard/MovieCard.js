@@ -43,7 +43,9 @@ function MovieCard({
       if (!isLiked) {
         handleSaveMovie(movie);
       } else if(isLiked) {
-        const movieToDelete = savedMovies.filter((i) => i.movieId === movie.id)[0]._id;
+        // const movieToDelete = savedMovies.filter((i) => i.movieId === movie.id)[0]._id;
+        // console.log(savedMovies.find((i) => i.movieId === movie.id)._id)
+        const movieToDelete = savedMovies.find((i) => i.movieId === movie.id)._id;
         handleDeleteMovie(movieToDelete);
       };
     } catch (err) {

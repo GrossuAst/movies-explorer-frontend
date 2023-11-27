@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MovieCardList from '../Movies/MoviesCardList/MovieCardList';
 import Footer from '../Footer/Footer';
+import { mainApi } from '../../utils/MainApi';
 
 function SavedMovies({
     savedMovies,
@@ -26,16 +27,8 @@ function SavedMovies({
     const location = useLocation();
     const isMoviesPage = location.pathname === '/saved-movies';
     const linkStyle = {
-        textDecoration: 'none', // Убирает у Link подчеркивание
+        textDecoration: 'none',
     };
-
-    // React.useEffect(() => {
-    //     console.log('ререндер компонента SavedMovies');
-    // }, []);
-
-    // React.useEffect(() => {
-    //     console.log('проп setSavedMovies изменился')
-    // }, [setSavedMovies])
     
     return (
         <>

@@ -34,7 +34,7 @@ function MovieCardList({
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   React.useEffect(() => {
-    console.log('ререндер CardList');
+    // console.log('ререндер CardList');
   }, []);
 
   return (
@@ -61,7 +61,6 @@ function MovieCardList({
                         savedMovies={ savedMovies }
                         handleSaveMovie={ handleSaveMovie }
                         handleDeleteMovie={ handleDeleteMovie }
-                        // _id={ movie._id }
                       />
                     </li>
                   ))
@@ -79,7 +78,6 @@ function MovieCardList({
               .map((movie) => (
                 <li key={ movie._id } className='movie-block__card'>
                   <MovieCard
-
                     movie={ movie }
                     title={ movie.title }
                     image={ movie.image }

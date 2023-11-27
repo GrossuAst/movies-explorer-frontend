@@ -58,10 +58,19 @@ function App() {
   // ответ с ошибкой от сервера, ответ 'ничего не найдено', кол-во отображаемых карточек *
   const [serverErrorMessage, setServerErrorMessage] = React.useState(false);
   const [isMoviesToShowEmpty, setIsMoviesToShowEmpty] = React.useState(false);
-  // const [visibleMovies, setVisibleMovies] = React.useState(0);
 
   // попап успешного обновления профиля
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log('ререндер App');
+  }, []);
+
+  React.useEffect(() => {
+    if(!isSavedMovesPage) {
+      localStorage.removeItem('savedInputValue');
+    }
+  }, []);
 
   // сброс стейтов
   function resetStates() {
@@ -69,19 +78,13 @@ function App() {
     setSavedMoviesShortsChecked(false);
   };
 
-  // function handleDeleteMovie(id) {
-  //   console.log('клик в App')
-  //   return mainApi.deleteMovie(id)
-  //     .then((movie) => {
-  //       const newSavedMovies = savedMovies.filter((m) => m._id !== movie._id);
-  //       setSavedMovies(newSavedMovies);
-  //     })
-  // }
-
   function handleSaveMovie(data) {
     mainApi.saveMovie(data)
       .then((card) => {
+        // console.log(card.data._id);
+        // console.log([...savedMovies, card.data]);
         setSavedMovies([...savedMovies, card.data]);
+        setInitialSavedMovies([...savedMovies, card.data]);
       })
       .catch((err) => {
         console.log(err);
@@ -91,19 +94,22 @@ function App() {
   function handleDeleteMovie(id) {
     mainApi.deleteMovie(id)
       .then((card) => {
-        setSavedMovies(savedMovies.filter((m) => m._id !== card._id))
+        // console.log(card._id);
+        // console.log(savedMovies.filter((m) => m._id !== card._id));
+        setSavedMovies(savedMovies.filter((m) => m._id !== card._id));
+        setInitialSavedMovies(savedMovies.filter((m) => m._id !== card._id));
       })
       .catch((err) => {
         console.log(err);
       })
-  }
+  };
 
   // useEffect для сброса состояния при покидании saved-movies
-  // React.useEffect(() => {
-  //     if (location.pathname !== '/saved-movies') {
-  //       resetStates();
-  //     }
-  // }, [location]);
+  React.useEffect(() => {
+      if (location.pathname !== '/saved-movies') {
+        resetStates();
+      }
+  }, [location]);
 
   // логика отображения фильмов на /movies **
 
@@ -130,7 +136,7 @@ function App() {
   function toggleSavedMoviesCheckboxState() {
     const updatedState = !savedMoviesShortsChecked;
     setSavedMoviesShortsChecked(updatedState);
-  }
+  };
 
   // функция фильтрации по ключевому слову на /movies
   function filterMovies(array, name) {
@@ -214,8 +220,6 @@ function App() {
   function handlePopupChange() {
     isPopupOpen ? setIsPopupOpen(false) : setIsPopupOpen(true);
   }
-
-  // console.log(savedMovies);
 
   return (
     <>

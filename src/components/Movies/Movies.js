@@ -31,19 +31,13 @@ function Movies({
     filterMovies,
     
     visibleMovies,
-    handleUpdateVisibleMovies,
-    // clearVisibleMoviesState,
     openSidebar,
     savedMovies,
     
     handleChangeLoadingStatus,
     setSavedMovies,
-    cardsId,
-    switchCheckboxChecked,
     
     toggleCheckboxState,
-    filterMoviesToShow,
-    filterByDuration,
     handleUpdateSavedMovies,
     handleSaveMovie,
     handleDeleteMovie,
@@ -53,7 +47,7 @@ function Movies({
         if(shortsChecked) {
           return m.duration <= 40;
         } else { return m }
-    }).length
+    }).length;
 
     const location = useLocation();
     const isMoviesPage = location.pathname === '/movies';
@@ -86,8 +80,6 @@ function Movies({
     function calculateCardCount() {
         setVisibleCardCount(isDesktop ? visibleCardCount + 3 : isTablet ? visibleCardCount + 2 : visibleCardCount + 2);
     };
-
-    // console.log(roundedVisibleCardCount)
 
     React.useEffect(() => {
         console.log('ререндер Movies');
@@ -134,7 +126,6 @@ function Movies({
                     filterMovies={ filterMovies }
                     // управление прелоадером
                     handleChangeLoadingStatus={ handleChangeLoadingStatus }
-                    // clearVisibleMoviesState={ clearVisibleMoviesState }
                 />
 
                 { serverErrorMessage ? 
