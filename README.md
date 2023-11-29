@@ -6,7 +6,5 @@
 ---
 ## Адрес
 
-frontend adress:
-[Frontend](grossuast.movie.nomoreparties.sbs)
-grossuast.movie.nomoreparties.sbs
-IP 51.250.17.138
+[Frontend](https://grossuast.movie.nomoreparties.sbs/)
+[Backend](https://github.com/GrossuAst/movies-explorer-api)
