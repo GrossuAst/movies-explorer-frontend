@@ -29,6 +29,7 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
+    position: relative;
 }
 
 .form-page__input-block:first-child {
@@ -94,10 +95,22 @@
     line-height: normal;
 }
 
+.form-page__button_type_disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    margin-top: 21px;
+}
+
+
 @media screen and (max-width: 467px) {
     .form-page__button {
         width: 260px;
         font-size: 12px;
+    }
+    .form-page__button_type_disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    margin-top: 109px;
     }
 }
 
@@ -111,7 +124,10 @@
     }    
 }
 
-
+.form-page__button_type_disabled:hover {
+    opacity: 1;
+    cursor: auto;
+}
 
 
 .form-page__question {

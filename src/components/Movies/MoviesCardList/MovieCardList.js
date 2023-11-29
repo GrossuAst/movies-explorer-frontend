@@ -2,55 +2,95 @@ import React from 'react';
 
 import './MovieCardList.css';
 import MovieCard from '../MoviesCard/MovieCard';
+import Preloader from '../../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
-function MovieCardList({movies, savedMovies}) {
+import { BASE_URL } from '../../../utils/constants';
+
+import { mainApi } from '../../../utils/MainApi';
+
+function MovieCardList({
+  moviesToShow,
+  
+  shortsChecked,
+  savedMoviesShortsChecked,
+  
+  savedMovies,
+  setSavedMovies,
+  initialSavedMovies,
+  isMoviesToShowEmpty,
+   
+  visibleMovies, 
+  isLoading, 
+  
+  roundedVisibleCardCount,
+
+  handleUpdateSavedMovies,
+  handleSaveMovie,
+  handleDeleteMovie,
+}) {
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
-
-  // const [cardNumDesctop, setCardNumDesctop] = React.useState(12);
-  // const [cardNumTablet, setCardNumTablet] = React.useState(8);
-  // const [cardNumTMobile, setCardNumMobile] = React.useState(5);
-
-  // статичное отображение. Разное количество для разных экранов рендерится только при перезагрузке
-  let visibleMovies;
-  if (window.innerWidth < 468) {
-    visibleMovies = 5;
-  }
-  if (window.innerWidth > 467 && window.innerWidth < 866) {
-    visibleMovies = 8;
-  }
-  if (window.innerWidth > 865) {
-    visibleMovies = 12;
-  }
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   return (
     <>
         <section className='movie-block'>
           <div className='movie-block__wrapper'>
+            { isMoviesPage ? ( !isMoviesToShowEmpty ?
+            // роут /movies
+              <ul className='movie-block__list'>
+                { isMoviesPage && isLoading ? <Preloader /> : moviesToShow
+                .filter((m) => {
+                  if(shortsChecked) {
+                    return m.duration <= 40;
+                  } else { return m }
+                })
+                .slice(0, roundedVisibleCardCount).map((movie) => (
+                    <li key={ movie.id } className='movie-block__card'>
+                      <MovieCard
+                        movie={ movie }
+                        title={ movie.title }
+                        image={ `${ BASE_URL }${ movie.image.url }` }
+                        duration={ movie.duration }
+                        isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
+                        setSavedMovies={ setSavedMovies }
+                        savedMovies={ savedMovies }
+                        handleSaveMovie={ handleSaveMovie }
+                        handleDeleteMovie={ handleDeleteMovie }
+                      />
+                    </li>
+                  ))
+                }
+              </ul> : 
+              <p className='movie-block__no-result'>Ничего не найденно</p>
+            ) : 
+            // роут /saved-movies
             <ul className='movie-block__list'>
+              { Array.isArray(savedMovies) && savedMovies
+              .filter((m) => {
+                if(savedMoviesShortsChecked) {
+                  return m.duration <= 40;
+                } else { return m}
+              })
+              .map((movie) => (
+                <li key={ movie._id } className='movie-block__card'>
+                  <MovieCard
+                    movie={ movie }
+                    title={ movie.title }
+                    image={ movie.image }
+                    duration={ movie.duration }
+                    setSavedMovies={ setSavedMovies }
+                    savedMovies={ savedMovies }
+                    _id={ movie._id }
+                    isLiked={ Array.isArray(savedMovies) && savedMovies.find(savedMovie => savedMovie.movieId === movie.id) }
 
-              {/* в зависимости от адреса movies/saved-movies рендерит соответствующий массив */}
-              { isMoviesPage  ? movies.slice(0, visibleMovies).map((movie) => (
-                <li key={movie._id} className='movie-block__card'>
-                  <MovieCard
-                    title={movie.title}
-                    duration={movie.duration}
-                    image={movie.image}
-                  />
-                </li>
-              )) 
-              :
-              savedMovies.map((movie) => (
-                <li key={movie._id} className='movie-block__card'>
-                  <MovieCard
-                    title={movie.title}
-                    duration={movie.duration}
-                    image={movie.image}
+                    handleDeleteMovie={ handleDeleteMovie }
+                    handleUpdateSavedMovies={ handleUpdateSavedMovies }
                   />
                 </li>
               )) }
-            </ul>
+            </ul> }
           </div>
         </section>
     </>

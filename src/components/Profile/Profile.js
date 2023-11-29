@@ -3,34 +3,69 @@ import { Link, useLocation } from 'react-router-dom';
 
 import './Profile.css';
 import Header from '../Header/Header';
-import Sidebar from '../Sidebar/Sidebar';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Popup from '../Popup/Popup';
 
-function Profile({openSidebar}) {
+import { mainApi } from '../../utils/MainApi';
+
+import { CurrentUserContext } from '../contexts/CurrentUser'
+
+import { useForm, useFormWithValidation } from '../../hooks/Validation';
+
+function Profile({ clearCookies, setUserData, handleUpdateProfile, openSidebar, handlePopupChange, isPopupOpen }) {
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const linkStyle = {
-        textDecoration: 'none', // Убирает у Link подчеркивание
+        textDecoration: 'none',
     };
 
-    // здесь будут данные с сервера
-    const [userData, setUserData] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
-    
+    // подписка на контекст
+    const userData = React.useContext(CurrentUserContext);
+
     // стейт для управления инпутами
     const [isInputDisabled, setInputDisable] = React.useState(true);
-
-    function activateInput() {
-        isInputDisabled ? setInputDisable (false) : setInputDisable (true);
-    }
-
     // если стейт false, рендерится компонент редактировать/выйти из аккаунат
     // если стейт true, рендерится кнопка сохранения данных
     const [isEditProfileFormActive, setEditProfileFormActive] = React.useState(false);
+    const [isResponseError, setIsResponseError] = React.useState(false);
+    const [isNewData, setIsNewData] = React.useState(false);
 
+    function activateInput() {
+        isInputDisabled ? setInputDisable(false) : setInputDisable(true);
+    };
+
+    const { values, setValues, errors, isValid, handleChange } = useFormWithValidation({ name: userData.data.name, email: userData.data.email });
+
+    React.useEffect(() => {
+        setValues({ ...values, name: userData.data.name, email: userData.data.email });
+    }, [setValues]);
+    
+    React.useEffect(() => {
+        if(values.name === userData.data.name && values.email === userData.data.email) {
+            setIsNewData(false)
+        } else if(values.name !== userData.data.name || values.email !== userData.data.email) {
+            setIsNewData(true);
+        }
+    }, [values]);
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        mainApi.updateProfile({ name: values.name, email: values.email })
+        .then((res) => {
+            setUserData(res);
+            setIsResponseError(false);
+            handlePopupChange();
+        })
+        .catch((err) => {
+            setIsResponseError(true);
+        })
+    };
+    
     // в зависимости от стейта открывает/закрывает форму редактирования профиля
     function editProfile() {
         isEditProfileFormActive ? setEditProfileFormActive(false) : setEditProfileFormActive(true);
         activateInput();
-    }
+    };
 
   return (
     <>
@@ -63,18 +98,31 @@ function Profile({openSidebar}) {
         <main className='main'>
             <section className='profile'>
                 <div className='profile__wrapper'>
-                    <h1 className='profile__title'>Привет, {userData.name}!</h1>
+                    <h1 className='profile__title'>Привет, { userData.data.name }!</h1>
                     <div className='profile__info-container'>
-                        <form>
+                        <form onSubmit={ handleSubmit } noValidate>
                             <div className='profile__info'>
-                                <label className='profile__user' for={'name-input-change'}>Имя</label>
-                                <input className='profile__user-input' id='name-input-change' disabled={isInputDisabled} name='name' value={userData.name} placeholder='Имя' minLength={2} maxLength={30}></input>
+                                <label className='profile__user' htmlFor={'name-input-change'}>Имя</label>
+                                <input className='profile__user-input' id='name-input-change' type='text' name='name' placeholder='Имя' minLength={2} maxLength={30} required
+                                    // pattern="^[a-zA-Zа-яА-Я\s-]+$"
+                                    disabled={ isInputDisabled } 
+                                    defaultValue={ userData.data.name }
+                                    onChange={ handleChange }
+                                ></input>
+                            <ErrorMessage message={ errors.name }/>    
                             </div>
+                            
                             <div className='profile__info'>
-                                <label className='profile__user' for={'email-input-change'}>E-mail</label>
-                                <input className='profile__user-input' id='email-input-change' disabled={isInputDisabled} name='email' value={userData.email} placeholder='Почта'></input>
+                                <label className='profile__user' htmlFor={'email-input-change'}>E-mail</label>
+                                <input className='profile__user-input' id='email-input-change' name='email' type='email' required
+                                    disabled={ isInputDisabled }  placeholder='Почта'
+                                    // pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+                                    defaultValue={ userData.data.email }
+                                    onChange={ handleChange }
+                                ></input>
+                                <ErrorMessage message={ errors.email }/>
                             </div>
-
+                            
                             <div className='profile__control'>
                                 {/* если стейт false, рендерится компонент редактировать/выйти из аккаунат */}
                                 {/* если стейт true, рендерится кнопка сохранения данных  */}
@@ -82,17 +130,32 @@ function Profile({openSidebar}) {
                                 { isEditProfileFormActive ?
                                 (
                                     <>
-                                        {/* Чтобы убрать ошибку, нужно удалить модификатор у <p> */}
-                                        <p className='profile__error-message profile__error-message_active'>При обновлении профиля произошла ошибка.</p>
+                                        {/* Чтобы убрать ошибку, нужно удалить модификатор 'profile__error-message_active' у <p> */}
+                                        <p className='profile__error-message'>
+                                            { isResponseError && 'При обновлении профиля произошла ошибка.' }
+                                        </p>
+                                        
                                         
                                         {/* чтобы включить кнопку, нужно убрать модификатор */}
-                                        <button className='profile__save-button profile__save-button_disabled' onClick={editProfile} type='submit'>Сохранить</button>
+                                        <button
+                                            className={ isValid && isNewData ? 'profile__save-button' : 'profile__save-button profile__save-button_disabled' }
+                                            type='submit' 
+                                            disabled={ !isValid || !isNewData}
+                                        >
+                                            Сохранить
+                                        </button>
                                     </>
                                 ) : 
                                 (
                                 <>
-                                    <button className='profile__edit-button' onClick={editProfile} type='button'>Редактировать</button>
-                                    <Link to='/' className='profile__logout-button'>
+                                    <button className='profile__edit-button'  type='button'
+                                        onClick={editProfile}
+                                    >
+                                        Редактировать
+                                    </button>
+                                    <Link to='/' className='profile__logout-button' 
+                                        onClick={ clearCookies }
+                                    >
                                         Выйти из аккаунта
                                     </Link>
                                 </>
@@ -103,7 +166,10 @@ function Profile({openSidebar}) {
                 </div>  
             </section>
         </main>
-        {/* <Sidebar></Sidebar> */}
+        <Popup 
+            isPopupOpen={ isPopupOpen }
+            handlePopupChange={ handlePopupChange }
+        />
     </>
   );
 }

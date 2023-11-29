@@ -1,0 +1,25 @@
+.error-message {
+    margin: 0;
+    font-size: 11px;
+    color: #FF004C;
+    height: 22px;
+    position: absolute;
+    top: 17px;
+}
+
+.error-message_type_register {
+    top: 67px;
+    font-size: 10px;
+}
+
+.error-message_type_login {
+    top: 67px;
+}
+
+.error-message_type_movies {
+    top: 50px;
+}
+
+.error-message_type_saved-movies {
+    top: 50px;
+}

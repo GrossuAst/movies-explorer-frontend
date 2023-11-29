@@ -203,16 +203,16 @@
 .about-me__photo {
     display: block;
     box-sizing: border-box;
-    margin-top: 67px;
+    margin-top: 47px;
     width: 270px;
-    height: 327px;
+    height: 347px;
     border-radius: 10px;
 }
 
 @media screen and (max-width: 865px) {
     .about-me__photo {
         width: 255px;
-        height: 307px;
+        height: 327px;
     }
 }
 
@@ -225,7 +225,7 @@
 @media screen and (max-width: 467px) {
     .about-me__photo {
         width: 292px;
-        height: 352px;
+        height: 372px;
         margin-top: 60px;
     }
 }
