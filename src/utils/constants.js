@@ -7,8 +7,8 @@ export const moviesApiConfig = {
 };
 
 export const mainApiConfig = {
-  // url: 'https://api.grossuast.movie.nomoreparties.sbs',
-  url: 'http://localhost:3000',
+  url: 'https://api.grossuast.movie.nomoreparties.sbs',
+  // url: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
     "Accept": "application/json",

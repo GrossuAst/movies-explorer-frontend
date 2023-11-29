@@ -1,6 +1,7 @@
-Макет dark-3
+# Дипломная работа курса "Веб-разработчик".
 
-pull request : https://github.com/GrossuAst/movies-explorer-frontend/pull/2
+---
+
 
 frontend adress:
 
