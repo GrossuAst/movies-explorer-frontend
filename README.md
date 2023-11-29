@@ -6,5 +6,5 @@
 ---
 ## Адрес
 
-###Фронтенд часть расположена [здесь](https://grossuast.movie.nomoreparties.sbs/)
-###Бэкэнд часть расположена [здесь](https://github.com/GrossuAst/movies-explorer-api)
+-Фронтенд часть расположена [здесь](https://grossuast.movie.nomoreparties.sbs/)
+-Бэкэнд часть расположена [здесь](https://github.com/GrossuAst/movies-explorer-api)
