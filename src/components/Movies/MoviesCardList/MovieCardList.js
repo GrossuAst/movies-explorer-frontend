@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './MovieCardList.css';
 import MovieCard from '../MoviesCard/MovieCard';
@@ -95,6 +96,10 @@ function MovieCardList({
         </section>
     </>
   );
+}
+
+MovieCardList.propTypes = {
+  moviesToShow: PropTypes.array,
 }
 
 export default MovieCardList;

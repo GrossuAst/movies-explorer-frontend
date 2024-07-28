@@ -25,6 +25,7 @@ export class MainApi {
     };
 
     login(password, email) {
+        console.log(email, password)
         return fetch(`${this._url}/signin`, {
             method: 'POST',
             headers: this._headers,
